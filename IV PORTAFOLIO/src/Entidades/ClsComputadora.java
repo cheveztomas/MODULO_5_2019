@@ -27,4 +27,7 @@ public class ClsComputadora {
         vlo_Teclado = new ClsTeclado();
     }
 
+    public ClsComputadora(int pvn_idComputadora, int pvc_nombre, ClsMonitor pvo_Monitor, ClsRaton pvo_Raton, ClsTeclado pvo_Teclado) {
+
+    }
 }
