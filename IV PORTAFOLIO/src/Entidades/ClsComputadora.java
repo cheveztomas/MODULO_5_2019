@@ -10,5 +10,8 @@ package Entidades;
  * @author Thomas
  */
 public class ClsComputadora {
-    
+
+    //Atributos
+    private int vgn_idComputadora;
+    private String vgc_nombre;
 }
