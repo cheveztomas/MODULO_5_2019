@@ -112,4 +112,8 @@ public class ClsOrden {
 
         return vlc_Cadena;
     }
+    
+    public void agregarComputadora(ClsComputadora pvo_Computadora){
+        
+    }
 }
