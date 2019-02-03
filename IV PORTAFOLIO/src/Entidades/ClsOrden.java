@@ -101,5 +101,15 @@ public class ClsOrden {
     public void setVgo_Computadora(ClsComputadora vgo_Computadora) {
         this.vgo_Computadora = vgo_Computadora;
     }
-    
+
+    //Metodos
+    public String toString() {
+        //Variables
+        String vlc_Cadena = "";
+
+        //Inicio
+        vlc_Cadena = vgn_contadorComputadoras + ", " + vgn_contadorOrdenes + ", " + vgn_idOrden + ", " + vgn_maxComputadoras + ", " + vgo_Computadora;
+
+        return vlc_Cadena;
+    }
 }
