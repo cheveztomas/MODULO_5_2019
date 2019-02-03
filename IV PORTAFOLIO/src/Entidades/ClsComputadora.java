@@ -34,8 +34,16 @@ public class ClsComputadora {
         vgo_Raton = pvo_Raton;
         vgo_Teclado = pvo_Teclado;
     }
-    
+
     //Metodos
     @Override
-    public String toString()
+    public String toString() {
+        //Variables
+        String vlc_Cadena;
+
+        //Inicio
+        vlc_Cadena = vgc_nombre + ", " + vgn_idComputadora + ", " + vgo_Monitor + ", " + vgo_Raton + ", " + vgo_Teclado;
+
+        return vlc_Cadena;
+    }
 }
