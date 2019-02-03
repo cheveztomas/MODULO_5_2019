@@ -26,6 +26,7 @@ public class ClsRaton extends ClsDispositivosEntrada {
     }
 
     //Metodos
+    @Override
     public String toString() {
         //Variables
         String vlc_Cadena = "";
