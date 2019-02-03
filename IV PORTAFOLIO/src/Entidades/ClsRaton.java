@@ -19,6 +19,9 @@ public class ClsRaton {
         vgn_contadorRatones = 0;
         vgn_idRaton = 0;
     }
-    
-    
+
+    public void ClsRatones(int pvn_idRaton, int pvn_contadorRatones) {
+        vgn_contadorRatones = pvn_contadorRatones;
+        vgn_idRaton = pvn_idRaton;
+    }
 }
