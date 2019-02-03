@@ -24,13 +24,16 @@ public class ClsDispositivosEntrada {
         vgc_Entrada = pvc_Entrada;
         vgc_marca = pvc_marca;
     }
-    
+
     //Metodos
-    
     @Override
-    public void toString(){
-        
+    public String toString() {
+        //Variables
+        String vlc_Cadena = "";
+
+        //Inicio
+        return vlc_Cadena;
     }
-    
+
     //Propiedades
 }
