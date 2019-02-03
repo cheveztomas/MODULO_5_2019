@@ -16,13 +16,13 @@ public class ClsDispositivosEntrada {
 
     //Constructores
     public void ClsDispositivosEntrada() {
-        vgc_Entrada = "";
-        vgc_marca = "";
+        setVgc_Entrada("");
+        setVgc_marca("");
     }
 
     public void ClsDispositivosEntrada(String pvc_Entrada, String pvc_marca) {
-        vgc_Entrada = pvc_Entrada;
-        vgc_marca = pvc_marca;
+        setVgc_Entrada(pvc_Entrada);
+        setVgc_marca(pvc_marca);
     }
 
     //Metodos
@@ -32,8 +32,39 @@ public class ClsDispositivosEntrada {
         String vlc_Cadena = "";
 
         //Inicio
+        vlc_Cadena = getVgc_Entrada() + ", " + getVgc_marca();
+
         return vlc_Cadena;
     }
 
     //Propiedades
+
+    /**
+     * @return the vgc_Entrada
+     */
+    public String getVgc_Entrada() {
+        return vgc_Entrada;
+    }
+
+    /**
+     * @param vgc_Entrada the vgc_Entrada to set
+     */
+    public void setVgc_Entrada(String vgc_Entrada) {
+        this.vgc_Entrada = vgc_Entrada;
+    }
+
+    /**
+     * @return the vgc_marca
+     */
+    public String getVgc_marca() {
+        return vgc_marca;
+    }
+
+    /**
+     * @param vgc_marca the vgc_marca to set
+     */
+    public void setVgc_marca(String vgc_marca) {
+        this.vgc_marca = vgc_marca;
+    }
+    
 }
