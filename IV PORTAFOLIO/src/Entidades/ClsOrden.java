@@ -5,6 +5,9 @@
  */
 package Entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Thomas
@@ -13,7 +16,7 @@ public class ClsOrden {
 
     //Atributos
     private int vgn_idOrden, vgn_contadorOrdenes, vgn_contadorComputadoras, vgn_maxComputadoras;
-    private ClsComputadora vgo_Computadora;
+    private List<ClsComputadora> ListaPC = new ArrayList<ClsComputadora>();
 
     //Constructores
     public ClsOrden() {
@@ -21,15 +24,14 @@ public class ClsOrden {
         vgn_contadorOrdenes = 0;
         vgn_idOrden = 0;
         vgn_maxComputadoras = 0;
-        vgo_Computadora = new ClsComputadora();
     }
 
-    public ClsOrden(int pvn_idOrden, int pvn_contadorOrdenes, int pvn_contadorComputadoras, int pvn_maxComputadoras, ClsComputadora pvo_Computadora) {
+    public ClsOrden(int pvn_idOrden, int pvn_contadorOrdenes, int pvn_contadorComputadoras, int pvn_maxComputadoras, List<ClsComputadora> pvo_Computadora) {
         vgn_contadorComputadoras = pvn_contadorComputadoras;
         vgn_contadorOrdenes = pvn_contadorOrdenes;
         vgn_idOrden = pvn_idOrden;
         vgn_maxComputadoras = pvn_maxComputadoras;
-        vgo_Computadora = pvo_Computadora;
+        ListaPC = pvo_Computadora;
     }
 
     /**
@@ -89,17 +91,17 @@ public class ClsOrden {
     }
 
     /**
-     * @return the vgo_Computadora
+     * @return the ListaPC
      */
-    public ClsComputadora getVgo_Computadora() {
-        return vgo_Computadora;
+    public List<ClsComputadora> getListaPC() {
+        return ListaPC;
     }
 
     /**
-     * @param vgo_Computadora the vgo_Computadora to set
+     * @param ListaPC the ListaPC to set
      */
-    public void setVgo_Computadora(ClsComputadora vgo_Computadora) {
-        this.vgo_Computadora = vgo_Computadora;
+    public void setListaPC(List<ClsComputadora> ListaPC) {
+        this.ListaPC = ListaPC;
     }
 
     //Metodos
@@ -108,12 +110,13 @@ public class ClsOrden {
         String vlc_Cadena = "";
 
         //Inicio
-        vlc_Cadena = vgn_contadorComputadoras + ", " + vgn_contadorOrdenes + ", " + vgn_idOrden + ", " + vgn_maxComputadoras + ", " + vgo_Computadora;
+        vlc_Cadena = vgn_contadorComputadoras + ", " + vgn_contadorOrdenes + ", " + vgn_idOrden + ", " + vgn_maxComputadoras + ", " + ListaPC;
 
         return vlc_Cadena;
     }
     
+    //Se agrega una computadora a la lista de computadoras.
     public void agregarComputadora(ClsComputadora pvo_Computadora){
-        
+        ListaPC.add(pvo_Computadora);
     }
 }
