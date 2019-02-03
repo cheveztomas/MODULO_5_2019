@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author Thomas
  */
-public class ClsRaton {
+public class ClsRaton extends ClsDispositivosEntrada {
 
     //Atributos
     private int vgn_idRaton, vgn_contadorRatones;
