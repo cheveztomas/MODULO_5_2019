@@ -119,4 +119,8 @@ public class ClsOrden {
     public void agregarComputadora(ClsComputadora pvo_Computadora){
         ListaPC.add(pvo_Computadora);
     }
+    
+    public void mostrarOrden(){
+        
+    }
 }
