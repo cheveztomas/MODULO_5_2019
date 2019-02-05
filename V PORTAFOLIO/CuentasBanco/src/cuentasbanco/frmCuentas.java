@@ -20,7 +20,7 @@ public class frmCuentas extends javax.swing.JFrame {
      */
     //Variables Globales
     ClsClientes vlo_Cliente = new ClsClientes();
-
+    
     public frmCuentas() {
         initComponents();
     }
@@ -358,6 +358,8 @@ public class frmCuentas extends javax.swing.JFrame {
             vlo_Cliente.setVgc_TipoCuenta(vlc_TipoCuenta);
             vlo_Cliente.setVgn_NumeroCuenta(vln_NumeroCuenta);
             vlo_Cliente.setVgn_Saldo(vln_Saldo);
+            txtSaldoActualMov.setText(Double.toString(vln_Saldo));
+            txtSaldoInteres.setText(Double.toString(vln_Saldo));
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -372,9 +374,15 @@ public class frmCuentas extends javax.swing.JFrame {
             vln_Cantidad = Double.parseDouble(txtMonto.getText());
         } catch (Exception e) {
         }
-
-        if (cmbMovimientos.getSelectedItem().equals("Deposito")) {
-            vlo_LogicaCliente.DepositoCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad);
+        
+        if (cmbMovimientos.getSelectedItem().equals("Seleccionar")) {
+            
+        } else {
+            if (cmbMovimientos.getSelectedItem().equals("Deposito")) {
+                vlo_Cliente.setVgn_Saldo(vlo_LogicaCliente.DepositoCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad));
+            } else {
+                vlo_Cliente.setVgn_Saldo(vlo_LogicaCliente.RetiroCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad));
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
