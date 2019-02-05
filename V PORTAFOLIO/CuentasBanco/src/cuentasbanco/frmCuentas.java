@@ -75,6 +75,8 @@ public class frmCuentas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cuenta");
+        setLocation(new java.awt.Point(50, 50));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -85,6 +87,18 @@ public class frmCuentas extends javax.swing.JFrame {
         jLabel3.setText("Numero de cuenta:");
 
         jLabel4.setText("Saldo:");
+
+        txtNumeroCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroCuentaKeyTyped(evt);
+            }
+        });
+
+        txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSaldoKeyTyped(evt);
+            }
+        });
 
         cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Ahorros", "Corriente" }));
 
@@ -210,6 +224,12 @@ public class frmCuentas extends javax.swing.JFrame {
 
         jLabel9.setText("Monto:");
 
+        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Acreditar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,6 +276,11 @@ public class frmCuentas extends javax.swing.JFrame {
         );
 
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -375,10 +400,10 @@ public class frmCuentas extends javax.swing.JFrame {
             vln_Cantidad = Double.parseDouble(txtMonto.getText());
         } catch (Exception e) {
         }
-        
+
         //Se verifica que esté seleccionado algún tipo de mivimiento de la cuenta.
-        if (cmbMovimientos.getSelectedItem().equals("Seleccionar")) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar que tipo de transacción desea hacer.");
+        if (cmbMovimientos.getSelectedItem().equals("Seleccionar") || txtMonto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar que tipo de transacción desea hacer y definir un monto.");
         } else {
             //Se verifica que tipo de movimiento es.
             if (cmbMovimientos.getSelectedItem().equals("Deposito")) {
@@ -392,13 +417,38 @@ public class frmCuentas extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Retiro supera la cantidad de dinero que hay en la cuenta.");
                 }
             }
-            
+
             //Se muestra al usuario los datos.
             txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
             txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-            txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
+            txtSaldoInteres.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtNumeroCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroCuentaKeyTyped
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumeroCuentaKeyTyped
+
+    private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSaldoKeyTyped
+
+    private void txtMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoKeyTyped
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMontoKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
