@@ -20,7 +20,7 @@ public class frmCuentas extends javax.swing.JFrame {
      */
     //Variables Globales
     ClsClientes vlo_Cliente = new ClsClientes();
-    
+
     public frmCuentas() {
         initComponents();
     }
@@ -330,6 +330,7 @@ public class frmCuentas extends javax.swing.JFrame {
         txtInteres.setText(Double.toString(vln_Interes));
         txtSaldoInteres.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
         txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
+        txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
     }//GEN-LAST:event_btnCalcularInteresActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -366,7 +367,7 @@ public class frmCuentas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Variables
         LogicaCliente vlo_LogicaCliente = new LogicaCliente();
-        int vln_correcto = 0;
+        double vln_correcto = 0;
         double vln_Cantidad = 0;
 
         //Inicio
@@ -375,14 +376,27 @@ public class frmCuentas extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         
+        //Se verifica que esté seleccionado algún tipo de mivimiento de la cuenta.
         if (cmbMovimientos.getSelectedItem().equals("Seleccionar")) {
-            
+            JOptionPane.showMessageDialog(this, "Debe seleccionar que tipo de transacción desea hacer.");
         } else {
+            //Se verifica que tipo de movimiento es.
             if (cmbMovimientos.getSelectedItem().equals("Deposito")) {
                 vlo_Cliente.setVgn_Saldo(vlo_LogicaCliente.DepositoCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad));
             } else {
-                vlo_Cliente.setVgn_Saldo(vlo_LogicaCliente.RetiroCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad));
+                vln_correcto = vlo_LogicaCliente.RetiroCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad);
+                //Se verifica que el retiro sea correcto.
+                if (vln_correcto > 0) {
+                    vlo_Cliente.setVgn_Saldo(vln_correcto);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Retiro supera la cantidad de dinero que hay en la cuenta.");
+                }
             }
+            
+            //Se muestra al usuario los datos.
+            txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
+            txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
+            txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
