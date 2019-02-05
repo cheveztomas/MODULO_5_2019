@@ -57,7 +57,7 @@ public class frmCuentas extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtSaldoActualMov = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMonto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -211,6 +211,11 @@ public class frmCuentas extends javax.swing.JFrame {
         jLabel9.setText("Monto:");
 
         jButton1.setText("Acreditar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,7 +231,7 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmbMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSaldoActualMov, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(txtMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -245,7 +250,7 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -313,10 +318,17 @@ public class frmCuentas extends javax.swing.JFrame {
             } else {
                 vln_Interes = vlo_LogicaCliente.CalcularInteresCuentaCorriente(vlo_Cliente.getVgn_Saldo());
             }
-            vlo_Cliente.setVgn_Saldo(vlo_Cliente.getVgn_Saldo() + vln_Interes);
+
+            //Se verifica si el saldo es correcto.
+            if (vlo_Cliente.getVgn_Saldo() > 0) {
+                vlo_Cliente.setVgn_Saldo(vlo_Cliente.getVgn_Saldo() + vln_Interes);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al leer saldo este debe ser mayor a 0 para calcular interes.");
+            }
         } catch (Exception e) {
         }
         txtInteres.setText(Double.toString(vln_Interes));
+        txtSaldoInteres.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
         txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
     }//GEN-LAST:event_btnCalcularInteresActionPerformed
 
@@ -340,7 +352,7 @@ public class frmCuentas extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al leer alguno de los valores cuardados verifique los valores.");
             }
-            
+
             //Se almacena los datos en el objeto.
             vlo_Cliente.setVgc_Nombre(vlc_Nombre);
             vlo_Cliente.setVgc_TipoCuenta(vlc_TipoCuenta);
@@ -348,6 +360,23 @@ public class frmCuentas extends javax.swing.JFrame {
             vlo_Cliente.setVgn_Saldo(vln_Saldo);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Variables
+        LogicaCliente vlo_LogicaCliente = new LogicaCliente();
+        int vln_correcto = 0;
+        double vln_Cantidad = 0;
+
+        //Inicio
+        try {
+            vln_Cantidad = Double.parseDouble(txtMonto.getText());
+        } catch (Exception e) {
+        }
+
+        if (cmbMovimientos.getSelectedItem().equals("Deposito")) {
+            vlo_LogicaCliente.DepositoCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -405,8 +434,8 @@ public class frmCuentas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtInteres;
+    private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumeroCuenta;
     private javax.swing.JTextField txtSaldo;
