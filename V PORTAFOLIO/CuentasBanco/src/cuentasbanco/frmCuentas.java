@@ -20,7 +20,7 @@ public class frmCuentas extends javax.swing.JFrame {
      */
     //Variables Globales
     ClsClientes vlo_Cliente = new ClsClientes();
-    
+
     public frmCuentas() {
         initComponents();
     }
@@ -302,10 +302,22 @@ public class frmCuentas extends javax.swing.JFrame {
     private void btnCalcularInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularInteresActionPerformed
         //Variables locales
         LogicaCliente vlo_LogicaCliente = new LogicaCliente();
-        double vln_Saldo;
+        double vln_Interes = 0;
 
         //Inicio
-        
+        try {
+
+            //Se verifica que tipo de cuanta es y se calcula el interes.
+            if (vlo_Cliente.getVgc_TipoCuenta().equals("Ahorros")) {
+                vln_Interes = vlo_LogicaCliente.CalcularinteresCuentaAhorros(vlo_Cliente.getVgn_Saldo());
+            } else {
+                vln_Interes = vlo_LogicaCliente.CalcularInteresCuentaCorriente(vlo_Cliente.getVgn_Saldo());
+            }
+            vlo_Cliente.setVgn_Saldo(vlo_Cliente.getVgn_Saldo() + vln_Interes);
+        } catch (Exception e) {
+        }
+        txtInteres.setText(Double.toString(vln_Interes));
+        txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
     }//GEN-LAST:event_btnCalcularInteresActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -316,7 +328,7 @@ public class frmCuentas extends javax.swing.JFrame {
 
         //Inicio
         //Se verifica que contengan texto los cuadros de texto.
-        if (txtNombre.getText().equals("") || txtNumeroCuenta.getText().equals("") || txtSaldo.getText().equals("") || cmbMovimientos.getSelectedIndex() == 0) {
+        if (txtNombre.getText().equals("") || txtNumeroCuenta.getText().equals("") || txtSaldo.getText().equals("") || cmbTipoCuenta.getSelectedItem().equals("Seleccionar")) {
             JOptionPane.showMessageDialog(this, "Es requerido el Nombre, Número de cuenta, Saldo y tipo de cuenta.");
         } else {
             try {
@@ -324,11 +336,12 @@ public class frmCuentas extends javax.swing.JFrame {
                 vln_Saldo = Double.parseDouble(txtSaldo.getText());
                 vln_NumeroCuenta = Double.parseDouble(txtSaldo.getText());
                 vlc_Nombre = txtNombre.getText();
-                vlc_TipoCuenta = cmbTipoCuenta.getToolTipText();
+                vlc_TipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al leer alguno de los valores cuardados verifique los valores.");
             }
             
+            //Se almacena los datos en el objeto.
             vlo_Cliente.setVgc_Nombre(vlc_Nombre);
             vlo_Cliente.setVgc_TipoCuenta(vlc_TipoCuenta);
             vlo_Cliente.setVgn_NumeroCuenta(vln_NumeroCuenta);
