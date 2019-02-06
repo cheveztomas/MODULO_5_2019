@@ -1,0 +1,8 @@
+Comentarios de Ariel para la Actividad_5 de Tomas
+ - El diseño del formulario es agradable 
+ - Me pareció interesante tener una zona para guardar/modificar la información del cliente
+ - Una vez ingresado el saldo inicial este solo se debería poder modificar por medio de transacciones, 
+	por lo que este debería bloquearse después de guardar el cliente
+ - No me parece necesario mostrar el saldo tantas veces
+ - Las clases y paquetes me parecen muy bien organizados, es fácil ubicar lo que se está buscando
+ - Para el frmCuentas recomiendo crear un método para cargar los textos y otro para leerlos, y así evitar repetir código

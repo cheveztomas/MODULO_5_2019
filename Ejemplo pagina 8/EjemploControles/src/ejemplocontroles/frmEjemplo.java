@@ -5,17 +5,57 @@
  */
 package ejemplocontroles;
 
+import com.sun.xml.internal.stream.buffer.sax.DefaultWithLexicalHandler;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tomas
  */
 public class frmEjemplo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmEjemplo
-     */
+    Calendar fecha = new GregorianCalendar();
+    DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+
+        }
+    };
+
     public frmEjemplo() {
         initComponents();
+        tblClientes.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Fecha");
+        Object[] fila = new Object[3];
+        fila[0] = "1";
+        fila[1] = "Pepe";
+        fila[2] = "22/05/2001";
+        modelo.addRow(fila);
+        fila[0] = "2";
+        fila[1] = "maria";
+        fila[2] = "22/05/2001";
+        modelo.addRow(fila);
+    }
+
+    public void CargarDatos() {
+        if (!txtcodigo.getText().equals("") && !txtNombre.getText().equals("")) {
+            Object[] fila = new Object[3];
+            fila[0] = txtcodigo.getText();
+            fila[1] = txtNombre.getText();
+            fila[2] = new SimpleDateFormat("dd/MM/yyyy").format(txtfecha.getDate());
+            modelo.addRow(fila);
+        } else {
+            JOptionPane.showMessageDialog(this, "Faltan Datos");
+        }
     }
 
     /**
@@ -36,7 +76,7 @@ public class frmEjemplo extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         cboNombres = new javax.swing.JComboBox<>();
         btnCargar = new javax.swing.JButton();
         txtSeleccionar = new javax.swing.JTextField();
@@ -50,10 +90,15 @@ public class frmEjemplo extends javax.swing.JFrame {
         jLabel3.setText("Fecha Nacimiento");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -64,7 +109,12 @@ public class frmEjemplo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
 
         btnCargar.setText("Cargar");
 
@@ -135,11 +185,36 @@ public class frmEjemplo extends javax.swing.JFrame {
                     .addComponent(btnCargar))
                 .addGap(18, 18, 18)
                 .addComponent(txtSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        CargarDatos();
+        txtcodigo.setText(null);
+        txtNombre.setText(null);
+        txtfecha.setDate(fecha.getTime());
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        if (evt.getClickCount() == 2) {
+            int row = tblClientes.rowAtPoint(evt.getPoint());
+            txtcodigo.setText(tblClientes.getValueAt(row, 0).toString());
+            txtNombre.setText(tblClientes.getValueAt(row, 1).toString());
+
+            String fecha1 = tblClientes.getValueAt(row, 2).toString();
+
+            try {
+                Date dato = formato.parse(fecha1);
+                txtfecha.setDate(dato);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tblClientesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -185,7 +260,7 @@ public class frmEjemplo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtSeleccionar;
     private javax.swing.JTextField txtcodigo;

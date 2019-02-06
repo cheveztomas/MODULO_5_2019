@@ -1,0 +1,6 @@
+comentarios Marvin Montero
+1-El diseño de la aplicación me parece bien y el formulario se 
+reparte bien el espacio y se nota que es amigable con el usuario.
+2-Un boton no tiene un nombre que lo indifica bien, por lo que sería ideal colocar uno
+para evitar confusiones futuras.
+3-En la parte lógica y verificaciones está muy bien, y se entiende bien el código.
