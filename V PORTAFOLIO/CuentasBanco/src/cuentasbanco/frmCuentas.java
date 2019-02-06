@@ -5,10 +5,6 @@
  */
 package cuentasbanco;
 
-import javax.swing.JOptionPane;
-import Entidades.ClsClientes;
-import Logica.LogicaCliente;
-
 /**
  *
  * @author Programacion
@@ -18,9 +14,6 @@ public class frmCuentas extends javax.swing.JFrame {
     /**
      * Creates new form frmCuentas
      */
-    //Variables Globales
-    ClsClientes vlo_Cliente = new ClsClientes();
-
     public frmCuentas() {
         initComponents();
     }
@@ -34,7 +27,6 @@ public class frmCuentas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -44,7 +36,6 @@ public class frmCuentas extends javax.swing.JFrame {
         txtNumeroCuenta = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
         cmbTipoCuenta = new javax.swing.JComboBox<>();
-        btnGuardar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnCalcularInteres = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -56,27 +47,9 @@ public class frmCuentas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtSaldoActualMov = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtMonto = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cuenta");
-        setLocation(new java.awt.Point(50, 50));
-        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -88,26 +61,7 @@ public class frmCuentas extends javax.swing.JFrame {
 
         jLabel4.setText("Saldo:");
 
-        txtNumeroCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumeroCuentaKeyTyped(evt);
-            }
-        });
-
-        txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSaldoKeyTyped(evt);
-            }
-        });
-
         cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Ahorros", "Corriente" }));
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,17 +76,18 @@ public class frmCuentas extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmbTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNumeroCuenta)
                             .addComponent(txtSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cmbTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,19 +107,13 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar))
+                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cálculos"));
 
         btnCalcularInteres.setText("Calcular Interés");
-        btnCalcularInteres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularInteresActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Interes:");
 
@@ -222,21 +171,6 @@ public class frmCuentas extends javax.swing.JFrame {
         txtSaldoActualMov.setEditable(false);
         txtSaldoActualMov.setBackground(javax.swing.UIManager.getDefaults().getColor("info"));
 
-        jLabel9.setText("Monto:");
-
-        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtMontoKeyTyped(evt);
-            }
-        });
-
-        jButton1.setText("Acreditar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -245,16 +179,12 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSaldoActualMov, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                    .addComponent(txtMonto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                    .addComponent(txtSaldoActualMov, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,36 +197,7 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtSaldoActualMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jButton2.setText("Salir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(14, 14, 14))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,8 +209,7 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -321,134 +221,11 @@ public class frmCuentas extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCalcularInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularInteresActionPerformed
-        //Variables locales
-        LogicaCliente vlo_LogicaCliente = new LogicaCliente();
-        double vln_Interes = 0;
-
-        //Inicio
-        try {
-
-            //Se verifica que tipo de cuanta es y se calcula el interes.
-            if (vlo_Cliente.getVgc_TipoCuenta().equals("Ahorros")) {
-                vln_Interes = vlo_LogicaCliente.CalcularinteresCuentaAhorros(vlo_Cliente.getVgn_Saldo());
-            } else {
-                vln_Interes = vlo_LogicaCliente.CalcularInteresCuentaCorriente(vlo_Cliente.getVgn_Saldo());
-            }
-
-            //Se verifica si el saldo es correcto.
-            if (vlo_Cliente.getVgn_Saldo() > 0) {
-                vlo_Cliente.setVgn_Saldo(vlo_Cliente.getVgn_Saldo() + vln_Interes);
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al leer saldo este debe ser mayor a 0 para calcular interes.");
-            }
-        } catch (Exception e) {
-        }
-        txtInteres.setText(Double.toString(vln_Interes));
-        txtSaldoInteres.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-        txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-        txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-    }//GEN-LAST:event_btnCalcularInteresActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //Varaibles locales
-        LogicaCliente vlo_LogicaCliente = new LogicaCliente();
-        String vlc_Nombre = "", vlc_TipoCuenta = "";
-        double vln_Saldo = 0, vln_NumeroCuenta = 0;
-
-        //Inicio
-        //Se verifica que contengan texto los cuadros de texto.
-        if (txtNombre.getText().equals("") || txtNumeroCuenta.getText().equals("") || txtSaldo.getText().equals("") || cmbTipoCuenta.getSelectedItem().equals("Seleccionar")) {
-            JOptionPane.showMessageDialog(this, "Es requerido el Nombre, Número de cuenta, Saldo y tipo de cuenta.");
-        } else {
-            try {
-                //Se almacena en una variable los valores del cuadro de texto.
-                vln_Saldo = Double.parseDouble(txtSaldo.getText());
-                vln_NumeroCuenta = Double.parseDouble(txtSaldo.getText());
-                vlc_Nombre = txtNombre.getText();
-                vlc_TipoCuenta = cmbTipoCuenta.getSelectedItem().toString();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al leer alguno de los valores cuardados verifique los valores.");
-            }
-
-            //Se almacena los datos en el objeto.
-            vlo_Cliente.setVgc_Nombre(vlc_Nombre);
-            vlo_Cliente.setVgc_TipoCuenta(vlc_TipoCuenta);
-            vlo_Cliente.setVgn_NumeroCuenta(vln_NumeroCuenta);
-            vlo_Cliente.setVgn_Saldo(vln_Saldo);
-            txtSaldoActualMov.setText(Double.toString(vln_Saldo));
-            txtSaldoInteres.setText(Double.toString(vln_Saldo));
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //Variables
-        LogicaCliente vlo_LogicaCliente = new LogicaCliente();
-        double vln_correcto = 0;
-        double vln_Cantidad = 0;
-
-        //Inicio
-        try {
-            vln_Cantidad = Double.parseDouble(txtMonto.getText());
-        } catch (Exception e) {
-        }
-
-        //Se verifica que esté seleccionado algún tipo de mivimiento de la cuenta.
-        if (cmbMovimientos.getSelectedItem().equals("Seleccionar") || txtMonto.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar que tipo de transacción desea hacer y definir un monto.");
-        } else {
-            //Se verifica que tipo de movimiento es.
-            if (cmbMovimientos.getSelectedItem().equals("Deposito")) {
-                vlo_Cliente.setVgn_Saldo(vlo_LogicaCliente.DepositoCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad));
-            } else {
-                vln_correcto = vlo_LogicaCliente.RetiroCuenta(vlo_Cliente.getVgn_Saldo(), vln_Cantidad);
-                //Se verifica que el retiro sea correcto.
-                if (vln_correcto > 0) {
-                    vlo_Cliente.setVgn_Saldo(vln_correcto);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Retiro supera la cantidad de dinero que hay en la cuenta.");
-                }
-            }
-
-            //Se muestra al usuario los datos.
-            txtSaldoActualMov.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-            txtSaldo.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-            txtSaldoInteres.setText(Double.toString(vlo_Cliente.getVgn_Saldo()));
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtNumeroCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroCuentaKeyTyped
-        char c = evt.getKeyChar();
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNumeroCuentaKeyTyped
-
-    private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
-        char c = evt.getKeyChar();
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtSaldoKeyTyped
-
-    private void txtMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoKeyTyped
-        char c = evt.getKeyChar();
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtMontoKeyTyped
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -487,11 +264,8 @@ public class frmCuentas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcularInteres;
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbMovimientos;
     private javax.swing.JComboBox<String> cmbTipoCuenta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -500,14 +274,10 @@ public class frmCuentas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField txtInteres;
-    private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumeroCuenta;
     private javax.swing.JTextField txtSaldo;
