@@ -6,11 +6,14 @@
 package ejemplocontroles;
 
 import com.sun.xml.internal.stream.buffer.sax.DefaultWithLexicalHandler;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,16 +22,16 @@ import javax.swing.table.DefaultTableModel;
  * @author tomas
  */
 public class frmEjemplo extends javax.swing.JFrame {
-
+    
     Calendar fecha = new GregorianCalendar();
     DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
-
+            
         }
     };
-
+    
     public frmEjemplo() {
         initComponents();
         tblClientes.setModel(modelo);
@@ -45,7 +48,7 @@ public class frmEjemplo extends javax.swing.JFrame {
         fila[2] = "22/05/2001";
         modelo.addRow(fila);
     }
-
+    
     public void CargarDatos() {
         if (!txtcodigo.getText().equals("") && !txtNombre.getText().equals("")) {
             Object[] fila = new Object[3];
@@ -81,7 +84,7 @@ public class frmEjemplo extends javax.swing.JFrame {
         btnCargar = new javax.swing.JButton();
         txtSeleccionar = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Codigo");
 
@@ -97,6 +100,11 @@ public class frmEjemplo extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,7 +124,18 @@ public class frmEjemplo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblClientes);
 
+        cboNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNombresActionPerformed(evt);
+            }
+        });
+
         btnCargar.setText("Cargar");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,9 +223,9 @@ public class frmEjemplo extends javax.swing.JFrame {
             int row = tblClientes.rowAtPoint(evt.getPoint());
             txtcodigo.setText(tblClientes.getValueAt(row, 0).toString());
             txtNombre.setText(tblClientes.getValueAt(row, 1).toString());
-
+            
             String fecha1 = tblClientes.getValueAt(row, 2).toString();
-
+            
             try {
                 Date dato = formato.parse(fecha1);
                 txtfecha.setDate(dato);
@@ -215,6 +234,49 @@ public class frmEjemplo extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+        cboNombres.setModel(modeloCombo);
+        
+        for (int i = 0; i < tblClientes.getRowCount(); i++) {
+            modeloCombo.addElement(new ClsPersona(Integer.parseInt(tblClientes.getValueAt(i, 0).toString()), tblClientes.getValueAt(i, 1).toString()));
+            
+            cboNombres.setSelectedItem(-1);
+        }
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void cboNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNombresActionPerformed
+        if (cboNombres.getSelectedIndex() != -1) {
+            ClsPersona persona = (ClsPersona) cboNombres.getSelectedItem();
+            txtSeleccionar.setText(String.valueOf(persona.getId()) + ". " + persona.getNombre());
+        } else {
+            txtSeleccionar.setText(null);
+        }
+    }//GEN-LAST:event_cboNombresActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        frmBuscar1 vloBuscar = new frmBuscar1(null, true);
+        vloBuscar.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                int row;
+                row = vloBuscar.ObtenerDato();
+                txtcodigo.setText(tblClientes.getValueAt(row, 0).toString());
+                txtNombre.setText(tblClientes.getValueAt(row, 1).toString());
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                String fecha1 = tblClientes.getValueAt(row, 2).toString();
+                
+                try {
+                    Date dato = formato.parse(fecha1);
+                    txtfecha.setDate(dato);
+                } catch (Exception ex) {
+                    JOptionPane.showInputDialog(null, ex.getMessage());
+                }
+                
+            }
+        });
+        vloBuscar.setVisible(true);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
