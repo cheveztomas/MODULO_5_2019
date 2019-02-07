@@ -8,6 +8,10 @@
  *
  * @author tomas
  */
+import Entidades.ClsAlgebra;
+import javax.swing.JOptionPane;
+import Logica.LogicaCalculadora;
+
 public class frmCalculadora extends javax.swing.JInternalFrame {
 
     /**
@@ -52,6 +56,11 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
         jLabel2.setText("SEGUNDO VALOR");
 
         txtCalcular.setText("Calcular");
+        txtCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCalcularActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Suma:");
 
@@ -145,6 +154,44 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private ClsAlgebra LeerDatos() {
+        //Variables
+        ClsAlgebra vlo_Valores = new ClsAlgebra();
+
+        //Inicio
+        try {
+            //Se almacenan los valores en la variable.
+            vlo_Valores.setVgn_PrimerValor(Integer.parseInt(txtPrimerValor.getText().trim()));
+            vlo_Valores.setVgn_SegundoValor(Integer.parseInt(txtSegundoValor.getText().trim()));
+        } catch (Exception e) {
+            throw e;
+        }
+
+        //Se retorna el valor
+        return vlo_Valores;
+
+    }
+
+    private void CalcularResultados() {
+        //Variables
+        ClsAlgebra vlo_Valores = new ClsAlgebra();
+        LogicaCalculadora vlo_Logica = new LogicaCalculadora();
+        double vln_ResultadoSuma = 0, vln_ResultadoResta = 0, vln_ResultadoMultipliacion = 0, vln_ResultadoDivision = 0, vln_ResultadoPow = 0;
+
+        //Inicio
+        try {
+            //Se invoca la funcion que lee los datos de la pantalla.
+            vlo_Valores = LeerDatos();
+
+            //Se invoca los metodos correspondientes que calculan los datos.
+        } catch (Exception e) {
+        }
+    }
+
+    private void txtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalcularActionPerformed
+
+    }//GEN-LAST:event_txtCalcularActionPerformed
 
     /**
      * @param args the command line arguments
