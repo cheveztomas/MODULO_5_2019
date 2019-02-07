@@ -5,14 +5,12 @@
  */
 package ejemplocontroles;
 
-import com.sun.xml.internal.stream.buffer.sax.DefaultWithLexicalHandler;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -258,6 +256,7 @@ public class frmEjemplo extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         frmBuscar1 vloBuscar = new frmBuscar1(null, true);
         vloBuscar.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
                 int row;
                 row = vloBuscar.ObtenerDato();
@@ -307,6 +306,7 @@ public class frmEjemplo extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new frmEjemplo().setVisible(true);
             }

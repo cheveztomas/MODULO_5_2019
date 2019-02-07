@@ -27,8 +27,6 @@ public class frmBuscar1 extends javax.swing.JDialog {
     public frmBuscar1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        initComponents();
-        initComponents();
         tblClientes.setModel(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Nombre");
