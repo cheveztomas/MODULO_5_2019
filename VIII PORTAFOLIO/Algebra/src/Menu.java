@@ -1,9 +1,11 @@
+
+import javax.swing.JFrame;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author tomas
@@ -15,6 +17,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -27,6 +30,10 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        brmMenu = new javax.swing.JMenuBar();
+        btnArchvo = new javax.swing.JMenu();
+        btnCalculadora = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
@@ -39,8 +46,20 @@ public class Menu extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
+
+        btnArchvo.setText("Archivo");
+
+        btnCalculadora.setText("Calculadora");
+        btnArchvo.add(btnCalculadora);
+
+        brmMenu.add(btnArchvo);
+
+        jMenu2.setText("Salir");
+        brmMenu.add(jMenu2);
+
+        setJMenuBar(brmMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +111,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar brmMenu;
+    private javax.swing.JMenu btnArchvo;
+    private javax.swing.JMenuItem btnCalculadora;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu2;
     // End of variables declaration//GEN-END:variables
 }
