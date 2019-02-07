@@ -185,12 +185,27 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
             vlo_Valores = LeerDatos();
 
             //Se invoca los metodos correspondientes que calculan los datos.
+            vln_ResultadoDivision = vlo_Logica.Dividir(vlo_Valores);
+            vln_ResultadoMultipliacion = vlo_Logica.Multiplicar(vlo_Valores);
+            vln_ResultadoPow = vlo_Logica.Potencia(vlo_Valores);
+            vln_ResultadoResta = vlo_Logica.Resta(vlo_Valores);
+            vln_ResultadoSuma = vlo_Logica.Suma(vlo_Valores);
         } catch (Exception e) {
         }
+
+        txtDivision.setText(Double.toString(vln_ResultadoDivision));
+        txtMulti.setText(Double.toString(vln_ResultadoMultipliacion));
+        txtPotencia.setText(Double.toString(vln_ResultadoPow));
+        txtResta.setText(Double.toString(vln_ResultadoResta));
+        txtSuma.setText(Double.toString(vln_ResultadoSuma));
     }
 
     private void txtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalcularActionPerformed
-
+        try {
+            CalcularResultados();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al leer los datos.");
+        }
     }//GEN-LAST:event_txtCalcularActionPerformed
 
     /**

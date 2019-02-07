@@ -13,9 +13,9 @@ import Entidades.ClsAlgebra;
  */
 public class LogicaCalculadora {
 
-    public int Suma(ClsAlgebra pvo_Valores) {
+    public double Suma(ClsAlgebra pvo_Valores) {
         //Variables
-        int vln_Resultado = 0;
+        double vln_Resultado = 0;
 
         //Inicio
         //Se realiza la suma de los valores.
@@ -25,13 +25,37 @@ public class LogicaCalculadora {
         return vln_Resultado;
     }
 
-    public int Multiplicar(ClsAlgebra pvo_Valores) {
+    public double Resta(ClsAlgebra pvo_Valores) {
         //Variables
-        int vln_Reultado = 0;
+        double vln_Resultado = 0;
+
+        //Inicio
+        //Se realiza la suma de los valores.
+        vln_Resultado = pvo_Valores.getVgn_PrimerValor() - pvo_Valores.getVgn_SegundoValor();
+
+        //Se retornan los valores.
+        return vln_Resultado;
+    }
+
+    public double Multiplicar(ClsAlgebra pvo_Valores) {
+        //Variables
+        double vln_Reultado = 0;
 
         //Inicio
         //Se calcula la multiplicasión delos valores.
         vln_Reultado = pvo_Valores.getVgn_PrimerValor() * pvo_Valores.getVgn_SegundoValor();
+
+        //Se retorna el valor.
+        return vln_Reultado;
+    }
+
+    public double Dividir(ClsAlgebra pvo_Valores) {
+        //Variables
+        double vln_Reultado = 0;
+
+        //Inicio
+        //Se calcula la multiplicasión delos valores.
+        vln_Reultado = pvo_Valores.getVgn_PrimerValor() / pvo_Valores.getVgn_SegundoValor();
 
         //Se retorna el valor.
         return vln_Reultado;

@@ -12,9 +12,9 @@ package Entidades;
 public class ClsAlgebra {
 
     //Atributos
-    private int vgn_PrimerValor;
+    private double vgn_PrimerValor;
     //Atributos
-    private int vgn_SegundoValor;
+    private double vgn_SegundoValor;
 
     //Constructor
     public ClsAlgebra() {
@@ -22,26 +22,26 @@ public class ClsAlgebra {
         vgn_SegundoValor = 0;
     }
 
-    public ClsAlgebra(int pvn_PrimerValor, int pvn_SegundoValor) {
+    public ClsAlgebra(double pvn_PrimerValor, double pvn_SegundoValor) {
         vgn_PrimerValor = pvn_PrimerValor;
         vgn_SegundoValor = pvn_SegundoValor;
     }
     
     //Propiedades
 
-    public int getVgn_PrimerValor() {
+    public double getVgn_PrimerValor() {
         return vgn_PrimerValor;
     }
 
-    public void setVgn_PrimerValor(int vgn_PrimerValor) {
+    public void setVgn_PrimerValor(double vgn_PrimerValor) {
         this.vgn_PrimerValor = vgn_PrimerValor;
     }
 
-    public int getVgn_SegundoValor() {
+    public double getVgn_SegundoValor() {
         return vgn_SegundoValor;
     }
 
-    public void setVgn_SegundoValor(int vgn_SegundoValor) {
+    public void setVgn_SegundoValor(double vgn_SegundoValor) {
         this.vgn_SegundoValor = vgn_SegundoValor;
     }
     
