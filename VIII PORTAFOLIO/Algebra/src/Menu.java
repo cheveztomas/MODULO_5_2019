@@ -82,6 +82,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnCalculadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculadoraActionPerformed
         frmCalculadora Calculadora = new frmCalculadora();
+        Calculadora.setVisible(true);
+        jDesktopPane1.add(Calculadora);
     }//GEN-LAST:event_btnCalculadoraActionPerformed
 
     /**
