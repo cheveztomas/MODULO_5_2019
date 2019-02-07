@@ -52,6 +52,11 @@ public class Menu extends javax.swing.JFrame {
         btnArchvo.setText("Archivo");
 
         btnCalculadora.setText("Calculadora");
+        btnCalculadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculadoraActionPerformed(evt);
+            }
+        });
         btnArchvo.add(btnCalculadora);
 
         brmMenu.add(btnArchvo);
@@ -74,6 +79,10 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCalculadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculadoraActionPerformed
+        frmCalculadora Calculadora = new frmCalculadora();
+    }//GEN-LAST:event_btnCalculadoraActionPerformed
 
     /**
      * @param args the command line arguments
