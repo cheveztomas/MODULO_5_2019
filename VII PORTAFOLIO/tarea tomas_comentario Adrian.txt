@@ -1,0 +1,8 @@
+me parese oprtuno el uso del try catch
+y el uso de un combobox para la selección del tipo de transacción
+y tipo de cuenta 
+me gusto la forma en que uso los paquetes para dividir la logica de la interface 
+
+
+
+comentario   Adrian

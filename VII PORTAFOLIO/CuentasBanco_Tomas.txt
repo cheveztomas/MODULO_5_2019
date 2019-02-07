@@ -1,0 +1,11 @@
+La interface de la aplicación me parecce muy ordenada, me gustaría una forma de limpiar los datos
+para poder llenar la aplicación con otros datos sin tener que salir.
+
+Es ordenado al utilizar diferentes paquetes para las diferentes capas de la aplicación.
+Pensó en el manejo de exepciones, eso me parece bien.
+El código está ordenado y realiza comentarios dentro del código
+
+En general, la aplicación funciona, no presenta errores de lógica y muestra lo solicitado.
+
+Comentarios realizados por: Juan Castro
+
