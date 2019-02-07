@@ -73,6 +73,11 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
         jLabel7.setText("Potencia:");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
 
@@ -207,6 +212,10 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al leer los datos.");
         }
     }//GEN-LAST:event_txtCalcularActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
