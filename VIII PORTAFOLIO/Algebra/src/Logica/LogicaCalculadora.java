@@ -17,59 +17,83 @@ public class LogicaCalculadora {
         //Variables
         double vln_Resultado = 0;
 
-        //Inicio
-        //Se realiza la suma de los valores.
-        vln_Resultado = pvo_Valores.getVgn_PrimerValor() + pvo_Valores.getVgn_SegundoValor();
+        try {
+            //Inicio
+            //Se realiza la suma de los valores.
+            vln_Resultado = pvo_Valores.getVgn_PrimerValor() + pvo_Valores.getVgn_SegundoValor();
 
-        //Se retornan los valores.
-        return vln_Resultado;
+            //Se retornan los valores.
+            return vln_Resultado;
+        } catch (ArithmeticException ae) {
+            throw ae;
+        }
     }
 
     public double Resta(ClsAlgebra pvo_Valores) {
         //Variables
         double vln_Resultado = 0;
 
-        //Inicio
-        //Se realiza la suma de los valores.
-        vln_Resultado = pvo_Valores.getVgn_PrimerValor() - pvo_Valores.getVgn_SegundoValor();
+        try {
+            //Inicio
+            //Se realiza la suma de los valores.
+            vln_Resultado = pvo_Valores.getVgn_PrimerValor() - pvo_Valores.getVgn_SegundoValor();
 
-        //Se retornan los valores.
-        return vln_Resultado;
+            //Se retornan los valores.
+            return vln_Resultado;
+        } catch (ArithmeticException ae) {
+            throw ae;
+        }
+
     }
 
     public double Multiplicar(ClsAlgebra pvo_Valores) {
         //Variables
         double vln_Reultado = 0;
 
-        //Inicio
-        //Se calcula la multiplicasión delos valores.
-        vln_Reultado = pvo_Valores.getVgn_PrimerValor() * pvo_Valores.getVgn_SegundoValor();
+        try {
+            //Inicio
+            //Se calcula la multiplicasión delos valores.
+            vln_Reultado = pvo_Valores.getVgn_PrimerValor() * pvo_Valores.getVgn_SegundoValor();
 
-        //Se retorna el valor.
-        return vln_Reultado;
+            //Se retorna el valor.
+            return vln_Reultado;
+        } catch (ArithmeticException ae) {
+            throw ae;
+        }
+
     }
 
     public double Dividir(ClsAlgebra pvo_Valores) {
         //Variables
         double vln_Reultado = 0;
 
-        //Inicio
-        //Se calcula la multiplicasión delos valores.
-        vln_Reultado = pvo_Valores.getVgn_PrimerValor() / pvo_Valores.getVgn_SegundoValor();
+        try {
+            //Inicio
+            //Se calcula la multiplicasión delos valores.
+            vln_Reultado = pvo_Valores.getVgn_PrimerValor() / pvo_Valores.getVgn_SegundoValor();
 
-        //Se retorna el valor.
-        return vln_Reultado;
+            //Se retorna el valor.
+            return vln_Reultado;
+        } catch (ArithmeticException ae) {
+            throw ae;
+        }
+
     }
 
     public double Potencia(ClsAlgebra pvo_Valores) {
         //Variables
         double vln_Resultado = 0;
 
-        //Inicio
-        //Se calcula la potencia.
-        vln_Resultado = Math.pow(pvo_Valores.getVgn_PrimerValor(), pvo_Valores.getVgn_SegundoValor());
+        try {
+            //Inicio
+            //Se calcula la potencia.
+            vln_Resultado = Math.pow(pvo_Valores.getVgn_PrimerValor(), pvo_Valores.getVgn_SegundoValor());
 
-        //Se retorna el resultado.
-        return vln_Resultado;
+            //Se retorna el resultado.
+            return vln_Resultado;
+        } catch (ArithmeticException ae) {
+            throw ae;
+        }
+
     }
 }
