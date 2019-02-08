@@ -49,7 +49,17 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        txtPrimerValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrimerValorKeyTyped(evt);
+            }
+        });
+
+        txtSegundoValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSegundoValorKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("PRIMER VALOR");
 
@@ -80,6 +90,11 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,6 +193,16 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
 
     }
 
+    private void Limpiar() {
+        txtDivision.setText(null);
+        txtMulti.setText(null);
+        txtPotencia.setText(null);
+        txtPrimerValor.setText(null);
+        txtResta.setText(null);
+        txtSegundoValor.setText(null);
+        txtSuma.setText(null);
+    }
+
     private void CalcularResultados() {
         //Variables
         ClsAlgebra vlo_Valores = new ClsAlgebra();
@@ -196,6 +221,7 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
             vln_ResultadoResta = vlo_Logica.Resta(vlo_Valores);
             vln_ResultadoSuma = vlo_Logica.Suma(vlo_Valores);
         } catch (Exception e) {
+            throw e;
         }
 
         txtDivision.setText(Double.toString(vln_ResultadoDivision));
@@ -216,6 +242,26 @@ public class frmCalculadora extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtPrimerValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerValorKeyTyped
+        char C = evt.getKeyChar();
+
+        if (!(C >= '0' && C <= '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrimerValorKeyTyped
+
+    private void txtSegundoValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoValorKeyTyped
+        char C = evt.getKeyChar();
+
+        if (!(C >= '0' && C <= '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSegundoValorKeyTyped
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
