@@ -43,7 +43,6 @@ public class LogicaCalculadora {
         } catch (ArithmeticException ae) {
             throw ae;
         }
-
     }
 
     public double Multiplicar(ClsAlgebra pvo_Valores) {
@@ -60,7 +59,6 @@ public class LogicaCalculadora {
         } catch (ArithmeticException ae) {
             throw ae;
         }
-
     }
 
     public double Dividir(ClsAlgebra pvo_Valores) {
@@ -77,7 +75,6 @@ public class LogicaCalculadora {
         } catch (ArithmeticException ae) {
             throw ae;
         }
-
     }
 
     public double Potencia(ClsAlgebra pvo_Valores) {
@@ -94,6 +91,5 @@ public class LogicaCalculadora {
         } catch (ArithmeticException ae) {
             throw ae;
         }
-
     }
 }
