@@ -34,6 +34,7 @@ public class Menu extends javax.swing.JFrame {
         brmMenu = new javax.swing.JMenuBar();
         btnArchvo = new javax.swing.JMenu();
         btnCalculadora = new javax.swing.JMenuItem();
+        txtConversorAngulo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -60,9 +61,22 @@ public class Menu extends javax.swing.JFrame {
         });
         btnArchvo.add(btnCalculadora);
 
+        txtConversorAngulo.setText("Coversor Ángulos");
+        txtConversorAngulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConversorAnguloActionPerformed(evt);
+            }
+        });
+        btnArchvo.add(txtConversorAngulo);
+
         brmMenu.add(btnArchvo);
 
         jMenu2.setText("Salir");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         brmMenu.add(jMenu2);
 
         setJMenuBar(brmMenu);
@@ -86,6 +100,16 @@ public class Menu extends javax.swing.JFrame {
         Calculadora.setVisible(true);
         jDesktopPane1.add(Calculadora);
     }//GEN-LAST:event_btnCalculadoraActionPerformed
+
+    private void txtConversorAnguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConversorAnguloActionPerformed
+        frmGradosRad GradRad = new frmGradosRad();
+        GradRad.setVisible(true);
+        jDesktopPane1.add(GradRad);
+    }//GEN-LAST:event_txtConversorAnguloActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -128,5 +152,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCalculadora;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem txtConversorAngulo;
     // End of variables declaration//GEN-END:variables
 }

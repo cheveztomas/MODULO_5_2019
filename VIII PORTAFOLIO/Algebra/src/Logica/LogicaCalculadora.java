@@ -26,6 +26,8 @@ public class LogicaCalculadora {
             return vln_Resultado;
         } catch (ArithmeticException ae) {
             throw ae;
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 
@@ -42,7 +44,10 @@ public class LogicaCalculadora {
             return vln_Resultado;
         } catch (ArithmeticException ae) {
             throw ae;
+        } catch (Exception ex) {
+            throw ex;
         }
+
     }
 
     public double Multiplicar(ClsAlgebra pvo_Valores) {
@@ -58,6 +63,8 @@ public class LogicaCalculadora {
             return vln_Reultado;
         } catch (ArithmeticException ae) {
             throw ae;
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 
@@ -74,6 +81,8 @@ public class LogicaCalculadora {
             return vln_Reultado;
         } catch (ArithmeticException ae) {
             throw ae;
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 
@@ -90,6 +99,8 @@ public class LogicaCalculadora {
             return vln_Resultado;
         } catch (ArithmeticException ae) {
             throw ae;
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 }
