@@ -8,6 +8,9 @@
  *
  * @author Thomas
  */
+import Entidades.ClsAngulos;
+import Logica.LogicaAngulos;
+
 public class frmGradosRad extends javax.swing.JInternalFrame {
 
     /**
@@ -34,7 +37,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         chkGrados = new javax.swing.JRadioButton();
         chkRadianes = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         lblPI = new javax.swing.JLabel();
         btnCalcular = new javax.swing.JButton();
@@ -109,7 +112,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -136,7 +139,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPI)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCalcular)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,6 +232,27 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_chkRadianesActionPerformed
 
+    private double LeerVariables() {
+        //Variables
+        ClsAngulos vlo_Angulos = new ClsAngulos();
+        vlo_Logica = new //Inicio
+        
+        if ((chkGrados.isSelected()) && (chkRadianes.isSelected() == false)) {
+            try {
+                //Se obtiene el valor de los campos ingresados por el usuario.
+                vlo_Angulos.setVgn_Grados(Double.parseDouble(txtValor.getText()));
+            } catch (Exception e) {
+            }
+        } else if ((chkRadianes.isSelected()) && (chkGrados.isSelected() == false)) {
+            try {
+                //Se lee los datos de entrada escritos por el usuario.
+                vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()));
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -280,9 +304,9 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblPI;
     private javax.swing.JLabel lblPI1;
     private javax.swing.JTextField txtResultado;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
