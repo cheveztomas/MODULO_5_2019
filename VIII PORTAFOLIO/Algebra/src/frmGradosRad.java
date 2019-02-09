@@ -11,16 +11,29 @@
 import Entidades.ClsAngulos;
 import Logica.LogicaAngulos;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.runtime.JSType;
 
 public class frmGradosRad extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmGradosRad
-     */
+    DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+
+        }
+    };
+
     public frmGradosRad() {
         initComponents();
         this.closable = true;
+        tblLista.setModel(modelo);
+        modelo.addColumn("Grados");
+        modelo.addColumn("Radianes π");
+    }
+
+    private void AgregarValor(ClsAngulos vlo_Angulos) {
+
     }
 
     /**
@@ -48,7 +61,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         lblPI1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblLista = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
 
@@ -166,7 +179,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Lista de Resultados:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -177,7 +190,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblLista);
 
         btnSalir.setText("Salir");
 
@@ -354,9 +367,9 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblPI;
     private javax.swing.JLabel lblPI1;
+    private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtResultado;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
