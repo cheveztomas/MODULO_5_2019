@@ -26,10 +26,29 @@ public class LogicaAngulos {
         } catch (Exception e) {
             vln_Radianes = -1;
             throw e;
+        } finally {
+            //Se retorna el valor resultante.
+            return vln_Radianes;
+        }
+    }
+
+    public double RadianesAGrados(double pvn_Radianes) {
+        //Variables
+        double vln_Grados = 0;
+
+        try {
+            //Operaciones
+            vln_Grados = Math.toDegrees(pvn_Radianes);
+        } catch (ArithmeticException ae) {
+            vln_Grados = -1;
+            throw ae;
+        } catch (Exception e) {
+            vln_Grados = -1;
+            throw e;
+        } finally {
+            //Se retorna el valor resultante.
+            return vln_Grados;
         }
 
-        //Se retorna el valor resultante.
-        return vln_Radianes;
     }
-;
 }
