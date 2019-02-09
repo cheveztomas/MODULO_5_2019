@@ -177,7 +177,7 @@
       <SubComponents>
         <Component class="javax.swing.JRadioButton" name="chkGrados">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Grados"/>
+            <Property name="text" type="java.lang.String" value="Grados a Radianes"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkGradosActionPerformed"/>
@@ -185,7 +185,7 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="chkRadianes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Radianes"/>
+            <Property name="text" type="java.lang.String" value="Radianes a Grados"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkRadianesActionPerformed"/>
@@ -197,6 +197,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtValor">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
         </Component>
@@ -211,6 +214,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Calcular"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCalcularActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtResultado">
           <Properties>

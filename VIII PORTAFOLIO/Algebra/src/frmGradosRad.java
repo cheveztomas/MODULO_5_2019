@@ -11,6 +11,7 @@
 import Entidades.ClsAngulos;
 import Logica.LogicaAngulos;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.runtime.JSType;
 
 public class frmGradosRad extends javax.swing.JInternalFrame {
 
@@ -68,14 +69,14 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ángulos y Radianes"));
 
-        chkGrados.setText("Grados");
+        chkGrados.setText("Grados a Radianes");
         chkGrados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkGradosActionPerformed(evt);
             }
         });
 
-        chkRadianes.setText("Radianes");
+        chkRadianes.setText("Radianes a Grados");
         chkRadianes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkRadianesActionPerformed(evt);
@@ -84,9 +85,20 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Medida:");
 
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
+            }
+        });
+
         lblPI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pi-simbolo-de-constante-matematica (1).png"))); // NOI18N
 
         btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
 
         txtResultado.setEditable(false);
 
@@ -233,41 +245,61 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_chkRadianesActionPerformed
 
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        try {
+            txtResultado.setText(Double.toString(LeerVariables()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al leer los valores.");
+        }
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+        char c = evt.getKeyChar();
+        if (!((c >= '0' && c <= '9') || c == '.' || c == '-')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
+
     private double LeerVariables() {
         //Variables
         ClsAngulos vlo_Angulos = new ClsAngulos();
         LogicaAngulos vlo_LogicaAngulos = new LogicaAngulos();
 
         //Inicio
-        if ((chkGrados.isSelected()) && (chkRadianes.isSelected() == false)) {
-            try {
-                //Se obtiene el valor de los campos ingresados por el usuario.
-                vlo_Angulos.setVgn_Grados(Double.parseDouble(txtValor.getText()));
-                vlo_Angulos.setVgn_Radianes(vlo_LogicaAngulos.GradosARadianes(vlo_Angulos.getVgn_Grados()));
-            } catch (ArithmeticException ae) {
-                vlo_Angulos.setVgn_Radianes(-1);
-                throw ae;
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                return vlo_Angulos.getVgn_Radianes();
-            }
-        } else if ((chkRadianes.isSelected()) && (chkGrados.isSelected() == false)) {
-            try {
-                //Se lee los datos de entrada escritos por el usuario.
-                vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()) * Math.PI);
-                vlo_Angulos.setVgn_Radianes(vlo_LogicaAngulos.RadianesAGrados(vlo_Angulos.getVgn_Radianes()));
-            } catch (ArithmeticException ae) {
-                vlo_Angulos.setVgn_Grados(-1);
-                throw ae;
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                return vlo_Angulos.getVgn_Grados();
+        if (!txtValor.getText().equals("")) {
+            if ((chkGrados.isSelected()) && (chkRadianes.isSelected() == false)) {
+                try {
+                    //Se obtiene el valor de los campos ingresados por el usuario.
+                    vlo_Angulos.setVgn_Grados(Double.parseDouble(txtValor.getText()));
+                    vlo_Angulos.setVgn_Radianes(vlo_LogicaAngulos.GradosARadianes(vlo_Angulos.getVgn_Grados()));
+                } catch (ArithmeticException ae) {
+                    vlo_Angulos.setVgn_Radianes(-0.111);
+                    throw ae;
+                } catch (Exception e) {
+                    throw e;
+                } finally {
+                    return vlo_Angulos.getVgn_Radianes();
+                }
+            } else if ((chkRadianes.isSelected()) && (chkGrados.isSelected() == false)) {
+                try {
+                    //Se lee los datos de entrada escritos por el usuario.
+                    vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()) * Math.PI);
+                    vlo_Angulos.setVgn_Grados(vlo_LogicaAngulos.RadianesAGrados(vlo_Angulos.getVgn_Radianes()));
+                } catch (ArithmeticException ae) {
+                    vlo_Angulos.setVgn_Grados(-0.111);
+                    throw ae;
+                } catch (Exception e) {
+                    throw e;
+                } finally {
+                    return vlo_Angulos.getVgn_Grados();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Error debe seleccionar algún tipo de conversión");
+                return -0.111;
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Error debe seleccionar algún tipo de conversión");
-            return -2;
+            JOptionPane.showMessageDialog(this, "Error se debe ingresar un valor númerico.");
+            return -0.111;
         }
 
     }
