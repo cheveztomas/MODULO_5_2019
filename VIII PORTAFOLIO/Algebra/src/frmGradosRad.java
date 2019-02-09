@@ -64,8 +64,18 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ángulos y Radianes"));
 
         chkGrados.setText("Grados");
+        chkGrados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkGradosActionPerformed(evt);
+            }
+        });
 
         chkRadianes.setText("Radianes");
+        chkRadianes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRadianesActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Medida:");
 
@@ -191,6 +201,26 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void chkGradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkGradosActionPerformed
+        //Se verifica si la opción se encuentra seleccionada
+        if (chkGrados.isSelected()) {
+
+            //Se deselcciona la opción contraria.
+            chkRadianes.setSelected(false);
+            lblPI.setVisible(false);
+
+        }
+    }//GEN-LAST:event_chkGradosActionPerformed
+
+    private void chkRadianesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRadianesActionPerformed
+        //Se verifica si la opción se encuentra seleccionada
+        if (chkRadianes.isSelected()) {
+            //Se deselcciona la opción contraria.
+            chkGrados.setSelected(false);
+            lblPI.setVisible(true);
+        }
+    }//GEN-LAST:event_chkRadianesActionPerformed
 
     /**
      * @param args the command line arguments
