@@ -10,6 +10,7 @@
  */
 import Entidades.ClsAngulos;
 import Logica.LogicaAngulos;
+import javax.swing.JOptionPane;
 
 public class frmGradosRad extends javax.swing.JInternalFrame {
 
@@ -235,20 +236,38 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
     private double LeerVariables() {
         //Variables
         ClsAngulos vlo_Angulos = new ClsAngulos();
-        vlo_Logica = new //Inicio
-        
+        LogicaAngulos vlo_LogicaAngulos = new LogicaAngulos();
+
+        //Inicio
         if ((chkGrados.isSelected()) && (chkRadianes.isSelected() == false)) {
             try {
                 //Se obtiene el valor de los campos ingresados por el usuario.
                 vlo_Angulos.setVgn_Grados(Double.parseDouble(txtValor.getText()));
+                vlo_Angulos.setVgn_Radianes(vlo_LogicaAngulos.GradosARadianes(vlo_Angulos.getVgn_Grados()));
+            } catch (ArithmeticException ae) {
+                vlo_Angulos.setVgn_Radianes(-1);
+                throw ae;
             } catch (Exception e) {
+                throw e;
+            } finally {
+                return vlo_Angulos.getVgn_Radianes();
             }
         } else if ((chkRadianes.isSelected()) && (chkGrados.isSelected() == false)) {
             try {
                 //Se lee los datos de entrada escritos por el usuario.
-                vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()));
+                vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()) * Math.PI);
+                vlo_Angulos.setVgn_Radianes(vlo_LogicaAngulos.RadianesAGrados(vlo_Angulos.getVgn_Radianes()));
+            } catch (ArithmeticException ae) {
+                vlo_Angulos.setVgn_Grados(-1);
+                throw ae;
             } catch (Exception e) {
+                throw e;
+            } finally {
+                return vlo_Angulos.getVgn_Grados();
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error debe seleccionar algún tipo de conversión");
+            return -2;
         }
 
     }
