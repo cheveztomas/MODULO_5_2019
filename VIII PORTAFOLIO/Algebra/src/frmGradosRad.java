@@ -43,10 +43,13 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
 
         //Inicio
         try {
+            //Se invoca el metodo que regresa la medida con los ángulos correspondientes.
             vlo_EntidadesTrigonometricas = vlo_Logica.CalcularSCT(pvo_Angulos.getVgn_Radianes() * Math.PI);
         } catch (Exception e) {
             throw e;
         }
+        
+        //Se agrega el valor a la tabla
         vlo_Objeto[0] = pvo_Angulos.getVgn_Grados() + "°";
         vlo_Objeto[1] = pvo_Angulos.getVgn_Radianes() + "π";
         vlo_Objeto[2] = "Sin(" + String.format("%.1f", pvo_Angulos.getVgn_Grados()) + ")= " + String.format("%.1f", vlo_EntidadesTrigonometricas.getVgn_Seno());
