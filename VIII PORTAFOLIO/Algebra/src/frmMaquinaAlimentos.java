@@ -16,6 +16,10 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
     public frmMaquinaAlimentos() {
         initComponents();
         this.closable = true;
+        btnMoneda10.setEnabled(false);
+        btnMoneda100.setEnabled(false);
+        btnMoneda50.setEnabled(false);
+        btnPagar.setEnabled(false);
     }
 
     /**
@@ -67,7 +71,7 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Alimento:");
 
-        cboAlimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Producto A", "Producto B", "Producto C" }));
+        cboAlimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Producto A", "Producto B", "Producto C" }));
 
         jButton1.setText("Seleccionar");
 
