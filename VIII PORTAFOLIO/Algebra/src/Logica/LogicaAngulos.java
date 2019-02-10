@@ -5,7 +5,7 @@
  */
 package Logica;
 
-import Entidades.ClsAngulos;
+import Entidades.ClsEntidadesTrigonometricas;
 
 /**
  *
@@ -38,7 +38,7 @@ public class LogicaAngulos {
 
         try {
             //Operaciones
-            vln_Grados = Math.toDegrees(pvn_Radianes);
+            vln_Grados = Math.toDegrees(pvn_Radianes * Math.PI);
         } catch (ArithmeticException ae) {
             vln_Grados = -1;
             throw ae;
@@ -50,5 +50,20 @@ public class LogicaAngulos {
             return vln_Grados;
         }
 
+    }
+
+    public ClsEntidadesTrigonometricas CalcularSCT(double pvn_Angulo) {
+        //Varaibles
+        ClsEntidadesTrigonometricas vlo_Resultado = new ClsEntidadesTrigonometricas();
+
+        //Inicio
+        try {
+            vlo_Resultado.setVgn_Coseno(Math.cos(pvn_Angulo));
+            vlo_Resultado.setVgn_Seno(Math.sin(pvn_Angulo));
+            vlo_Resultado.setVgn_Tangente(Math.tan(pvn_Angulo));
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Resultado;
     }
 }

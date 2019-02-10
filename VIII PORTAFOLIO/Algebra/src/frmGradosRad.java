@@ -12,7 +12,7 @@ import Entidades.ClsAngulos;
 import Logica.LogicaAngulos;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.runtime.JSType;
+import Entidades.ClsEntidadesTrigonometricas;
 
 public class frmGradosRad extends javax.swing.JInternalFrame {
 
@@ -30,10 +30,29 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         tblLista.setModel(modelo);
         modelo.addColumn("Grados");
         modelo.addColumn("Radianes π");
+        modelo.addColumn("Sen");
+        modelo.addColumn("Cos");
+        modelo.addColumn("Tan");
     }
 
-    private void AgregarValor(ClsAngulos vlo_Angulos) {
+    private void AgregarValor(ClsAngulos pvo_Angulos) {
+        //Variebles
+        LogicaAngulos vlo_Logica = new LogicaAngulos();
+        Object[] vlo_Objeto = new Object[5];
+        ClsEntidadesTrigonometricas vlo_EntidadesTrigonometricas = new ClsEntidadesTrigonometricas();
 
+        //Inicio
+        try {
+            vlo_EntidadesTrigonometricas = vlo_Logica.CalcularSCT(pvo_Angulos.getVgn_Radianes() * Math.PI);
+        } catch (Exception e) {
+            throw e;
+        }
+        vlo_Objeto[0] = pvo_Angulos.getVgn_Grados() + "°";
+        vlo_Objeto[1] = pvo_Angulos.getVgn_Radianes() + "π";
+        vlo_Objeto[2] = "Sin(" + String.format("%.1f", pvo_Angulos.getVgn_Grados()) + ")= " + String.format("%.1f", vlo_EntidadesTrigonometricas.getVgn_Seno());
+        vlo_Objeto[3] = "Cos(" + String.format("%.1f", pvo_Angulos.getVgn_Grados()) + ")= " + String.format("%.1f", vlo_EntidadesTrigonometricas.getVgn_Coseno());
+        vlo_Objeto[4] = "Tan(" + String.format("%.1f", pvo_Angulos.getVgn_Grados()) + ")= " + String.format("%.1f", vlo_EntidadesTrigonometricas.getVgn_Tangente());
+        modelo.addRow(vlo_Objeto);
     }
 
     /**
@@ -58,7 +77,6 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         btnCalcular = new javax.swing.JButton();
         txtResultado = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        lblPI1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLista = new javax.swing.JTable();
@@ -117,8 +135,6 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Resultado:");
 
-        lblPI1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pi-simbolo-de-constante-matematica (1).png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -133,19 +149,18 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                     .addComponent(btnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtResultado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPI1))
+                        .addGap(0, 0, 0))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPI))
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                        .addComponent(lblPI)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,17 +178,15 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPI)
-                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPI))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCalcular)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPI1))
+                .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,7 +223,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -244,7 +257,6 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
             //Se deselcciona la opción contraria.
             chkRadianes.setSelected(false);
             lblPI.setVisible(false);
-            lblPI1.setVisible(true);
         }
     }//GEN-LAST:event_chkGradosActionPerformed
 
@@ -254,13 +266,12 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
             //Se deselcciona la opción contraria.
             chkGrados.setSelected(false);
             lblPI.setVisible(true);
-            lblPI1.setVisible(false);
         }
     }//GEN-LAST:event_chkRadianesActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         try {
-            txtResultado.setText(Double.toString(LeerVariables()));
+            txtResultado.setText(String.format("%.2f", LeerVariables()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al leer los valores.");
         }
@@ -277,42 +288,40 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         //Variables
         ClsAngulos vlo_Angulos = new ClsAngulos();
         LogicaAngulos vlo_LogicaAngulos = new LogicaAngulos();
+        //ClsEntidadesTrigonometricas vlo_Trigonometricas = new ClsEntidadesTrigonometricas();
+        double vln_Resultado = 0;
 
         //Inicio
-        if (!txtValor.getText().equals("")) {
-            if ((chkGrados.isSelected()) && (chkRadianes.isSelected() == false)) {
-                try {
+        try {
+            if (!txtValor.getText().equals("")) {
+                if ((chkGrados.isSelected()) && (chkRadianes.isSelected() == false)) {
                     //Se obtiene el valor de los campos ingresados por el usuario.
                     vlo_Angulos.setVgn_Grados(Double.parseDouble(txtValor.getText()));
                     vlo_Angulos.setVgn_Radianes(vlo_LogicaAngulos.GradosARadianes(vlo_Angulos.getVgn_Grados()));
-                } catch (ArithmeticException ae) {
-                    vlo_Angulos.setVgn_Radianes(-0.111);
-                    throw ae;
-                } catch (Exception e) {
-                    throw e;
-                } finally {
-                    return vlo_Angulos.getVgn_Radianes();
-                }
-            } else if ((chkRadianes.isSelected()) && (chkGrados.isSelected() == false)) {
-                try {
+                    vln_Resultado = vlo_Angulos.getVgn_Radianes();
+
+                } else if ((chkRadianes.isSelected()) && (chkGrados.isSelected() == false)) {
                     //Se lee los datos de entrada escritos por el usuario.
-                    vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()) * Math.PI);
+                    vlo_Angulos.setVgn_Radianes(Double.parseDouble(txtValor.getText()));
                     vlo_Angulos.setVgn_Grados(vlo_LogicaAngulos.RadianesAGrados(vlo_Angulos.getVgn_Radianes()));
-                } catch (ArithmeticException ae) {
-                    vlo_Angulos.setVgn_Grados(-0.111);
-                    throw ae;
-                } catch (Exception e) {
-                    throw e;
-                } finally {
-                    return vlo_Angulos.getVgn_Grados();
+                    vln_Resultado = vlo_Angulos.getVgn_Grados();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error debe seleccionar algún tipo de conversión");
+                    vln_Resultado = -1.111;
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Error debe seleccionar algún tipo de conversión");
-                return -0.111;
+                JOptionPane.showMessageDialog(this, "Error se debe ingresar un valor númerico.");
+                vln_Resultado = -1.111;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Error se debe ingresar un valor númerico.");
-            return -0.111;
+
+            AgregarValor(vlo_Angulos);
+        } catch (ArithmeticException ae) {
+            vln_Resultado = -1.111;
+            throw ae;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            return vln_Resultado;
         }
 
     }
@@ -368,7 +377,6 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblPI;
-    private javax.swing.JLabel lblPI1;
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtResultado;
     private javax.swing.JTextField txtValor;
