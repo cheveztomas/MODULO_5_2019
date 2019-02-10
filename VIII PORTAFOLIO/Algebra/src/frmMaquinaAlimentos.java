@@ -1,6 +1,7 @@
 
 import Entidades.ClsMaquinaAlimentos;
 import Logica.LogicaMaquinaAlimentos;
+import com.sun.javafx.collections.IntegerArraySyncer;
 import javax.swing.JOptionPane;
 
 /*
@@ -51,14 +52,23 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
 
     private void Pagar(ClsMaquinaAlimentos pvo_MaquinaAlimentos) {
         //Inicio
-        if (pvo_MaquinaAlimentos.getVgn_Ingresado() > pvo_MaquinaAlimentos.getVgn_Precio()) {
+        if (pvo_MaquinaAlimentos.getVgn_Ingresado() >= pvo_MaquinaAlimentos.getVgn_Precio()) {
             DesactivarBotones();
             btnPagar.setEnabled(true);
         }
     }
 
     private void AgragarIngreso(int pvo_Valor) {
-        txtCantidadIngresada.setText(Integer.toString((Integer.parseInt(txtCantidadIngresada.getText() + pvo_Valor))));
+        //variables
+        int vln_ValorGuardado = 0;
+        ClsMaquinaAlimentos vlo_maquina = new ClsMaquinaAlimentos();
+
+        //Inicio
+        vln_ValorGuardado = Integer.parseInt(txtCantidadIngresada.getText());
+        txtCantidadIngresada.setText(Integer.toString(vln_ValorGuardado + pvo_Valor));
+        vlo_maquina.setVgn_Ingresado(Integer.parseInt(txtCantidadIngresada.getText()));
+        vlo_maquina.setVgn_Precio(Integer.parseInt(txtPrecio.getText()));
+        Pagar(vlo_maquina);
     }
 
     /**
@@ -197,6 +207,11 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         jLabel6.setText("Vuelto: ₡");
 
         btnPagar.setText("Pagar");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -365,16 +380,42 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboAlimentoActionPerformed
 
     private void btnMoneda10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoneda10ActionPerformed
+        //variables
+        int vln_Cantidad = 0;
+        //inicio
+        vln_Cantidad = Integer.parseInt(txtMoneda10.getText());
         AgragarIngreso(10);
+        txtMoneda10.setText(Integer.toString(vln_Cantidad + 1));
     }//GEN-LAST:event_btnMoneda10ActionPerformed
 
     private void btnMoneda50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoneda50ActionPerformed
+        //variables
+        int vln_Cantidad = 0;
+        //inicio
+        vln_Cantidad = Integer.parseInt(txtMoneda50.getText());
         AgragarIngreso(50);
+        txtMoneda50.setText(Integer.toString(vln_Cantidad + 1));
     }//GEN-LAST:event_btnMoneda50ActionPerformed
 
     private void btnMoneda100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoneda100ActionPerformed
+        //variables
+        int vln_Cantidad = 0;
+        //inicio
+        vln_Cantidad = Integer.parseInt(txtMoneda100.getText());
         AgragarIngreso(100);
+        txtMoneda100.setText(Integer.toString(vln_Cantidad + 1));
     }//GEN-LAST:event_btnMoneda100ActionPerformed
+
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        //Variables
+        LogicaMaquinaAlimentos vlo_Logica = new LogicaMaquinaAlimentos();
+        ClsMaquinaAlimentos vlo_maquina = new ClsMaquinaAlimentos();
+
+        //Inicio
+        vlo_maquina.setVgn_Ingresado(Integer.parseInt(txtCantidadIngresada.getText()));
+        vlo_maquina.setVgn_Precio(Integer.parseInt(txtPrecio.getText()));
+        vlo_Logica.Cantidad_Monedas(vlo_Logica.Pagar(vlo_maquina));
+    }//GEN-LAST:event_btnPagarActionPerformed
 
     /**
      * @param args the command line arguments
