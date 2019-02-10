@@ -35,6 +35,7 @@ public class Menu extends javax.swing.JFrame {
         btnArchvo = new javax.swing.JMenu();
         btnCalculadora = new javax.swing.JMenuItem();
         txtConversorAngulo = new javax.swing.JMenuItem();
+        btnMaquinaAlimentos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -68,6 +69,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         btnArchvo.add(txtConversorAngulo);
+
+        btnMaquinaAlimentos.setText("Maquina Alimentos");
+        btnMaquinaAlimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaquinaAlimentosActionPerformed(evt);
+            }
+        });
+        btnArchvo.add(btnMaquinaAlimentos);
 
         brmMenu.add(btnArchvo);
 
@@ -111,6 +120,12 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    private void btnMaquinaAlimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaquinaAlimentosActionPerformed
+        frmMaquinaAlimentos vlo_maquina = new frmMaquinaAlimentos();
+        vlo_maquina.setVisible(true);
+        jDesktopPane1.add(vlo_maquina);
+    }//GEN-LAST:event_btnMaquinaAlimentosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -150,6 +165,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar brmMenu;
     private javax.swing.JMenu btnArchvo;
     private javax.swing.JMenuItem btnCalculadora;
+    private javax.swing.JMenuItem btnMaquinaAlimentos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem txtConversorAngulo;
