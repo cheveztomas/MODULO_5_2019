@@ -1,9 +1,13 @@
+
+import Entidades.ClsMaquinaAlimentos;
+import Logica.LogicaMaquinaAlimentos;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Thomas
@@ -16,10 +20,45 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
     public frmMaquinaAlimentos() {
         initComponents();
         this.closable = true;
+        DesactivarBotones();
+        Limpiar();
+    }
+
+    private void Limpiar() {
+        txtCantidadIngresada.setText("0");
+        txtMoneda10.setText("0");
+        txtMoneda100.setText("0");
+        txtMoneda100Vuelto.setText("0");
+        txtMoneda10Vuelto.setText("0");
+        txtMoneda50.setText("0");
+        txtMoneda50Vuelto.setText("0");
+        txtPrecio.setText("0");
+        txtVuelto.setText("0");
+    }
+
+    private void ActivarBotones() {
+        btnMoneda10.setEnabled(true);
+        btnMoneda100.setEnabled(true);
+        btnMoneda50.setEnabled(true);
+    }
+
+    private void DesactivarBotones() {
         btnMoneda10.setEnabled(false);
         btnMoneda100.setEnabled(false);
         btnMoneda50.setEnabled(false);
         btnPagar.setEnabled(false);
+    }
+
+    private void Pagar(ClsMaquinaAlimentos pvo_MaquinaAlimentos) {
+        //Inicio
+        if (pvo_MaquinaAlimentos.getVgn_Ingresado() > pvo_MaquinaAlimentos.getVgn_Precio()) {
+            DesactivarBotones();
+            btnPagar.setEnabled(true);
+        }
+    }
+
+    private void AgragarIngreso(int pvo_Valor) {
+        txtCantidadIngresada.setText(Integer.toString((Integer.parseInt(txtCantidadIngresada.getText() + pvo_Valor))));
     }
 
     /**
@@ -35,7 +74,6 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cboAlimento = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -72,8 +110,11 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         jLabel1.setText("Alimento:");
 
         cboAlimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Producto A", "Producto B", "Producto C" }));
-
-        jButton1.setText("Seleccionar");
+        cboAlimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboAlimentoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Precio:");
 
@@ -88,10 +129,7 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cboAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                    .addComponent(cboAlimento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -100,7 +138,7 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 258, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,9 +147,7 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addComponent(cboAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -132,18 +168,33 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         txtMoneda100.setEditable(false);
 
         btnMoneda10.setText("₡10");
+        btnMoneda10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoneda10ActionPerformed(evt);
+            }
+        });
 
         btnMoneda50.setText("₡50");
+        btnMoneda50.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoneda50ActionPerformed(evt);
+            }
+        });
 
         btnMoneda100.setText("₡100");
+        btnMoneda100.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoneda100ActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Ingresado:");
+        jLabel5.setText("Ingresado: ₡");
 
         txtCantidadIngresada.setEditable(false);
 
         txtVuelto.setEditable(false);
 
-        jLabel6.setText("Vuelto:");
+        jLabel6.setText("Vuelto: ₡");
 
         btnPagar.setText("Pagar");
 
@@ -244,7 +295,7 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMoneda100Vuelto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,6 +347,35 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cboAlimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAlimentoActionPerformed
+        Limpiar();
+        if (cboAlimento.getSelectedIndex() == 0) {
+            DesactivarBotones();
+            JOptionPane.showMessageDialog(this, "Error se debe seleccionar un producto.");
+        } else if (cboAlimento.getSelectedIndex() == 1) {
+            txtPrecio.setText("270");
+            ActivarBotones();
+        } else if (cboAlimento.getSelectedIndex() == 2) {
+            txtPrecio.setText("340");
+            ActivarBotones();
+        } else if (cboAlimento.getSelectedIndex() == 3) {
+            txtPrecio.setText("390");
+            ActivarBotones();
+        }
+    }//GEN-LAST:event_cboAlimentoActionPerformed
+
+    private void btnMoneda10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoneda10ActionPerformed
+        AgragarIngreso(10);
+    }//GEN-LAST:event_btnMoneda10ActionPerformed
+
+    private void btnMoneda50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoneda50ActionPerformed
+        AgragarIngreso(50);
+    }//GEN-LAST:event_btnMoneda50ActionPerformed
+
+    private void btnMoneda100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoneda100ActionPerformed
+        AgragarIngreso(100);
+    }//GEN-LAST:event_btnMoneda100ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,7 +419,6 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cboAlimento;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
