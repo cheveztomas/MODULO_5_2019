@@ -12,7 +12,7 @@ package Entidades;
 public class ClsAngulos {
 
     //Atributos
-    double vgn_Radianes, vgn_Grados;
+    private double vgn_Radianes, vgn_Grados;
 
     //Constructores
     public ClsAngulos() {
