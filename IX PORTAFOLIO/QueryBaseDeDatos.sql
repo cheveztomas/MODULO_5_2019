@@ -87,8 +87,86 @@ CREATE PROCEDURE SP_ELIMINAR_CLIENTES(@ID_Cliente int,
 									  @msj varchar(150) OUT)
 AS
 	BEGIN TRY
-		
+		IF (EXISTS(SELECT 1 FROM FACTURA WHERE ID_CLIENTE=@ID_Cliente))
+			BEGIN
+				SET @msj='Cliente no se puede eliminar ya que cuenta con facturas asigandas.'
+			END
+		ELSE
+			BEGIN
+				DELETE CLIENTES WHERE ID_CLIENTE=@ID_Cliente
+				SET @msj='Cliente eliminado de forma satisfactoria.'
+			END
 	END TRY
 	BEGIN CATCH
-		
+		SET @msj='Error al tratar de eliminar cliente.'
+		RAISERROR('Error al tratar de eliminar cliente.',16,1)
 	END CATCH
+GO
+
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @ID_Cliente int='1'
+DECLARE @msj varchar(150)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_ELIMINAR_CLIENTES] 
+   @ID_Cliente
+  ,@msj OUTPUT
+GO
+
+*/
+
+CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_CLIENTE(@id_cliente int out,
+									@nombre varchar(30),
+									@direccion varchar(80),
+									@telefono varchar(10),
+									@msj varchar(150) out)
+AS
+	BEGIN TRY
+		IF(NOT EXISTS(SELECT 1 FROM CLIENTES WHERE ID_CLIENTE=@id_cliente))
+			BEGIN
+				INSERT INTO CLIENTES(NOMBRE, DIRECCION, TELEFONO)
+				VALUES(@nombre,@direccion,@telefono)
+
+				SET @msj='Cliente insertado de forma satisfactoria.'
+			END
+		ELSE
+			BEGIN
+				UPDATE CLIENTES
+				SET NOMBRE=@nombre,
+					DIRECCION=@direccion,
+					TELEFONO=@telefono
+				WHERE ID_CLIENTE=@id_cliente
+				SET @msj='Cliente a sido actualizado de forma correcta.'
+			END
+	END TRY
+	BEGIN CATCH
+		SET @msj='Error al agregar o actualizar el cliente.'
+		RAISERROR('Error al tratar de incertar o actualizar el cliente.',16,2)
+	END CATCH
+GO
+
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @id_cliente int='-1'
+DECLARE @nombre varchar(30)='TOMAS'
+DECLARE @direccion varchar(80)='PALMARES'
+DECLARE @telefono varchar(10)='89677620'
+DECLARE @msj varchar(150)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_CLIENTE] 
+   @id_cliente OUTPUT
+  ,@nombre
+  ,@direccion
+  ,@telefono
+  ,@msj OUTPUT
+GO
+
+SELECT * FROM CLIENTES*/
