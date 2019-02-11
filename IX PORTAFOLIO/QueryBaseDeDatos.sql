@@ -82,17 +82,21 @@ GO
 
 --PROCEDIMEINTOS ALMACENADOS
 --***************************************************************************
+--3)
 
+--a
 CREATE PROCEDURE SP_ELIMINAR_CLIENTES(@ID_Cliente int,
 									  @msj varchar(150) OUT)
 AS
 	BEGIN TRY
+	--Se verifica si hay algún cliente con facturas.
 		IF (EXISTS(SELECT 1 FROM FACTURA WHERE ID_CLIENTE=@ID_Cliente))
 			BEGIN
 				SET @msj='Cliente no se puede eliminar ya que cuenta con facturas asigandas.'
 			END
 		ELSE
 			BEGIN
+			--En caso de que el cliente no tenga facturas se elimina el cliente
 				DELETE CLIENTES WHERE ID_CLIENTE=@ID_Cliente
 				SET @msj='Cliente eliminado de forma satisfactoria.'
 			END
@@ -119,6 +123,7 @@ GO
 
 */
 
+--b)
 CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_CLIENTE(@id_cliente int out,
 									@nombre varchar(30),
 									@direccion varchar(80),
@@ -126,8 +131,10 @@ CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_CLIENTE(@id_cliente int out,
 									@msj varchar(150) out)
 AS
 	BEGIN TRY
+	--Se verifica si el cliente existe.
 		IF(NOT EXISTS(SELECT 1 FROM CLIENTES WHERE ID_CLIENTE=@id_cliente))
 			BEGIN
+			--Si el cliente no existe se inserta uno nuevo.
 				INSERT INTO CLIENTES(NOMBRE, DIRECCION, TELEFONO)
 				VALUES(@nombre,@direccion,@telefono)
 
@@ -135,6 +142,7 @@ AS
 			END
 		ELSE
 			BEGIN
+			--En caso de que si exista se actualiza el existente con los datos.
 				UPDATE CLIENTES
 				SET NOMBRE=@nombre,
 					DIRECCION=@direccion,
@@ -171,9 +179,11 @@ GO
 
 SELECT * FROM CLIENTES*/
 
+--c)
 CREATE PROCEDURE SP_BUSCAR_CLIENTE(@id_cliente int)
 AS
 	BEGIN TRY
+	--Se hace la consulta que busca al cliente con el id indicado.
 		SELECT ID_CLIENTE, NOMBRE, DIRECCION, TELEFONO FROM CLIENTES WHERE ID_CLIENTE=@id_cliente
 	END TRY
 	BEGIN CATCH
@@ -195,3 +205,41 @@ EXECUTE @RC = [dbo].[SP_BUSCAR_CLIENTE]
 GO
 */
 
+--4)
+
+--A)
+CREATE PROCEDURE SP_ELIMINAR_PRODUCTO(@id_producto int,
+									  @msj varchar(150) out)
+AS
+	BEGIN TRY
+	--Se verifica si existe algún producto relacionado con los detalles de factura.
+		IF(NOT EXISTS(SELECT 1 FROM DETALLE_FACTURA WHERE ID_PRODUCTO=@id_producto))
+			BEGIN
+			--Si no existe la relación con los detalles de factura se elimina el regostro de productos
+				DELETE PRODUCTOS WHERE ID_PRODUCTO=@id_producto
+				SET @msj='Producto eliminado de forma correcta.'
+			END
+		ELSE
+			BEGIN
+			--En caso de que exista la relación se le informa al usuario que no se puede borrar ese registro.
+				SET @msj='No se puede eliminar este producto.'
+			END
+	END TRY
+	BEGIN CATCH
+		RAISERROR('Error al eliminar el producto.',16,4)
+	END CATCH
+GO
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @id_producto int='1'
+DECLARE @msj varchar(150)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_ELIMINAR_PRODUCTO] 
+   @id_producto
+  ,@msj OUTPUT
+GO
+*/
