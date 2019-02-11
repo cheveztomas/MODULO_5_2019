@@ -298,9 +298,6 @@ select * from productos
 
 --A)
 CREATE PROCEDURE SP_ANULAR_FACTURA(@num_factura int out,
-								   @id_cliente int,
-								   @fecha date,
-								   @estado varchar(15),
 								   @msj varchar(150) out)
 AS
 	BEGIN TRY
@@ -313,5 +310,22 @@ AS
 			END
 	END TRY
 	BEGIN CATCH
-		SET @msj=''
+		SET @msj='Error al tratar de anular la factura.'
+		RAISERROR('Error al trartar de anular la factura.',16,6)
 	END CATCH
+GO
+
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @num_factura int=1
+DECLARE @msj varchar(150)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_ANULAR_FACTURA] 
+   @num_factura OUTPUT
+  ,@msj OUTPUT
+GO
+*/
