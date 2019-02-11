@@ -170,3 +170,28 @@ EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_CLIENTE]
 GO
 
 SELECT * FROM CLIENTES*/
+
+CREATE PROCEDURE SP_BUSCAR_CLIENTE(@id_cliente int)
+AS
+	BEGIN TRY
+		SELECT ID_CLIENTE, NOMBRE, DIRECCION, TELEFONO FROM CLIENTES WHERE ID_CLIENTE=@id_cliente
+	END TRY
+	BEGIN CATCH
+		RAISERROR('Error al tratar de buscar el cliente.',16,3)
+	END CATCH
+GO
+
+/*
+USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @id_cliente int=1
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_BUSCAR_CLIENTE] 
+   @id_cliente
+GO
+*/
+
