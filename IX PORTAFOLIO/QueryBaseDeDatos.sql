@@ -252,14 +252,17 @@ CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_PRODUCTO(@id_producto int out,
 												@msj varchar(150) out)
 AS
 	BEGIN TRY
+	--Se verifica si el registro ya existe.
 		IF(NOT EXISTS(SELECT 1 FROM PRODUCTOS WHERE ID_PRODUCTO=@id_producto))
 			BEGIN
+			--En caso de que no exista se inserta un nuevo pruducto
 				INSERT INTO PRODUCTOS(DESCRIPCION,PRECIO)
 				VALUES(@descripcion,@precio)
 				SET @msj='Producto guardado de forma correcta.'
 			END
 		ELSE
 			BEGIN
+			--En caso de que si exista se actualiza el producto.
 				UPDATE PRODUCTOS
 				SET DESCRIPCION=@descripcion,
 					PRECIO=@precio
@@ -297,12 +300,14 @@ select * from productos
 --5)
 
 --A)
-CREATE PROCEDURE SP_ANULAR_FACTURA(@num_factura int out,
+CREATE PROCEDURE SP_ANULAR_FACTURA(@num_factura int,
 								   @msj varchar(150) out)
 AS
 	BEGIN TRY
+	--Se verifica si la factura está cancelada.
 		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='CANCELADA'))
 			BEGIN
+			--En caso de que la factura esté cancelada se anula la factura.
 				UPDATE FACTURA
 				SET	ESTADO='ANULADA'
 				WHERE NUM_FACTURA=@num_factura
@@ -325,7 +330,7 @@ DECLARE @msj varchar(150)=''
 -- TODO: Set parameter values here.
 
 EXECUTE @RC = [dbo].[SP_ANULAR_FACTURA] 
-   @num_factura OUTPUT
+   @num_factura
   ,@msj OUTPUT
 GO
 */
