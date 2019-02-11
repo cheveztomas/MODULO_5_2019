@@ -1,5 +1,6 @@
 
 import Entidades.ClsMaquinaAlimentos;
+import Entidades.ClsMonedas;
 import Logica.LogicaMaquinaAlimentos;
 import com.sun.javafx.collections.IntegerArraySyncer;
 import javax.swing.JOptionPane;
@@ -112,7 +113,6 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
 
         jButton2.setText("jButton2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Maquina Alimentos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Alimentos"));
@@ -276,8 +276,18 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         );
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Vuelto"));
 
@@ -410,12 +420,33 @@ public class frmMaquinaAlimentos extends javax.swing.JInternalFrame {
         //Variables
         LogicaMaquinaAlimentos vlo_Logica = new LogicaMaquinaAlimentos();
         ClsMaquinaAlimentos vlo_maquina = new ClsMaquinaAlimentos();
+        ClsMonedas vlo_Monedas = new ClsMonedas();
 
         //Inicio
+        //Se alamcenan las variables en el objeto
         vlo_maquina.setVgn_Ingresado(Integer.parseInt(txtCantidadIngresada.getText()));
         vlo_maquina.setVgn_Precio(Integer.parseInt(txtPrecio.getText()));
-        vlo_Logica.Cantidad_Monedas(vlo_Logica.Pagar(vlo_maquina));
+
+        //Se guarda en el valor de vuelto en el control correspondiente.
+        txtVuelto.setText(Integer.toString(vlo_Logica.Pagar(vlo_maquina)));
+        
+        //Se invoca el metodo que devuelve la cantidad de monedas vuelto.
+        vlo_Monedas = vlo_Logica.Cantidad_Monedas(Integer.parseInt(txtVuelto.getText()));
+        
+        //Se muestra la cantidad de monedas al usuario de vuelto.
+        txtMoneda100Vuelto.setText(Integer.toString(vlo_Monedas.getVgn_Monedas100()));
+        txtMoneda50Vuelto.setText(Integer.toString(vlo_Monedas.getVgn_Monedas50()));
+        txtMoneda10Vuelto.setText(Integer.toString(vlo_Monedas.getVgn_Monedas10()));
     }//GEN-LAST:event_btnPagarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+        cboAlimento.setSelectedIndex(0);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
