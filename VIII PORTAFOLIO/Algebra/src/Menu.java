@@ -36,6 +36,7 @@ public class Menu extends javax.swing.JFrame {
         btnCalculadora = new javax.swing.JMenuItem();
         txtConversorAngulo = new javax.swing.JMenuItem();
         btnMaquinaAlimentos = new javax.swing.JMenuItem();
+        btnDivisionRusa = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -77,6 +78,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         btnArchvo.add(btnMaquinaAlimentos);
+
+        btnDivisionRusa.setText("División Rusa");
+        btnDivisionRusa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDivisionRusaActionPerformed(evt);
+            }
+        });
+        btnArchvo.add(btnDivisionRusa);
 
         brmMenu.add(btnArchvo);
 
@@ -126,6 +135,12 @@ public class Menu extends javax.swing.JFrame {
         jDesktopPane1.add(vlo_maquina);
     }//GEN-LAST:event_btnMaquinaAlimentosActionPerformed
 
+    private void btnDivisionRusaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDivisionRusaActionPerformed
+        FrmDivisionRusa Form = new FrmDivisionRusa();
+        Form.setVisible(true);
+        jDesktopPane1.add(Form);
+    }//GEN-LAST:event_btnDivisionRusaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -165,6 +180,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar brmMenu;
     private javax.swing.JMenu btnArchvo;
     private javax.swing.JMenuItem btnCalculadora;
+    private javax.swing.JMenuItem btnDivisionRusa;
     private javax.swing.JMenuItem btnMaquinaAlimentos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
