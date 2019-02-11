@@ -243,3 +243,28 @@ EXECUTE @RC = [dbo].[SP_ELIMINAR_PRODUCTO]
   ,@msj OUTPUT
 GO
 */
+
+--B)
+CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_PRODUCTO(@id_producto int out,
+												@descripcion varchar(30),
+												@precio decimal(10,2),
+												@msj varchar(150) out)
+AS
+	BEGIN TRY
+		IF(NOT EXISTS(SELECT 1 FROM PRODUCTOS WHERE ID_PRODUCTO=@id_producto))
+			BEGIN
+				INSERT INTO PRODUCTOS(DESCRIPCION,PRECIO)
+				VALUES(@descripcion,@precio)
+				SET @msj='Producto guardado de forma correcta.'
+			END
+		ELSE
+			BEGIN
+				UPDATE PRODUCTOS
+				SET DESCRIPCION=@descripcion,
+					PRECIO=@precio
+				WHERE ID_PRODUCTO=@id_producto
+				SET @msj='Producto actualizado de forma correcta.'
+			END
+	END TRY
+	BEGIN CATCH
+	END CATCH
