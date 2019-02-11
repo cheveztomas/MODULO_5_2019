@@ -79,7 +79,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnArchvo.add(btnMaquinaAlimentos);
 
-        btnDivisionRusa.setText("División Rusa");
+        btnDivisionRusa.setText("Multiplicación Rusa");
         btnDivisionRusa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDivisionRusaActionPerformed(evt);

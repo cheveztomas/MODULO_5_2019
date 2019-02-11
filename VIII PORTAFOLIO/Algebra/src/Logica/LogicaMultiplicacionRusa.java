@@ -13,7 +13,7 @@ import Entidades.ClsMultiplicacionRusa;
  */
 public class LogicaMultiplicacionRusa {
 
-    public int Calcular(ClsMultiplicacionRusa pvo_Valores) {
+    public String Calcular(ClsMultiplicacionRusa pvo_Valores) {
         //variables
         int vln_Resultado = 0, vln_PrimerValor = pvo_Valores.getVln_PrimerValor(), vln_SegundoValor = pvo_Valores.getVln_SegundoValor();
 
@@ -26,9 +26,9 @@ public class LogicaMultiplicacionRusa {
                 vln_PrimerValor = vln_PrimerValor / 2;
                 vln_SegundoValor = vln_SegundoValor * 2;
             }
-            return vln_Resultado;
+            return pvo_Valores.getVln_PrimerValor() + " x " + pvo_Valores.getVln_SegundoValor() + " = " + vln_Resultado;
         } catch (Exception e) {
-            return -1;
+            return "n";
         }
     }
 }

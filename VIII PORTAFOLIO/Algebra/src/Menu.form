@@ -35,7 +35,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnDivisionRusa">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Divisi&#xf3;n Rusa"/>
+                <Property name="text" type="java.lang.String" value="Multiplicaci&#xf3;n Rusa"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDivisionRusaActionPerformed"/>

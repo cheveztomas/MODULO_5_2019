@@ -1,9 +1,13 @@
+
+import Entidades.ClsMultiplicacionRusa;
+import Logica.LogicaMultiplicacionRusa;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Thomas
@@ -41,9 +45,28 @@ public class FrmDivisionRusa extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicar"));
 
+        txtSegundoValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSegundoValorKeyTyped(evt);
+            }
+        });
+
+        txtPrimerValor1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrimerValor1KeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("X");
 
         jButton1.setText("Calcular");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        txtResultado.setEditable(false);
 
         jLabel2.setText("Resultado:");
 
@@ -85,8 +108,18 @@ public class FrmDivisionRusa extends javax.swing.JInternalFrame {
         );
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,12 +143,73 @@ public class FrmDivisionRusa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
-                    .addComponent(btnLimpiar)))
+                    .addComponent(btnLimpiar))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        //Variables
+        ClsMultiplicacionRusa vlo_Multi = new ClsMultiplicacionRusa();
+        LogicaMultiplicacionRusa vlo_logica = new LogicaMultiplicacionRusa();
+
+        //Inicio
+        try {
+            vlo_Multi = LeerDatos();
+            txtResultado.setText(vlo_logica.Calcular(vlo_Multi));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al realizar el calculo.");
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtPrimerValor1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerValor1KeyTyped
+        char c = evt.getKeyChar();
+
+        if (!(c >= '0' && c <= '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrimerValor1KeyTyped
+
+    private void txtSegundoValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoValorKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!(c >= '0' && c <= '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSegundoValorKeyTyped
+
+    private ClsMultiplicacionRusa LeerDatos() {
+        //Variables
+        ClsMultiplicacionRusa vlo_Multi = new ClsMultiplicacionRusa();
+
+        //Inicio
+        try {
+            vlo_Multi.setVln_PrimerValor(Integer.parseInt(txtPrimerValor1.getText()));
+            vlo_Multi.setVln_SegundoValor(Integer.parseInt(txtSegundoValor.getText()));
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Error valor ingresado es incorrecto.");
+        }
+
+        return vlo_Multi;
+    }
+
+    private void Limpiar() {
+        txtPrimerValor1.setText("");
+        txtResultado.setText("");
+        txtSegundoValor.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;
