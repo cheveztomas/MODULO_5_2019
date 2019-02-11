@@ -48,7 +48,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             throw e;
         }
-        
+
         //Se agrega el valor a la tabla
         vlo_Objeto[0] = pvo_Angulos.getVgn_Grados() + "°";
         vlo_Objeto[1] = pvo_Angulos.getVgn_Radianes() + "π";
@@ -150,9 +150,7 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(chkRadianes))
                     .addComponent(btnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtResultado)
-                        .addGap(0, 0, 0))
+                    .addComponent(txtResultado)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -209,8 +207,18 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblLista);
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -286,6 +294,15 @@ public class frmGradosRad extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtValorKeyTyped
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtValor.setText("");
+        txtResultado.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private double LeerVariables() {
         //Variables
