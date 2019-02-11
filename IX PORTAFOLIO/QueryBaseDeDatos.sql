@@ -226,6 +226,7 @@ AS
 			END
 	END TRY
 	BEGIN CATCH
+		SET @msj='Error al eliminar el producto.'
 		RAISERROR('Error al eliminar el producto.',16,4)
 	END CATCH
 GO
@@ -267,4 +268,50 @@ AS
 			END
 	END TRY
 	BEGIN CATCH
+		SET @msj='Error al tratar de insertar o actualizar el producto.'
+		RAISERROR('Error al tratar de insertar o actualizar el producto.',16,5)
+	END CATCH
+GO
+
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @id_producto int='2'
+DECLARE @descripcion varchar(30)='Leche'
+DECLARE @precio decimal(10,2)='600'
+DECLARE @msj varchar(150)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_PRODUCTO] 
+   @id_producto OUTPUT
+  ,@descripcion
+  ,@precio
+  ,@msj OUTPUT
+GO
+
+select * from productos
+*/
+
+--5)
+
+--A)
+CREATE PROCEDURE SP_ANULAR_FACTURA(@num_factura int out,
+								   @id_cliente int,
+								   @fecha date,
+								   @estado varchar(15),
+								   @msj varchar(150) out)
+AS
+	BEGIN TRY
+		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='CANCELADA'))
+			BEGIN
+				UPDATE FACTURA
+				SET	ESTADO='ANULADA'
+				WHERE NUM_FACTURA=@num_factura
+				SET @msj='Factura anulada de forma correcta.'
+			END
+	END TRY
+	BEGIN CATCH
+		SET @msj=''
 	END CATCH
