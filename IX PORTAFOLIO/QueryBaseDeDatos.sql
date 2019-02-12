@@ -448,4 +448,37 @@ CREATE PROCEDURE SP_ELIMINAR_DETALLE_FACTURA(@num_factura int,
 											 @id_producto int,
 											 @msj varchar(100) out)
 AS
-	
+	BEGIN TRY
+		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
+			BEGIN
+				DELETE DETALLE_FACTURA WHERE NUM_FACTURA=@num_factura AND ID_PRODUCTO=@id_producto
+				SET @msj='Articulo eliminado de forma correcta de la factura.'
+			END
+		ELSE
+			BEGIN
+				SET @msj='Articulo no se puede eliminar ya que la factura no se encuentra en estado pendiente, o la factura no se encuenta.'
+			END
+	END TRY
+	BEGIN CATCH
+		SET @msj='Error al tratar de eliminar articulo de la factura.'
+		RAISERROR('Error al tratar de eliminar articulo de la factura.',16,9)
+	END CATCH
+GO
+
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @num_factura int='3'
+DECLARE @id_producto int='2'
+DECLARE @msj varchar(100)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_ELIMINAR_DETALLE_FACTURA] 
+   @num_factura
+  ,@id_producto
+  ,@msj OUTPUT
+GO
+
+*/
