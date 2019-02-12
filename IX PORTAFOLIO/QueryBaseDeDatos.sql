@@ -482,3 +482,38 @@ EXECUTE @RC = [dbo].[SP_ELIMINAR_DETALLE_FACTURA]
 GO
 
 */
+
+--B)
+CREATE PROCEDURE SP_GUARDAR_DETALLE(@num_factura int,
+									@id_producto int,
+									@cantidad int,
+									@precio_venta DECIMAL(10,2),
+									@msj varchar(100) OUT)
+AS
+	BEGIN TRY
+		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
+			BEGIN
+				IF(EXISTS(SELECT 1 FROM DETALLE_FACTURA WHERE NUM_FACTURA=@num_factura AND ID_PRODUCTO=@id_producto))
+					BEGIN
+						UPDATE DETALLE_FACTURA
+						SET CANTIDAD=@cantidad,
+							PRECIO_VENTA=@precio_venta
+						WHERE NUM_FACTURA=@num_factura AND ID_PRODUCTO=@id_producto
+						SET @msj='Articulo de lafactura actualizado de forma satisfactoria.'
+					END
+				ELSE
+					BEGIN
+						INSERT INTO DETALLE_FACTURA(NUM_FACTURA,ID_PRODUCTO,CANTIDAD,PRECIO_VENTA)
+						VALUES (@num_factura,@id_producto,@cantidad,@precio_venta)
+						SET @msj='Articulo insertado de forma satisfactoria.'
+					END
+			END
+		ELSE
+			BEGIN
+				SET @msj='El articula de esta factura no puede ser modificado ya que no se encuentra pendiente.'
+			END
+	END TRY
+	BEGIN CATCH
+		SET @msj='Error al tratar de actualizar insertar el articulo de la fatura.'
+		RAISERROR('Error al tratar de actualizar insertar el articulo de la fatura.',16,10)
+	END CATCH
