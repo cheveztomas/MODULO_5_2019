@@ -103,6 +103,38 @@ public class ADClientes {
         }
     }
 
+    public ClsEntidadCliente ObtenerRegistro(String pvc_Condicion) throws SQLException {
+        ResultSet vlo_ResultSet;
+        Statement vlo_CS = vgo_Conexion.createStatement();
+        ClsEntidadCliente vlo_Cliente = new ClsEntidadCliente();
+        String vlc_Sentencia;
+
+        vlc_Sentencia = "SELECT ID_CLIENTE, NOMBRE, DIRECCION, TELEFONO FROM CLIENTES";
+
+        if (!pvc_Condicion.equals("")) {
+            vlc_Sentencia = String.format("%s where %s", vlc_Sentencia, pvc_Condicion);
+        }
+
+        try {
+            vlo_ResultSet = vlo_CS.executeQuery(vlc_Sentencia);
+
+            if (vlo_ResultSet.next()) {
+                vlo_Cliente.setVgn_idCliente(vlo_ResultSet.getInt(1));
+                vlo_Cliente.setVgc_Nombre(vlo_ResultSet.getString(2));
+                vlo_Cliente.setVgc_Direccion(vlo_ResultSet.getString(3));
+                vlo_Cliente.setVgc_Direccion(vlo_ResultSet.getString(4));
+                vlo_Cliente.setVgb_ExisteRegistro(true);
+            } else {
+                vlo_Cliente.setVgb_ExisteRegistro(false);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Conexion = null;
+            return vlo_Cliente;
+        }
+    }
+
     //Propiedades
     public String getVgc_Mensaje() {
         return vgc_Mensaje;
