@@ -384,10 +384,54 @@ CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_FACTURA(@num_factura int,
 											   @id_cliente int,
 											   @fecha date,
 											   @estado varchar(15),
-											   @msj varchar(150))
+											   @msj varchar(100))
 AS
 	BEGIN TRY
-		
+	--Se verifica si existe ya un registro con el numero de factura.
+		IF(NOT EXISTS(SELECT 1 FROM FACTURA WHERE ID_CLIENTE=@id_cliente))
+			BEGIN
+			--Si no se encuentra el registro se inserta.
+				INSERT INTO FACTURA(ID_CLIENTE,FECHA,ESTADO)
+				VALUES(@id_cliente,@fecha,@estado)
+				SET @msj='Factura agregada de forma correcta.'
+			END
+		ELSE
+			BEGIN
+			--En caso contrario se actualiza el registro.
+				UPDATE FACTURA
+				SET ID_CLIENTE=@id_cliente,
+					FECHA=@fecha,
+					ESTADO=@estado
+				WHERE NUM_FACTURA=@num_factura
+				SET @msj='Factura actualizada de forma correcta.'
+			END
 	END TRY
 	BEGIN CATCH
+		SET @msj='Error al tratar de insertar o actualizar la factura.'
+		RAISERROR('Error al tratar de insertar o actualizar la factura.',16,8)
 	END CATCH
+GO
+
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @num_factura int='-1'
+DECLARE @id_cliente int='1'
+DECLARE @fecha date=NULL
+DECLARE @estado varchar(15)=NULL
+DECLARE @msj varchar(100)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_FACTURA] 
+   @num_factura
+  ,@id_cliente
+  ,@fecha
+  ,@estado
+  ,@msj
+GO
+SELECT * FROM FACTURA
+*/
+--INSERT INTO FACTURA(ID_CLIENTE)
+--VALUES (1)
