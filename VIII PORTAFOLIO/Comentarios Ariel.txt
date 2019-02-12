@@ -1,0 +1,8 @@
+Comentarios Actividad_8 de Ariel Ramirez para Tomas
+ - En la Calculadora básica, sería bueno hacer que el mensaje de Infinity salga en español
+	Me pareció muy bien que le dejara más espacio a los resultados
+ - Me pareció interesante que trabajara los rads en términos de PI, me gusto que agregara el símbolo
+ - Por alguna razón si coloco 0 da un error y el resultado es -1.11
+ - En la máquina de alimentos da un error al limpiar, por lo demás parece que funciona bien
+ - La calculadora rusa solo hace una multiplicación normal
+ - Me parecen muy bien organizado los paquetes y las clases, pero creo que es muy detallado para un proyecto tan simple
