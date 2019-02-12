@@ -378,3 +378,16 @@ EXECUTE @RC = [dbo].[SP_ELIMINAR_FACTURA]
   ,@msj OUTPUT
 GO
 */
+
+--C)
+CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_FACTURA(@num_factura int,
+											   @id_cliente int,
+											   @fecha date,
+											   @estado varchar(15),
+											   @msj varchar(150))
+AS
+	BEGIN TRY
+		
+	END TRY
+	BEGIN CATCH
+	END CATCH
