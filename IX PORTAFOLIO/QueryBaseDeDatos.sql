@@ -368,7 +368,7 @@ GO
 GO
 
 DECLARE @RC int
-DECLARE @num_factura int='1'
+DECLARE @num_factura int='5'
 DECLARE @msj varchar(150)=''
 
 -- TODO: Set parameter values here.
@@ -388,7 +388,7 @@ CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_FACTURA(@num_factura int,
 AS
 	BEGIN TRY
 	--Se verifica si existe ya un registro con el numero de factura.
-		IF(NOT EXISTS(SELECT 1 FROM FACTURA WHERE ID_CLIENTE=@id_cliente))
+		IF(NOT EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura))
 			BEGIN
 			--Si no se encuentra el registro se inserta.
 				INSERT INTO FACTURA(ID_CLIENTE,FECHA,ESTADO)
@@ -396,15 +396,20 @@ AS
 				SET @msj='Factura agregada de forma correcta.'
 			END
 		ELSE
-			BEGIN
-			--En caso contrario se actualiza el registro.
-				UPDATE FACTURA
-				SET ID_CLIENTE=@id_cliente,
-					FECHA=@fecha,
-					ESTADO=@estado
-				WHERE NUM_FACTURA=@num_factura
-				SET @msj='Factura actualizada de forma correcta.'
-			END
+			IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
+				BEGIN
+				--En caso contrario se actualiza el registro.
+					UPDATE FACTURA
+					SET ID_CLIENTE=@id_cliente,
+						FECHA=@fecha,
+						ESTADO=@estado
+					WHERE NUM_FACTURA=@num_factura
+					SET @msj='Factura actualizada de forma correcta.'
+				END
+				ELSE
+					BEGIN
+						SET @msj='La factura no se puede actualizar ya que no se encuentra en estado pendiente.'
+					END
 	END TRY
 	BEGIN CATCH
 		SET @msj='Error al tratar de insertar o actualizar la factura.'
@@ -419,7 +424,7 @@ DECLARE @RC int
 DECLARE @num_factura int='-1'
 DECLARE @id_cliente int='1'
 DECLARE @fecha date=NULL
-DECLARE @estado varchar(15)=NULL
+DECLARE @estado varchar(15)='CANCELADA'
 DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
@@ -435,3 +440,12 @@ SELECT * FROM FACTURA
 */
 --INSERT INTO FACTURA(ID_CLIENTE)
 --VALUES (1)
+
+--6)
+
+--A)
+CREATE PROCEDURE SP_ELIMINAR_DETALLE_FACTURA(@num_factura int,
+											 @id_producto int,
+											 @msj varchar(100) out)
+AS
+	
