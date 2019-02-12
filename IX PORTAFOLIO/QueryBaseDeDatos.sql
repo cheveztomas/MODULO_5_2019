@@ -86,7 +86,7 @@ GO
 
 --a
 CREATE PROCEDURE SP_ELIMINAR_CLIENTES(@ID_Cliente int,
-									  @msj varchar(150) OUT)
+									  @msj varchar(100) OUT)
 AS
 	BEGIN TRY
 	--Se verifica si hay algún cliente con facturas.
@@ -112,7 +112,7 @@ GO
 
 DECLARE @RC int
 DECLARE @ID_Cliente int='1'
-DECLARE @msj varchar(150)=''
+DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
@@ -124,11 +124,11 @@ GO
 */
 
 --b)
-CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_CLIENTE(@id_cliente int out,
+CREATE PROCEDURE SP_GUARDAR_CLIENTE(@id_cliente int out,
 									@nombre varchar(30),
 									@direccion varchar(80),
 									@telefono varchar(10),
-									@msj varchar(150) out)
+									@msj varchar(100) out)
 AS
 	BEGIN TRY
 	--Se verifica si el cliente existe.
@@ -165,11 +165,11 @@ DECLARE @id_cliente int='-1'
 DECLARE @nombre varchar(30)='TOMAS'
 DECLARE @direccion varchar(80)='PALMARES'
 DECLARE @telefono varchar(10)='89677620'
-DECLARE @msj varchar(150)=''
+DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
-EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_CLIENTE] 
+EXECUTE @RC = [dbo].[SP_GUARDAR_CLIENTE] 
    @id_cliente OUTPUT
   ,@nombre
   ,@direccion
@@ -180,13 +180,14 @@ GO
 SELECT * FROM CLIENTES*/
 
 --c)
-CREATE PROCEDURE SP_BUSCAR_CLIENTE(@id_cliente int)
+CREATE PROCEDURE SP_BUSCAR_CLIENTE(@id_cliente int, @msj varchar(100) out)
 AS
 	BEGIN TRY
 	--Se hace la consulta que busca al cliente con el id indicado.
 		SELECT ID_CLIENTE, NOMBRE, DIRECCION, TELEFONO FROM CLIENTES WHERE ID_CLIENTE=@id_cliente
 	END TRY
 	BEGIN CATCH
+		set @msj='Error al tratar de buscar el cliente.'
 		RAISERROR('Error al tratar de buscar el cliente.',16,3)
 	END CATCH
 GO
@@ -197,11 +198,13 @@ GO
 
 DECLARE @RC int
 DECLARE @id_cliente int=1
+DECLARE @msj=''
 
 -- TODO: Set parameter values here.
 
 EXECUTE @RC = [dbo].[SP_BUSCAR_CLIENTE] 
    @id_cliente
+   @msj=''
 GO
 */
 
@@ -209,7 +212,7 @@ GO
 
 --A)
 CREATE PROCEDURE SP_ELIMINAR_PRODUCTO(@id_producto int,
-									  @msj varchar(150) out)
+									  @msj varchar(100) out)
 AS
 	BEGIN TRY
 	--Se verifica si existe algún producto relacionado con los detalles de factura.
@@ -235,7 +238,7 @@ GO
 
 DECLARE @RC int
 DECLARE @id_producto int='1'
-DECLARE @msj varchar(150)=''
+DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
@@ -246,10 +249,10 @@ GO
 */
 
 --B)
-CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_PRODUCTO(@id_producto int out,
+CREATE PROCEDURE SP_GUARDAR_PRODUCTO(@id_producto int out,
 												@descripcion varchar(30),
 												@precio decimal(10,2),
-												@msj varchar(150) out)
+												@msj varchar(100) out)
 AS
 	BEGIN TRY
 	--Se verifica si el registro ya existe.
@@ -283,11 +286,11 @@ DECLARE @RC int
 DECLARE @id_producto int='2'
 DECLARE @descripcion varchar(30)='Leche'
 DECLARE @precio decimal(10,2)='600'
-DECLARE @msj varchar(150)=''
+DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
-EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_PRODUCTO] 
+EXECUTE @RC = [dbo].[SP_GUARDAR_PRODUCTO] 
    @id_producto OUTPUT
   ,@descripcion
   ,@precio
@@ -301,7 +304,7 @@ select * from productos
 
 --A)
 CREATE PROCEDURE SP_ANULAR_FACTURA(@num_factura int,
-								   @msj varchar(150) out)
+								   @msj varchar(100) out)
 AS
 	BEGIN TRY
 	--Se verifica si la factura está cancelada.
@@ -325,7 +328,7 @@ GO
 
 DECLARE @RC int
 DECLARE @num_factura int=1
-DECLARE @msj varchar(150)=''
+DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
@@ -337,7 +340,7 @@ GO
 
 --B)
 CREATE PROCEDURE SP_ELIMINAR_FACTURA(@num_factura int,
-									 @msj varchar(150)out)
+									 @msj varchar(100)out)
 AS
 	BEGIN TRY
 	--Se verifica si la factura se encuentra en estado pendiente
@@ -369,7 +372,7 @@ GO
 
 DECLARE @RC int
 DECLARE @num_factura int='5'
-DECLARE @msj varchar(150)=''
+DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
@@ -380,7 +383,7 @@ GO
 */
 
 --C)
-CREATE PROCEDURE SP_GUARDAR_ACTUALIZAR_FACTURA(@num_factura int,
+CREATE PROCEDURE SP_GUARDAR_FACTURA(@num_factura int out,
 											   @id_cliente int,
 											   @fecha date,
 											   @estado varchar(15),
@@ -421,7 +424,7 @@ GO
 GO
 
 DECLARE @RC int
-DECLARE @num_factura int='-1'
+DECLARE @num_factura int='6'
 DECLARE @id_cliente int='1'
 DECLARE @fecha date=NULL
 DECLARE @estado varchar(15)='CANCELADA'
@@ -429,7 +432,7 @@ DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
-EXECUTE @RC = [dbo].[SP_GUARDAR_ACTUALIZAR_FACTURA] 
+EXECUTE @RC = [dbo].[SP_GUARDAR_FACTURA] 
    @num_factura
   ,@id_cliente
   ,@fecha
@@ -444,18 +447,21 @@ SELECT * FROM FACTURA
 --6)
 
 --A)
-CREATE PROCEDURE SP_ELIMINAR_DETALLE_FACTURA(@num_factura int,
+CREATE PROCEDURE SP_ELIMINAR_DETALLE(@num_factura int,
 											 @id_producto int,
 											 @msj varchar(100) out)
 AS
 	BEGIN TRY
+	--Se verifica que la fatura se enceuntre en estado pendiente
 		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
 			BEGIN
+			--De ser así se elimina el detalle de articulo
 				DELETE DETALLE_FACTURA WHERE NUM_FACTURA=@num_factura AND ID_PRODUCTO=@id_producto
 				SET @msj='Articulo eliminado de forma correcta de la factura.'
 			END
 		ELSE
 			BEGIN
+			--Se mustra un mensaje de caso contrario
 				SET @msj='Articulo no se puede eliminar ya que la factura no se encuentra en estado pendiente, o la factura no se encuenta.'
 			END
 	END TRY
@@ -469,13 +475,13 @@ GO
 GO
 
 DECLARE @RC int
-DECLARE @num_factura int='3'
+DECLARE @num_factura int='6'
 DECLARE @id_producto int='2'
 DECLARE @msj varchar(100)=''
 
 -- TODO: Set parameter values here.
 
-EXECUTE @RC = [dbo].[SP_ELIMINAR_DETALLE_FACTURA] 
+EXECUTE @RC = [dbo].[SP_ELIMINAR_DETALLE] 
    @num_factura
   ,@id_producto
   ,@msj OUTPUT
@@ -484,17 +490,20 @@ GO
 */
 
 --B)
-CREATE PROCEDURE SP_GUARDAR_DETALLE(@num_factura int,
+CREATE PROCEDURE SP_GUARDAR_DETALLE(@num_factura int out,
 									@id_producto int,
 									@cantidad int,
 									@precio_venta DECIMAL(10,2),
 									@msj varchar(100) OUT)
 AS
 	BEGIN TRY
+	--Se verifica que la factura esté en estado pendiente.
 		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
 			BEGIN
+			--Se ser así se veifica que el detalle de factura existe
 				IF(EXISTS(SELECT 1 FROM DETALLE_FACTURA WHERE NUM_FACTURA=@num_factura AND ID_PRODUCTO=@id_producto))
 					BEGIN
+					--si existe se actualiza este
 						UPDATE DETALLE_FACTURA
 						SET CANTIDAD=@cantidad,
 							PRECIO_VENTA=@precio_venta
@@ -503,6 +512,7 @@ AS
 					END
 				ELSE
 					BEGIN
+					--de caso contrario se inserta un nuevo detalle.
 						INSERT INTO DETALLE_FACTURA(NUM_FACTURA,ID_PRODUCTO,CANTIDAD,PRECIO_VENTA)
 						VALUES (@num_factura,@id_producto,@cantidad,@precio_venta)
 						SET @msj='Articulo insertado de forma satisfactoria.'
@@ -517,3 +527,26 @@ AS
 		SET @msj='Error al tratar de actualizar insertar el articulo de la fatura.'
 		RAISERROR('Error al tratar de actualizar insertar el articulo de la fatura.',16,10)
 	END CATCH
+
+go
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @num_factura int='6'
+DECLARE @id_producto int='2'
+DECLARE @cantidad int='2'
+DECLARE @precio_venta decimal(10,2)='1200'
+DECLARE @msj varchar(100)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_GUARDAR_DETALLE] 
+   @num_factura
+  ,@id_producto
+  ,@cantidad
+  ,@precio_venta
+  ,@msj OUTPUT
+GO
+select * from detalle_factura
+*/
