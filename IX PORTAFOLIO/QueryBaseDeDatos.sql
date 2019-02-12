@@ -334,3 +334,47 @@ EXECUTE @RC = [dbo].[SP_ANULAR_FACTURA]
   ,@msj OUTPUT
 GO
 */
+
+--B)
+CREATE PROCEDURE SP_ELIMINAR_FACTURA(@num_factura int,
+									 @msj varchar(150)out)
+AS
+	BEGIN TRY
+	--Se verifica si la factura se encuentra en estado pendiente
+		IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
+			BEGIN
+			--De ser pendiente se elimina la factura primero eliminando la tabla hija y despues la tabla padre.
+				DELETE DETALLE_FACTURA WHERE NUM_FACTURA=@num_factura
+				DELETE FACTURA WHERE NUM_FACTURA=@num_factura
+				SET @msj='Factura eliminada de forma correcta.'
+			END
+		ELSE
+			BEGIN
+				IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='CANCELADA'))
+					BEGIN
+						--En caso contrario que la facturá se enceuntra en estado cancelado se invoca el metodo de anular facturar.
+							DECLARE @RC int
+							EXECUTE @RC = [dbo].[SP_ANULAR_FACTURA] 
+							@num_factura,@msj OUTPUT
+					END
+			END
+	END TRY
+	BEGIN CATCH
+		SET @msj='Error al eliminar la factura.'
+		RAISERROR('Error al tratar de eliminar la factura.',16,7)
+	END CATCH
+GO
+/*USE [EJEMPLO]
+GO
+
+DECLARE @RC int
+DECLARE @num_factura int='1'
+DECLARE @msj varchar(150)=''
+
+-- TODO: Set parameter values here.
+
+EXECUTE @RC = [dbo].[SP_ELIMINAR_FACTURA] 
+   @num_factura
+  ,@msj OUTPUT
+GO
+*/
