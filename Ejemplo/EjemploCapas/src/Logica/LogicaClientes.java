@@ -7,6 +7,7 @@ package Logica;
 
 import AccesoDatos.ADClientes;
 import Entidades.ClsEntidadCliente;
+import java.sql.ResultSet;
 
 /**
  *
@@ -54,5 +55,35 @@ public class LogicaClientes {
         } finally {
             return vln_Resultado;
         }
+    }
+
+    public ResultSet ListaClientes(String pvc_Condicion, String pvc_Orden) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        ADClientes vlo_AD;
+
+        //Inicio
+        try {
+            vlo_AD = new ADClientes();
+
+            vlo_RS = vlo_AD.ListarRegistros(pvc_Condicion, pvc_Orden);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
+    }
+
+    public ClsEntidadCliente ObtenerCliente(String pvn_Condicion) throws Exception {
+        //Variables
+        ClsEntidadCliente vlo_Cliente = new ClsEntidadCliente();
+        ADClientes vlo_Adclientes;
+
+        try {
+            vlo_Adclientes = new ADClientes();
+            vlo_Cliente = vlo_Adclientes.ObtenerRegistro(pvn_Condicion);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Cliente;
     }
 }
