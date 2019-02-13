@@ -43,9 +43,12 @@ public class ADClientes {
             vlo_CS.setString(3, pvo_ClsEntidadCliente.getVgc_Direccion());
             vlo_CS.setString(4, pvo_ClsEntidadCliente.getVgc_Telefono());
             vlo_CS.setString(5, vgc_Mensaje);
-            vlo_CS.registerOutParameter(5, Types.VARCHAR);
+            //vlo_CS.registerOutParameter(5, Types.VARCHAR);
 
-            vgc_Mensaje = vlo_CS.getString(2);
+            
+            
+            vln_Resultado=vlo_CS.executeUpdate();
+            //vgc_Mensaje = vlo_CS.getString(2);
         } catch (Exception e) {
             vln_Resultado = -1;
             throw e;
@@ -124,7 +127,7 @@ public class ADClientes {
                 vlo_Cliente.setVgn_idCliente(vlo_ResultSet.getInt(1));
                 vlo_Cliente.setVgc_Nombre(vlo_ResultSet.getString(2));
                 vlo_Cliente.setVgc_Direccion(vlo_ResultSet.getString(3));
-                vlo_Cliente.setVgc_Direccion(vlo_ResultSet.getString(4));
+                vlo_Cliente.setVgc_Telefono(vlo_ResultSet.getString(4));
                 vlo_Cliente.setVgb_ExisteRegistro(true);
             } else {
                 vlo_Cliente.setVgb_ExisteRegistro(false);

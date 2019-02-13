@@ -15,6 +15,18 @@ import java.sql.ResultSet;
  */
 public class LogicaClientes {
 
+    public String getVln_msj() throws Exception {
+        try {
+            ADClientes vloADClientes = new ADClientes();
+            vln_msj = vloADClientes.getVgc_Mensaje();
+        } catch (Exception e) {
+            throw e;
+        }
+        return vln_msj;
+    }
+
+    private String vln_msj;
+
     public LogicaClientes() {
     }
 

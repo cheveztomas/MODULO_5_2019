@@ -7,7 +7,9 @@ package Presentacion;
 
 import Entidades.ClsEntidadCliente;
 import Logica.LogicaClientes;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,9 +20,18 @@ public class frmClientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmClientes
      */
+    boolean RegistroNuevo;
+    ClsEntidadCliente EntidadRegistrada = null;
+
     public frmClientes() {
         initComponents();
         this.closable = true;
+        RegistroNuevo = true;
+        try {
+            CargarListaClientes();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     /**
@@ -43,6 +54,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txt_TelefonoCliente = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
+        txt_id = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
 
@@ -76,32 +89,41 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_NombreCliente)
+                            .addComponent(txt_DireccionCliente)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_NombreCliente)
-                                    .addComponent(txt_DireccionCliente)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_TelefonoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)))
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGuardar))
+                            .addComponent(txt_TelefonoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,7 +145,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addComponent(txt_TelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))))
         );
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,43 +188,157 @@ public class frmClientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //Variables
-        ClsEntidadCliente vlo_Cliente = new ClsEntidadCliente();
-        LogicaClientes vlo_LogicaClientes = new LogicaClientes();
-        int vln_Resultado = 0;
+//        //Variables
+//        ClsEntidadCliente vlo_Cliente = new ClsEntidadCliente();
+//        LogicaClientes vlo_LogicaClientes = new LogicaClientes();
+//        int vln_Resultado = 0;
+//
+//        //Inicio
+//        try {
+//            vlo_Cliente = LeerDatos();
+//            vln_Resultado = vlo_LogicaClientes.InsertarCliente(vlo_Cliente);
+//            if (vln_Resultado > 0) {
+//                JOptionPane.showMessageDialog(this, "Cliente guardado de forma satisfactoria.");
+//            }
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Error al guardar el cliente");
+//        }
+        GuardarCliente();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-        //Inicio
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Varaibles
+        int vln_idCliente;
         try {
-            vlo_Cliente = LeerDatos();
-            vln_Resultado = vlo_LogicaClientes.InsertarCliente(vlo_Cliente);
-            if (vln_Resultado > 0) {
-                JOptionPane.showMessageDialog(this, "Cliente guardado de forma satisfactoria.");
+            if (!txt_id.getText().equals("")) {
+                vln_idCliente = Integer.parseInt(txt_id.getText());
+                CargarDatos(vln_idCliente);
+            } else {
+                JOptionPane.showMessageDialog(this, "debe insertar in codigo para buscar.");
+                Limpiar();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar el cliente");
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-    
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void Limpiar() {
+        txt_DireccionCliente.setText("");
+        txt_NombreCliente.setText("");
+        txt_TelefonoCliente.setText("");
+        txt_id.setText("");
+        RegistroNuevo=true;
+    }
+
     private ClsEntidadCliente LeerDatos() {
         //Varaibles
         ClsEntidadCliente vlo_Cliente;
         try {
             vlo_Cliente = new ClsEntidadCliente();
-            if (txt_NombreCliente.getName().equals("")) {
-                txt_NombreCliente.setName("-1");
-            }
+//            if (txt_NombreCliente.getName().equals(null)) {
+//                txt_NombreCliente.setName("-1");
+//            }
             vlo_Cliente.setVgc_Nombre(txt_NombreCliente.getText());
             vlo_Cliente.setVgc_Telefono(txt_TelefonoCliente.getText());
             vlo_Cliente.setVgc_Direccion(txt_TelefonoCliente.getText());
-            vlo_Cliente.setVgn_idCliente(Integer.parseInt(txt_NombreCliente.getName()));
+            vlo_Cliente.setVgn_idCliente(/*Integer.parseInt(txt_NombreCliente.getName())*/-1);
         } catch (Exception e) {
             throw e;
         }
         return vlo_Cliente;
     }
 
+    private void CargarListaClientes() throws Exception {
+        ResultSet vlo_dsDatos;
+        LogicaClientes vlo_logiLogicaClientes = new LogicaClientes();
+        DefaultTableModel modelo = new DefaultTableModel();
+        tblClientes.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Teléfono");
+        try {
+            vlo_dsDatos = vlo_logiLogicaClientes.ListaClientes("", "");
+            //Se crea un array que será una de las filaos dela tabla.
+            Object[] fila = new Object[4];
+            while (vlo_dsDatos.next()) {
+                for (int i = 0; i < 4; i++) {
+                    fila[i] = vlo_dsDatos.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, vlo_logiLogicaClientes.getVln_msj());
+        }
+    }
+
+    private ClsEntidadCliente GenerarCliente() {
+        //Varaibles
+        ClsEntidadCliente vlo_Cliente;
+
+        try {
+            if (RegistroNuevo = true) {
+                vlo_Cliente = new ClsEntidadCliente();
+            } else {
+                vlo_Cliente = EntidadRegistrada;
+            }
+            vlo_Cliente.setVgc_Nombre(txt_NombreCliente.getText());
+            vlo_Cliente.setVgc_Telefono(txt_TelefonoCliente.getText());
+            vlo_Cliente.setVgc_Direccion(txt_DireccionCliente.getText());
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Cliente;
+    }
+
+    private int GuardarCliente() {
+        //Varaibles
+        ClsEntidadCliente vlo_Cliente;
+        LogicaClientes vlo_Logica = new LogicaClientes();
+        int vln_Resultado = 0;
+
+        try {
+            vlo_Cliente = GenerarCliente();
+            vln_Resultado = vlo_Logica.InsertarCliente(vlo_Cliente);
+
+            if (vln_Resultado > 0) {
+                JOptionPane.showMessageDialog(this, "Operación realizada de forma satisfactoria.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se guardó el cliente.");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return vln_Resultado;
+    }
+
+    private void CargarDatos(int pvn_IDCliente) throws Exception {
+        //varaibles
+        LogicaClientes vlo_LogicaClientes = new LogicaClientes();
+        ClsEntidadCliente vlo_EntidadCliente;
+        String vlc_condicion;
+        try {
+            vlc_condicion = String.format("ID_CLIENTE = %s", String.valueOf(pvn_IDCliente));
+            vlo_EntidadCliente = vlo_LogicaClientes.ObtenerCliente(vlc_condicion);
+            if (vlo_EntidadCliente.isVgb_ExisteRegistro()) {
+                txt_id.setText(String.valueOf(vlo_EntidadCliente.getVgn_idCliente()));
+                txt_DireccionCliente.setText(String.valueOf(vlo_EntidadCliente.getVgc_Direccion()));
+                txt_NombreCliente.setText(String.valueOf(vlo_EntidadCliente.getVgc_Nombre()));
+                txt_TelefonoCliente.setText(String.valueOf(vlo_EntidadCliente.getVgc_Telefono()));
+
+                EntidadRegistrada = vlo_EntidadCliente;
+                RegistroNuevo = false;
+            } else {
+                JOptionPane.showMessageDialog(this, "El cliente no existe.");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -211,5 +351,6 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_DireccionCliente;
     private javax.swing.JTextField txt_NombreCliente;
     private javax.swing.JTextField txt_TelefonoCliente;
+    private javax.swing.JTextField txt_id;
     // End of variables declaration//GEN-END:variables
 }
