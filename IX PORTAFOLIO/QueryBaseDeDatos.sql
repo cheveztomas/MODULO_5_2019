@@ -139,6 +139,8 @@ AS
 				VALUES(@nombre,@direccion,@telefono)
 
 				SET @msj='Cliente insertado de forma satisfactoria.'
+
+				SELECT @id_cliente=IDENT_CURRENT('CLIENTES')
 			END
 		ELSE
 			BEGIN
@@ -262,6 +264,7 @@ AS
 				INSERT INTO PRODUCTOS(DESCRIPCION,PRECIO)
 				VALUES(@descripcion,@precio)
 				SET @msj='Producto guardado de forma correcta.'
+				SELECT @id_producto=IDENT_CURRENT('PRODUCTOS')
 			END
 		ELSE
 			BEGIN
@@ -387,7 +390,7 @@ CREATE PROCEDURE SP_GUARDAR_FACTURA(@num_factura int out,
 											   @id_cliente int,
 											   @fecha date,
 											   @estado varchar(15),
-											   @msj varchar(100))
+											   @msj varchar(100) OUT)
 AS
 	BEGIN TRY
 	--Se verifica si existe ya un registro con el numero de factura.
@@ -397,6 +400,7 @@ AS
 				INSERT INTO FACTURA(ID_CLIENTE,FECHA,ESTADO)
 				VALUES(@id_cliente,@fecha,@estado)
 				SET @msj='Factura agregada de forma correcta.'
+				SELECT @num_factura=IDENT_CURRENT('FACTURA')
 			END
 		ELSE
 			IF(EXISTS(SELECT 1 FROM FACTURA WHERE NUM_FACTURA=@num_factura AND ESTADO='PENDIENTE'))
@@ -490,7 +494,7 @@ GO
 */
 
 --B)
-CREATE PROCEDURE SP_GUARDAR_DETALLE(@num_factura int out,
+CREATE PROCEDURE SP_GUARDAR_DETALLE(@num_factura int,
 									@id_producto int,
 									@cantidad int,
 									@precio_venta DECIMAL(10,2),
@@ -509,6 +513,7 @@ AS
 							PRECIO_VENTA=@precio_venta
 						WHERE NUM_FACTURA=@num_factura AND ID_PRODUCTO=@id_producto
 						SET @msj='Articulo de lafactura actualizado de forma satisfactoria.'
+
 					END
 				ELSE
 					BEGIN
