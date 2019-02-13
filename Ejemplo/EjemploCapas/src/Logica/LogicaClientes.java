@@ -5,10 +5,17 @@
  */
 package Logica;
 
+import Entidades.ClsEntidadCliente;
+
 /**
  *
  * @author Thomas
  */
 public class LogicaClientes {
-    
+
+    public LogicaClientes() {
+    }
+    public int InsertarCliente(ClsEntidadCliente pvo_EntidadCliente){
+        //Varaibles
+    }
 }

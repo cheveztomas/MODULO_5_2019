@@ -22,7 +22,8 @@ public class ADClientes {
     public ADClientes() throws Exception {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://tomaschevez.database.windows.net;databaseName=EJEMPLO;user=tomaschevez;password=sa";
+            String url = "jdbc:sqlserver://localhost;databaseName=Ejemplo;user=sa;password=sa";
+            //String url = "jdbc:sqlserver://tomaschevez.database.windows.net;databaseName=EJEMPLO;user=tomaschevez;password=and.eli0895";
             vgo_Conexion = DriverManager.getConnection(url);
         } catch (Exception e) {
             vgo_Conexion = null;
@@ -42,8 +43,9 @@ public class ADClientes {
             vlo_CS.setString(3, pvo_ClsEntidadCliente.getVgc_Direccion());
             vlo_CS.setString(4, pvo_ClsEntidadCliente.getVgc_Telefono());
             vlo_CS.setString(5, vgc_Mensaje);
+            vlo_CS.registerOutParameter(5, Types.VARCHAR);
 
-            //Necesita leer el paramatro de salida.
+            vgc_Mensaje = vlo_CS.getString(2);
         } catch (Exception e) {
             vln_Resultado = -1;
             throw e;
