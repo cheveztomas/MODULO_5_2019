@@ -8,6 +8,8 @@ package Presentacion;
 import Entidades.ClsEntidadCliente;
 import Logica.LogicaClientes;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,6 +58,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         txt_id = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
 
@@ -89,10 +92,17 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -101,11 +111,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
@@ -114,8 +124,12 @@ public class frmClientes extends javax.swing.JInternalFrame {
                             .addComponent(txt_NombreCliente)
                             .addComponent(txt_DireccionCliente)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,7 +137,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnGuardar))
-                            .addComponent(txt_TelefonoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))))
+                            .addComponent(txt_TelefonoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,7 +163,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
                     .addComponent(btnGuardar)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))))
+                        .addComponent(jButton1)
+                        .addComponent(jButton2))))
         );
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -204,6 +219,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
 //            JOptionPane.showMessageDialog(this, "Error al guardar el cliente");
 //        }
         GuardarCliente();
+        try {
+            CargarListaClientes();
+        } catch (Exception ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -222,12 +242,21 @@ public class frmClientes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            EliminarCliente();
+            CargarListaClientes();
+        } catch (Exception ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void Limpiar() {
         txt_DireccionCliente.setText("");
         txt_NombreCliente.setText("");
         txt_TelefonoCliente.setText("");
         txt_id.setText("");
-        RegistroNuevo=true;
+        RegistroNuevo = true;
     }
 
     private ClsEntidadCliente LeerDatos() {
@@ -336,9 +365,32 @@ public class frmClientes extends javax.swing.JInternalFrame {
             throw e;
         }
     }
+
+    private int EliminarCliente() throws Exception {
+        //Variables
+        int vln_resultado = -1;
+        LogicaClientes vlo_LogicaClientes = new LogicaClientes();
+
+        //Inicio
+        try {
+            if (!txt_id.getText().equals("") && (!RegistroNuevo)) {
+                vln_resultado = vlo_LogicaClientes.EliminarCliente(EntidadRegistrada);
+                JOptionPane.showMessageDialog(this, "Operación realizada de froma satisfatoria.");
+                Limpiar();
+                CargarListaClientes();
+            } else {
+                JOptionPane.showInternalMessageDialog(this, "Debe introducir el código delicliente.");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return vln_resultado;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
