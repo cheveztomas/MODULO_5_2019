@@ -22,7 +22,7 @@ public class ADClientes {
     public ADClientes() throws Exception {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost;databaseName=Ejemplo;user=sa;password=sa";
+            String url = "jdbc:sqlserver://tomaschevez.database.windows.net;databaseName=EJEMPLO;user=tomaschevez;password=sa";
             vgo_Conexion = DriverManager.getConnection(url);
         } catch (Exception e) {
             vgo_Conexion = null;
