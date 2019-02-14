@@ -34,4 +34,19 @@ public class LogicaProducto {
             return vlo_Retorno;
         }
     }
+
+    public ClsEntidadRetorno EliminarProducto(int pvn_idProducto) {
+        //Variables
+        ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
+        ADProductos vlo_AccesoProductos = new ADProductos();
+
+        //Inicio
+        try {
+            vlo_Retorno = vlo_AccesoProductos.EliminarProductos(pvn_idProducto);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            return vlo_Retorno;
+        }
+    }
 }
