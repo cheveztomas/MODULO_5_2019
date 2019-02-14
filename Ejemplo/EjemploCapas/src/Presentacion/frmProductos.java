@@ -25,7 +25,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txt_idProducto.setText("-1");
         this.closable = true;
     }
-
+    
     private ClsEntidaProducto LeerDatos() {
         //Variables
         ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
@@ -47,7 +47,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         }
         return vlo_Producto;
     }
-
+    
     private ClsEntidadRetorno GuardarCliente() {
         //Variables
         ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
@@ -60,6 +60,23 @@ public class frmProductos extends javax.swing.JInternalFrame {
             throw e;
         }
         return vlo_Retorno;
+    }
+    
+    private ClsEntidadRetorno Eliminar() {
+        //Variables
+        ClsEntidadRetorno vlo_retorno = new ClsEntidadRetorno();
+        ClsEntidaProducto vlo_producto = new ClsEntidaProducto();
+        LogicaProducto vlo_logicaProducto = new LogicaProducto();
+
+        //Inicio
+        try {
+            vlo_producto = LeerDatos();
+            vlo_retorno = vlo_logicaProducto.EliminarProducto(vlo_producto.getVgn_idPorducto());
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            return vlo_retorno;
+        }
     }
 
     /**
@@ -106,6 +123,11 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         btn_Eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\borrar.png")); // NOI18N
         btn_Eliminar.setText("Eliminar");
+        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -248,6 +270,21 @@ public class frmProductos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
+
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+        //Variables
+        ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
+
+        //Incio
+        try {
+            txt_idProducto.setText("2");
+            vlo_Retorno = Eliminar();
+            
+            JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_EliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
