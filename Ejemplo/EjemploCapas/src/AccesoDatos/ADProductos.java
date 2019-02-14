@@ -9,6 +9,7 @@ import Entidades.ClsEntidaProducto;
 import Entidades.ClsEntidadRetorno;
 import java.sql.CallableStatement;
 import Configuracion.ClsConexion;
+import java.sql.Connection;
 import java.sql.Types;
 
 /**
@@ -20,13 +21,16 @@ public class ADProductos {
     public ClsEntidadRetorno GuardarProducto(ClsEntidaProducto pvo_Producto) {
         //Variables
         ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
+        //Se instancia CS.
         CallableStatement vlo_CS;
         ClsConexion vlo_Conexion;
+        Connection vlo_Connec;
 
         //Inicio
         try {
             vlo_Conexion = new ClsConexion();
-            vlo_CS = vlo_Conexion.ConexionBD().prepareCall("{call SP_GUARDAR_PRODUCTO(?,?,?,?)}");
+            vlo_Connec = vlo_Conexion.ConexionBD();
+            vlo_CS = vlo_Connec.prepareCall("{call SP_GUARDAR_PRODUCTO(?,?,?,?)}");
             vlo_CS.setInt(1, pvo_Producto.getVgn_idPorducto());
             vlo_CS.setString(2, pvo_Producto.getVgc_Descripcion());
             vlo_CS.setDouble(3, pvo_Producto.getVgn_Precio());
@@ -40,8 +44,42 @@ public class ADProductos {
             vlo_Retorno.setVgc_Mensaje("Error al realizar la conexión.");
             vlo_Retorno.setVgn_Resultado(-1);
             throw e;
+        } finally {
+            vlo_Connec = null;
+            return vlo_Retorno;
         }
-        finally{
+    }
+
+    public ClsEntidadRetorno EliminarProductos(int pvn_idProducto) {
+        //Variables
+        ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
+        CallableStatement vlo_CS;
+        ClsConexion vlo_conexion;
+        Connection vlo_Connec;
+
+        try {
+            //Se instancia la conexión.
+            vlo_conexion = new ClsConexion();
+
+            //Se establese la conexión y se invoca el metodo.
+            vlo_Connec = vlo_conexion.ConexionBD();
+            vlo_CS = vlo_Connec.prepareCall("{call SP_ELIMINAR_PRODUCTO(?,?)}");
+
+            //Se establecem los paarmetros.
+            vlo_CS.setInt(1, pvn_idProducto);
+            vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
+
+            //Se ejecuta la sentencia
+            vlo_CS.registerOutParameter(2, Types.VARCHAR);
+
+            vlo_Retorno.setVgn_Resultado(vlo_CS.executeUpdate());
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
+        } catch (Exception e) {
+            vlo_Retorno.setVgn_Resultado(-1);
+            vlo_Retorno.setVgc_Mensaje("Error al eliminar producto. (Acceso a datos.)");
+            throw e;
+        } finally {
+            vlo_Connec = null;
             return vlo_Retorno;
         }
     }
