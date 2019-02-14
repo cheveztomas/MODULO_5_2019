@@ -6,6 +6,8 @@
 package Presentacion;
 
 import Entidades.ClsEntidaProducto;
+import Entidades.ClsEntidadRetorno;
+import Logica.LogicaProducto;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,13 +31,12 @@ public class frmProductos extends javax.swing.JInternalFrame {
         ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
 
         //Inicio
-        
         //Se verifica si los campos no se en cuentran vacios.
         if (txt_DetalleProducto.getText().equals("") || txt_PrecioProducto.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Error el producto debe tener un detalle y un precio.");
         } else {
             //se verifica si la cantidad de caracyteres es correcta.
-            if (txt_DetalleProducto.getText().length() < 30) {
+            if (txt_DetalleProducto.getText().length() > 30) {
                 JOptionPane.showMessageDialog(this, "Error el detalle de producto no puede tener más de 30 carácteres");
             } else {
                 //Se llenan los datos de la ventana correspondiente.
@@ -45,6 +46,20 @@ public class frmProductos extends javax.swing.JInternalFrame {
             }
         }
         return vlo_Producto;
+    }
+
+    private ClsEntidadRetorno GuardarCliente() {
+        //Variables
+        ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
+        LogicaProducto vlo_logicaProducto = new LogicaProducto();
+
+        //Inicio
+        try {
+            vlo_Retorno = vlo_logicaProducto.GuardarProducto(LeerDatos());
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Retorno;
     }
 
     /**
@@ -83,6 +98,11 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         btn_Guardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\guardar.png")); // NOI18N
         btn_Guardar.setText("Guardar");
+        btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GuardarActionPerformed(evt);
+            }
+        });
 
         btn_Eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\borrar.png")); // NOI18N
         btn_Eliminar.setText("Eliminar");
@@ -215,6 +235,19 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
+        //Variables
+        ClsEntidadRetorno vlo_retorno = new ClsEntidadRetorno();
+
+        //Inicio
+        try {
+            vlo_retorno = GuardarCliente();
+            JOptionPane.showMessageDialog(this, vlo_retorno.getVgc_Mensaje());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_GuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
