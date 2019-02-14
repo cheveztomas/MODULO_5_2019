@@ -55,6 +55,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         //Inicio
         try {
+            //Se invoca el metodo de guardar un cliente con l aentida dcorrespondiente.
             vlo_Retorno = vlo_logicaProducto.GuardarProducto(LeerDatos());
         } catch (Exception e) {
             throw e;
@@ -70,7 +71,9 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         //Inicio
         try {
+            //Se invova el metodo que lee los datos de la ventana.
             vlo_producto = LeerDatos();
+            //Se invoca el metodo que elimina con el id del producto.
             vlo_retorno = vlo_logicaProducto.EliminarProducto(vlo_producto.getVgn_idPorducto());
         } catch (Exception e) {
             throw e;
@@ -277,7 +280,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         //Incio
         try {
-            txt_idProducto.setText("2");
+            txt_idProducto.setText("5");
             vlo_Retorno = Eliminar();
             
             JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
