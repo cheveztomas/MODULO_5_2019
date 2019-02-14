@@ -35,6 +35,7 @@ public class frmMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         btnClientes = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        btn_Productos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,6 +60,14 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
         btnClientes.add(jMenuItem1);
+
+        btn_Productos.setText("Productos");
+        btn_Productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ProductosActionPerformed(evt);
+            }
+        });
+        btnClientes.add(btn_Productos);
 
         jMenuBar1.add(btnClientes);
 
@@ -86,6 +95,12 @@ public class frmMenu extends javax.swing.JFrame {
         Form.setVisible(true);
         jDesktopPane1.add(Form);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btn_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProductosActionPerformed
+        frmProductos Formulario = new frmProductos();
+        Formulario.setVisible(true);
+        jDesktopPane1.add(Formulario);
+    }//GEN-LAST:event_btn_ProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,6 +139,7 @@ public class frmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu btnClientes;
+    private javax.swing.JMenuItem btn_Productos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
