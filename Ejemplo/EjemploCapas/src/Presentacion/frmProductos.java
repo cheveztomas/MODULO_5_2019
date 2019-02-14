@@ -5,6 +5,9 @@
  */
 package Presentacion;
 
+import Entidades.ClsEntidaProducto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tomas
@@ -19,6 +22,25 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txt_idProducto.setVisible(false);
         txt_idProducto.setText("-1");
         this.closable = true;
+    }
+
+    private ClsEntidaProducto LeerDatos() {
+        //Variables
+        ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
+
+        //Inicio
+        if (txt_DetalleProducto.getText().equals("") || txt_PrecioProducto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Error el producto debe tener un detalle y un precio.");
+        } else {
+            if (txt_DetalleProducto.getText().length() < 30) {
+                JOptionPane.showMessageDialog(this, "Error el detalle de producto no puede tener más de 30 carácteres");
+            } else {
+                vlo_Producto.setVgc_Descripcion(txt_DetalleProducto.getText());
+                vlo_Producto.setVgn_Precio(Double.parseDouble(txt_PrecioProducto.getText()));
+                vlo_Producto.setVgn_idPorducto(Integer.parseInt(txt_idProducto.getText()));
+            }
+        }
+        return vlo_Producto;
     }
 
     /**
