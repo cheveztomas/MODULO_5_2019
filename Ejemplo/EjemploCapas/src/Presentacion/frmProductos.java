@@ -29,12 +29,16 @@ public class frmProductos extends javax.swing.JInternalFrame {
         ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
 
         //Inicio
+        
+        //Se verifica si los campos no se en cuentran vacios.
         if (txt_DetalleProducto.getText().equals("") || txt_PrecioProducto.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Error el producto debe tener un detalle y un precio.");
         } else {
+            //se verifica si la cantidad de caracyteres es correcta.
             if (txt_DetalleProducto.getText().length() < 30) {
                 JOptionPane.showMessageDialog(this, "Error el detalle de producto no puede tener más de 30 carácteres");
             } else {
+                //Se llenan los datos de la ventana correspondiente.
                 vlo_Producto.setVgc_Descripcion(txt_DetalleProducto.getText());
                 vlo_Producto.setVgn_Precio(Double.parseDouble(txt_PrecioProducto.getText()));
                 vlo_Producto.setVgn_idPorducto(Integer.parseInt(txt_idProducto.getText()));
