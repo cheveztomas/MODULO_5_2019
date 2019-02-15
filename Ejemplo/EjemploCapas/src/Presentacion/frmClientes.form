@@ -110,7 +110,7 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txt_TelefonoCliente" pref="290" max="32767" attributes="0"/>
+                              <Component id="txt_TelefonoCliente" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -180,7 +180,7 @@
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\tomas\Documents\GitHub\MODULO_5_2019\Ejemplo\EjemploCapas\rcs\guardar.png"/>
+              <Image iconType="3" name="/Presentacion/guardar.png"/>
             </Property>
           </Properties>
           <Events>
@@ -191,6 +191,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Presentacion/lupa.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
@@ -199,6 +202,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Presentacion/borrar.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
