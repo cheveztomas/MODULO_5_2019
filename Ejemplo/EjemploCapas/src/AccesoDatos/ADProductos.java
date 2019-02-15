@@ -10,6 +10,8 @@ import Entidades.ClsEntidadRetorno;
 import java.sql.CallableStatement;
 import Configuracion.ClsConexion;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Types;
 
 /**
@@ -81,6 +83,32 @@ public class ADProductos {
         } finally {
             vlo_Connec = null;
             return vlo_Retorno;
+        }
+    }
+
+    public ResultSet ListaProductos(String pvc_Condicion) {
+        //Varaibles
+        ResultSet vlo_RS = null;
+        ClsEntidaProducto vlo_Producto;
+        ClsConexion vlo_ObtenerConec;
+        Connection vlo_Conexion;
+        Statement vlo_CS;
+        String vlc_Sentencia = "";
+
+        //Inicio
+        vlc_Sentencia = "SELECT ID_PRODUCTO, DESCRIPCION, PRECIO FROM PRODUCTOS WHERE DESCRIPCION LIKE '%" + pvc_Condicion + "%'";
+        try {
+            vlo_Producto = new ClsEntidaProducto();
+            vlo_ObtenerConec = new ClsConexion();
+            vlo_Conexion = vlo_ObtenerConec.ConexionBD();
+            vlo_CS = vlo_Conexion.createStatement();
+
+            vlo_RS = vlo_CS.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vlo_Conexion = null;
+            return vlo_RS;
         }
     }
 }
