@@ -24,16 +24,32 @@ public class frmProductos extends javax.swing.JInternalFrame {
     public frmProductos() {
         initComponents();
         txt_idProducto.setVisible(false);
-        txt_idProducto.setText("-1");
+        Limpiar();
         this.closable = true;
         CargarListaProductos();
+    }
+
+    private void Limpiar() {
+        txt_Buscar.setText("");
+        txt_DetalleProducto.setText("");
+        txt_PrecioProducto.setText("");
+        txt_idProducto.setText("-1");
     }
 
     private void CargarListaProductos() {
         //Variables
         ResultSet vlo_RS;
         LogicaProducto vlo_loLogicaProducto = new LogicaProducto();
-        DefaultTableModel Modelo = new DefaultTableModel();
+        DefaultTableModel Modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        //DefaultTableModel modelo = new DefaultTableModel();
+
+        //Inicio
         jTable1.setModel(Modelo);
         Modelo.addColumn("Código");
         Modelo.addColumn("Detalle");
@@ -202,6 +218,11 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         btn_Salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/salida.png"))); // NOI18N
         btn_Salir.setText("Salir");
+        btn_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SalirActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Busqueda"));
 
@@ -225,6 +246,11 @@ public class frmProductos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -256,6 +282,11 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/escoba.png"))); // NOI18N
         btn_Limpiar.setText("Limpiar");
+        btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -307,6 +338,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        Limpiar();
         CargarListaProductos();
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
@@ -316,18 +348,53 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         //Incio
         try {
-            txt_idProducto.setText("5");
+            //txt_idProducto.setText("5");
             vlo_Retorno = Eliminar();
 
             JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        Limpiar();
+        CargarListaProductos();
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CargarListaProductos();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        //variables
+        ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
+        LogicaProducto vlo_LogicaProducto = new LogicaProducto();
+
+        //Inicio
+        if (evt.getClickCount() == 2) {
+            try {
+                int row = jTable1.rowAtPoint(evt.getPoint());
+                vlo_Producto = vlo_LogicaProducto.ObtnerProducto(Integer.parseInt(jTable1.getValueAt(row, 0).toString()));
+                if (vlo_Producto == null) {
+                    JOptionPane.showMessageDialog(this, "Producto no encontrado en origen de datos.");
+                    CargarListaProductos();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al tratar de cargar la información del producto.");
+            }
+
+            txt_DetalleProducto.setText(vlo_Producto.getVgc_Descripcion());
+            txt_PrecioProducto.setText(Double.toString(vlo_Producto.getVgn_Precio()));
+            txt_idProducto.setText(Integer.toString(vlo_Producto.getVgn_idPorducto()));
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
+        // TODO add your handling code here:
+        Limpiar();
+    }//GEN-LAST:event_btn_LimpiarActionPerformed
+
+    private void btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_SalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
