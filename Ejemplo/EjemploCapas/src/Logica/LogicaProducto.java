@@ -8,6 +8,7 @@ package Logica;
 import AccesoDatos.ADProductos;
 import Entidades.ClsEntidaProducto;
 import Entidades.ClsEntidadRetorno;
+import java.sql.ResultSet;
 
 /**
  *
@@ -47,6 +48,20 @@ public class LogicaProducto {
             throw e;
         } finally {
             return vlo_Retorno;
+        }
+    }
+
+    public ResultSet ListaProductos(String pvc_Condicion) {
+        //Varaibles
+        ResultSet vlo_ResultSet = null;
+        ADProductos vlo_ADProductos;
+        try {
+            vlo_ADProductos = new ADProductos();
+            vlo_ResultSet = vlo_ADProductos.ListaProductos(pvc_Condicion);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            return vlo_ResultSet;
         }
     }
 }
