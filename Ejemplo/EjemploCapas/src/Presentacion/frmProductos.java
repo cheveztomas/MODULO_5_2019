@@ -116,7 +116,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Precio: ₡");
 
-        btn_Guardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\guardar.png")); // NOI18N
+        btn_Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/guardar.png"))); // NOI18N
         btn_Guardar.setText("Guardar");
         btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +124,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_Eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\borrar.png")); // NOI18N
+        btn_Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/borrar.png"))); // NOI18N
         btn_Eliminar.setText("Eliminar");
         btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,14 +171,13 @@ public class frmProductos extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        btn_Salir.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\salida.png")); // NOI18N
+        btn_Salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/salida.png"))); // NOI18N
         btn_Salir.setText("Salir");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Busqueda"));
 
         jLabel3.setText("Buscar producto:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\lupa.png")); // NOI18N
         jButton1.setText("Buscar");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -221,7 +220,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        btn_Limpiar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\MODULO_5_2019\\Ejemplo\\EjemploCapas\\rcs\\escoba.png")); // NOI18N
+        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/escoba.png"))); // NOI18N
         btn_Limpiar.setText("Limpiar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
