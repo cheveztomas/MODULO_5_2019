@@ -111,4 +111,39 @@ public class ADProductos {
             return vlo_RS;
         }
     }
+
+    public ClsEntidaProducto ObtnerProducto(int pvn_idProducto) {
+        //Variables
+        ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
+        Statement vlo_CS;
+        String vlc_Sentencia = "";
+        ResultSet vlo_RS;
+        ClsConexion vlo_ClsConexion;
+        Connection vlo_Conexion;
+
+        //Inicio
+        vlc_Sentencia = "SELECT ID_PRODUCTO, DESCRIPCION, PRECIO FROM PRODUCTOS WHERE ID_PRODUCTO LIKE '" + pvn_idProducto + "'";
+
+        try {
+            vlo_ClsConexion = new ClsConexion();
+            vlo_Conexion = vlo_ClsConexion.ConexionBD();
+            vlo_CS = vlo_Conexion.createStatement();
+
+            //
+            vlo_RS = vlo_CS.executeQuery(vlc_Sentencia);
+            if (vlo_RS.next()) {
+                vlo_Producto.setVgn_idPorducto(vlo_RS.getInt(1));
+                vlo_Producto.setVgc_Descripcion(vlo_RS.getString(2));
+                vlo_Producto.setVgn_Precio(vlo_RS.getDouble(3));
+            } else {
+                vlo_Producto = null;
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vlo_Conexion = null;
+            return vlo_Producto;
+        }
+
+    }
 }

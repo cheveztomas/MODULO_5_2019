@@ -64,4 +64,20 @@ public class LogicaProducto {
             return vlo_ResultSet;
         }
     }
+
+    public ClsEntidaProducto ObtnerProducto(int pvn_idProducto) {
+        //Variables
+        ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
+        ADProductos vlo_ADProductos;
+
+        //Inicio
+        try {
+            vlo_ADProductos = new ADProductos();
+            vlo_Producto = vlo_ADProductos.ObtnerProducto(pvn_idProducto);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            return vlo_Producto;
+        }
+    }
 }

@@ -8,7 +8,9 @@ package Presentacion;
 import Entidades.ClsEntidaProducto;
 import Entidades.ClsEntidadRetorno;
 import Logica.LogicaProducto;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,8 +26,33 @@ public class frmProductos extends javax.swing.JInternalFrame {
         txt_idProducto.setVisible(false);
         txt_idProducto.setText("-1");
         this.closable = true;
+        CargarListaProductos();
     }
-    
+
+    private void CargarListaProductos() {
+        //Variables
+        ResultSet vlo_RS;
+        LogicaProducto vlo_loLogicaProducto = new LogicaProducto();
+        DefaultTableModel Modelo = new DefaultTableModel();
+        jTable1.setModel(Modelo);
+        Modelo.addColumn("Código");
+        Modelo.addColumn("Detalle");
+        Modelo.addColumn("Precio");
+
+        try {
+            vlo_RS = vlo_loLogicaProducto.ListaProductos(txt_Buscar.getText());
+            Object[] fila = new Object[3];
+            while (vlo_RS.next()) {
+                for (int i = 0; i < 3; i++) {
+                    fila[i] = vlo_RS.getObject(i + 1);
+                }
+                Modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los productos.");
+        }
+    }
+
     private ClsEntidaProducto LeerDatos() {
         //Variables
         ClsEntidaProducto vlo_Producto = new ClsEntidaProducto();
@@ -47,7 +74,7 @@ public class frmProductos extends javax.swing.JInternalFrame {
         }
         return vlo_Producto;
     }
-    
+
     private ClsEntidadRetorno GuardarCliente() {
         //Variables
         ClsEntidadRetorno vlo_Retorno = new ClsEntidadRetorno();
@@ -56,13 +83,15 @@ public class frmProductos extends javax.swing.JInternalFrame {
         //Inicio
         try {
             //Se invoca el metodo de guardar un cliente con l aentida dcorrespondiente.
-            vlo_Retorno = vlo_logicaProducto.GuardarProducto(LeerDatos());
+            if (LeerDatos().getVgc_Descripcion().equals("") == false && LeerDatos().getVgc_Descripcion().length() <= 30) {
+                vlo_Retorno = vlo_logicaProducto.GuardarProducto(LeerDatos());
+            }
         } catch (Exception e) {
             throw e;
         }
         return vlo_Retorno;
     }
-    
+
     private ClsEntidadRetorno Eliminar() {
         //Variables
         ClsEntidadRetorno vlo_retorno = new ClsEntidadRetorno();
@@ -179,6 +208,11 @@ public class frmProductos extends javax.swing.JInternalFrame {
         jLabel3.setText("Buscar producto:");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -267,10 +301,13 @@ public class frmProductos extends javax.swing.JInternalFrame {
         //Inicio
         try {
             vlo_retorno = GuardarCliente();
-            JOptionPane.showMessageDialog(this, vlo_retorno.getVgc_Mensaje());
+            if (vlo_retorno.getVgc_Mensaje().equals("") == false) {
+                JOptionPane.showMessageDialog(this, vlo_retorno.getVgc_Mensaje());
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        CargarListaProductos();
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
@@ -281,12 +318,16 @@ public class frmProductos extends javax.swing.JInternalFrame {
         try {
             txt_idProducto.setText("5");
             vlo_Retorno = Eliminar();
-            
+
             JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btn_EliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CargarListaProductos();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
