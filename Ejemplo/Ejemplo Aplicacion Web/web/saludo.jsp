@@ -17,8 +17,27 @@
             String nombre = request.getParameter("txtnombre");
             String ape1 = request.getParameter("txtape1");
             String ape2 = request.getParameter("txtape2");
+            int rango = 0;
             if (request.getParameter("rangoEdad") != null) {
-                int rango = Integer.parseInt(request.getParameter("rangoEdad"));
+                rango = Integer.parseInt(request.getParameter("rangoEdad"));
+            }
+        %>
+        <h2>
+            Hola <%        
+                out.print(nombre + " " + ape1 + " " + ape2);
+            %>
+        </h2>
+
+        <p>
+            Su edad es:
+        </p>
+        <%
+            if (rango == 1) {
+                out.print("20 y 35 años");
+            } else if (rango == 2) {
+                out.print("36 y 55 años");
+            } else if (rango == 3) {
+                out.print("56 y 70 años");
             }
         %>
     </body>

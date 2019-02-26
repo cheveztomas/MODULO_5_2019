@@ -15,7 +15,7 @@ and open the template in the editor.
             <h1>
                 Formulario
             </h1>
-            <form action="saludo.jsp" method="post">
+            <form action="SaludoServlet" method="post">
                 <p>Nombre:</p>
                 <input type="text" name="txtnombre" value=""/>
                 <br>
@@ -24,17 +24,17 @@ and open the template in the editor.
                 <br>
                 <p>Segundo Apellido:</p>
                 <input type="text" name="txtape2" value=""/>
-                 <br>
+                <br>
                 <p>Rango de edades:</p>
                 <select name ="rangoEdad">
                     <option value="1">20-35</option>
                     <option value="2">36-55</option>
                     <option value="3">56-70</option>
                 </select>
+                <input type="submit" value="Enviar formulario" name="Enviar"/> &nbsp&nbsp
+                <input type="reset" value="Borrar formulario" name="Borrar"/>
             </form>
             <br><br>
-            <input type="submit" value="Enviar formulario" name="Enviar"/> &nbsp&nbsp
-            <input type="reset" value="Borrar formulario" name="Borrar"/>
         </div>
     </body>
 </html>
