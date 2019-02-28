@@ -27,14 +27,14 @@
                     <input type="submit" id="btnbuscar" name="btnbuscar" value="Buscar"/>
                 </form>
                 <br>
-                <table class="tablaBasica col-4">
+                <table class="tablaBasica table container table-bordered">
                     <tr id="titulos">
-                        <td style="text-align: center">Código</td>
-                        <td style="text-align: center">Nombre</td>
-                        <td style="text-align: center">Dirección</td>
-                        <td style="text-align: center">Teléfono</td>
-                        <td style="text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td style="text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>Código</td>
+                        <td>Nombre</td>
+                        <td>Dirección</td>
+                        <td>Teléfono</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     </tr>
                     <%
                         String nombre = "";

@@ -38,13 +38,17 @@
                     <input type="hidden" id="txtcodigo" name="txtcodigo" value="-1"/><br>
                     <%}%>
                     Nombre: <br>
-                    <input type="text" id="txtnombre" name="txtnombre" value="<%=vlo_Cliente.getVgn_IdCliente()%>" required/><br>
+                    <input type="text" id="txtnombre" name="txtnombre" value="<%=vlo_Cliente.getVgc_Nombre()%>" required/><br>
+                    
+                    Teléfono: <br>
+                    <input type="text" id="txttelefono" name="txttelefono" value="<%=vlo_Cliente.getVgc_Telefono()%>" required/><br>
+                    
                     Dirección: <br>
                     <input type="text" id="txtdireccion" name="txtdireccion" value="<%=vlo_Cliente.getVgc_direccion()%>" required/><br>
                     <br>
                     <input type="submit" id="BtnGuardar" valur="Guardar"/> &nbsp;&nbsp;
                     <input type="reset" id="BtnCancelar" value="Cancelar"/>&nbsp;&nbsp;
-                    <input type="button" id="BtnRegresar" valure="Regresar" onclick="location.href='frmListarClientes.jsp'">
+                    <input type="button" id="BtnRegresar" value="Regresar" onclick="location.href='frmListarClientes.jsp'">
                 </form>
                     <br><br>
                     <a href="index.html">Regresar al inicio.</a>
