@@ -22,7 +22,7 @@
                 rango = Integer.parseInt(request.getParameter("rangoEdad"));
             }
         %>
-        <h2>
+        <h2>+
             Hola <%        
                 out.print(nombre + " " + ape1 + " " + ape2);
             %>
