@@ -5,23 +5,23 @@
  */
 package Controlador;
 
+import entidades.clsEntidadCliente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entidades.*;
-import static java.lang.System.out;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import logica.*;
+import logica.clsLogicaCliente;
 
 /**
  *
  * @author tomas
  */
-public class Clientes extends HttpServlet {
+public class EliminarCliente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,23 +36,20 @@ public class Clientes extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            //Varibles
+            //Variables
             clsLogicaCliente vlo_LogicaCliente = new clsLogicaCliente();
+            String id = request.getParameter("id");
+            int codigo = Integer.parseInt(id);
             clsEntidadCliente vlo_Cliente = new clsEntidadCliente();
-            int vln_resultado = 0;
 
             //Inicio
-            vlo_Cliente.setVgn_IdCliente(Integer.parseInt(request.getParameter("txtcodigo")));
-            vlo_Cliente.setVgc_Nombre(new String(request.getParameter("txtnombre").getBytes("ISO-8859-1"), "UTF-8"));
-            vlo_Cliente.setVgc_Telefono(request.getParameter("txttelefono"));
-            vlo_Cliente.setVgc_direccion(new String(request.getParameter("txtdireccion").getBytes("ISO-8859-1"), "UTF-8"));
-
-            vlo_LogicaCliente.guardar(vlo_Cliente);
-
+            vlo_Cliente.setVgn_IdCliente(codigo);
+            vlo_LogicaCliente.Eliminar(vlo_Cliente);
             response.sendRedirect("frmListarClientes.jsp");
         } catch (Exception ex) {
             out.print(ex.getMessage());
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +67,7 @@ public class Clientes extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EliminarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +85,7 @@ public class Clientes extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EliminarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

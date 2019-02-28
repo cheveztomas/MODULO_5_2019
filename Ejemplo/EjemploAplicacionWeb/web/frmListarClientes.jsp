@@ -29,12 +29,12 @@
                 <br>
                 <table class="tablaBasica table container table-bordered">
                     <tr id="titulos">
-                        <td>Código</td>
-                        <td>Nombre</td>
-                        <td>Dirección</td>
-                        <td>Teléfono</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <th>Código</td>
+                        <th>Nombre</td>
+                        <th>Dirección</td>
+                        <th>Teléfono</td>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     </tr>
                     <%
                         String nombre = "";
