@@ -21,13 +21,13 @@
                 <h1>Lista de clientes</h1>
             </header>
             <section>
-                <form action="frmListaClientes.jsp" method="post">
+                <form action="frmListarClientes.jsp" method="post">
                     Nombre: <br>
                     <input type="text" id="txtnombre" name="txtnombre" value=""/>&nbsp;&nbsp;
                     <input type="submit" id="btnbuscar" name="btnbuscar" value="Buscar"/>
                 </form>
                 <br>
-                <table class="tablaBasica">
+                <table class="tablaBasica col-4">
                     <tr id="titulos">
                         <td style="text-align: center">Código</td>
                         <td style="text-align: center">Nombre</td>
@@ -57,11 +57,16 @@
                         <td style="text-align: left"><%= vlo_datos.getString(2)%></td>
                         <td style="text-align: left"><%=vlo_datos.getString(3)%></td>
                         <td style="text-align: left"><%=vlo_datos.getString(4)%></td>
-                        <td style="text-align: left"><a href="Frm_Clientes-jsp?id=<%=codigo%>">Editar</a></td>
+                        <td style="text-align: left"><a href="Frm_Clientes.jsp?id=<%=codigo%>">Editar</a></td>
                         <td style="text-align: left"><a href="EliminarCliente?id=<%=codigo%>">Eliminar</a></td>
                     </tr>
                     <%};%>
                 </table>
+                <br>
+                <a href="Frm_Clientes.jsp?id=-1">Agregar Nuevo Cliente</a>
+                <br>
+                <br>
+                <a href="index.html">Regresar al inicio</a>
             </section>
         </div>
     </body>
