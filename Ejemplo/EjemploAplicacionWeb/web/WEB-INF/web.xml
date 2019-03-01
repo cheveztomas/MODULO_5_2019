@@ -8,6 +8,10 @@
         <servlet-name>EliminarCliente</servlet-name>
         <servlet-class>Controlador.EliminarCliente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>facturar</servlet-name>
+        <servlet-class>Controlador.facturar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Clientes</servlet-name>
         <url-pattern>/Clientes</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>EliminarCliente</servlet-name>
         <url-pattern>/EliminarCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>facturar</servlet-name>
+        <url-pattern>/facturar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
