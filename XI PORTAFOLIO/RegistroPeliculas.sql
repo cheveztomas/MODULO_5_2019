@@ -129,15 +129,27 @@ END CATCH
 
 GO
 CREATE PROCEDURE SP_GUARDAR_DIRECTORES(@id_director int out,
-									   @nombre varchar(150) out)
+									   @nombre varchar(50),
+									   @msj varchar(150) out)
 AS
 BEGIN TRY
 	IF(NOT EXISTS(SELECT 1 FROM DIRECTORES WHERE ID_DIRECTOR=@id_director))
-	BEGIN
-		INSERT INTO DIRECTORES(NOMBRE)
-		VALUES(@nombre)
-	END
+		BEGIN
+			INSERT INTO DIRECTORES(NOMBRE)
+			VALUES(@nombre)
+
+			SELECT @id_director=IDENT_CURRENT('DIRECTORES')
+			SET @msj='Director agregado.'
+		END
+	ELSE
+		BEGIN
+			UPDATE DIRECTORES
+			SET	NOMBRE=@nombre
+			WHERE ID_DIRECTOR=@id_director
+
+			SET @msj='Director actualizado.'
+		END
 END TRY
 BEGIN CATCH
-
+	RAISERROR('Error al tratar de eliminar el director.',16,3)
 END CATCH
