@@ -27,6 +27,11 @@ ALTER TABLE PELICULAS
 	 DEFAULT(GETDATE())
 	 FOR FECHA_ESTRENO
 
+ALTER TABLE PELICULAS
+	ADD CONSTRAINT DF_DURACION
+	DEFAULT(2)
+	FOR DURACION
+
 --TABLA PELICULAS DIRECTORES
 ALTER TABLE PELICULAS_DIRECTORES
 	ADD CONSTRAINT PK_PELICULAS_DIRECTORES
@@ -74,9 +79,65 @@ CREATE PROCEDURE SP_GUARDAR_PELICULAS(@id_pelicula int out,
 									  @fecha_estreno date,
 									  @duracion int,
 									  @msj varchar(150) out)
+AS
 BEGIN TRY
-	
+--SE VERIFICA SI EXISTE YA UN REGISTRO CON EL CÓDIGO INSERTADO.
+	IF(EXISTS(SELECT 1 FROM PELICULAS WHERE ID_PELICULA=@id_pelicula))
+		BEGIN
+		--EN CASO DE QUE SI EXISTA SE ACTUALIZA
+			UPDATE PELICULAS
+				SET TITULO=@titulo,
+					FECHA_ESTRENO=@fecha_estreno,
+					DURACION=@duracion
+				WHERE ID_PELICULA=@id_pelicula
+
+			SET @msj='Pelicula actualizada.'
+		END
+	ELSE
+		BEGIN
+		--EN CASO CONTRARIO SE INSERTA.
+			INSERT INTO PELICULAS(TITULO,FECHA_ESTRENO,DURACION)
+			VALUES (@titulo,@fecha_estreno,@duracion)
+
+			SELECT @id_pelicula=IDENT_CURRENT('PELICULAS')
+
+			SET @msj='Pelicula ingresada de forma correcta.'
+		END
 END TRY
 BEGIN CATCH
 	RAISERROR('Error al tratar de guardar la pelicula.',16,1)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_ELIMINAR_PELICULA(@id_pelicula int,
+									  @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM PELICULAS WHERE ID_PELICULA=@id_pelicula))
+		BEGIN
+			DELETE PELICULAS WHERE ID_PELICULA=@id_pelicula
+			SET @msj='Pelicula eliminada de forma corresta.'
+		END
+	ELSE
+		BEGIN
+			SET @msj='Pelicula no se puede eliminar ya que'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tartar de eliminar la pelicula.',16,2)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_GUARDAR_DIRECTORES(@id_director int out,
+									   @nombre varchar(150) out)
+AS
+BEGIN TRY
+	IF(NOT EXISTS(SELECT 1 FROM DIRECTORES WHERE ID_DIRECTOR=@id_director))
+	BEGIN
+		INSERT INTO DIRECTORES(NOMBRE)
+		VALUES(@nombre)
+	END
+END TRY
+BEGIN CATCH
+
 END CATCH
