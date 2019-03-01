@@ -12,6 +12,14 @@
         <servlet-name>facturar</servlet-name>
         <servlet-class>Controlador.facturar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarDetalle</servlet-name>
+        <servlet-class>Controlador.EliminarDetalle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelarFactura</servlet-name>
+        <servlet-class>Controlador.CancelarFactura</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Clientes</servlet-name>
         <url-pattern>/Clientes</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>facturar</servlet-name>
         <url-pattern>/facturar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarDetalle</servlet-name>
+        <url-pattern>/EliminarDetalle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelarFactura</servlet-name>
+        <url-pattern>/CancelarFactura</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

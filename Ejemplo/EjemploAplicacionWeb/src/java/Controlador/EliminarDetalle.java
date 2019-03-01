@@ -5,25 +5,22 @@
  */
 package Controlador;
 
-import entidades.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import entidades.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logica.*;
 
 /**
  *
- * @author Thomas Chevez
+ * @author tomas
  */
-public class facturar extends HttpServlet {
+public class EliminarDetalle extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,29 +32,21 @@ public class facturar extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException, Exception {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            clsLogicaFacturas vlo_Logica = new clsLogicaFacturas();
-            clsLogicaDetalleFactura vlo_LogicaD = new clsLogicaDetalleFactura();
-            clsEntidadFactura vlo_EntidadFactura = new clsEntidadFactura();
-            clsEntidadDetalleFactura vlo_EntidadDetalle = new clsEntidadDetalleFactura();
-            int vln_resultado;
-            vlo_EntidadFactura.setNumFactura(Integer.parseInt(request.getParameter("txtNumFactura")));
-            SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
-            String fechaString = request.getParameter("txtFechaFactura");
-            Date fecha = formato.parse(fechaString);
-            java.sql.Date fechasql = new java.sql.Date(fecha.getTime());
-            vlo_EntidadFactura.setFecha(fechasql);
-            vlo_EntidadFactura.setIdCliente(Integer.parseInt(request.getParameter("txtIdCliente")));
-            vlo_EntidadFactura.setEstado("Pendiente");
-            vln_resultado = vlo_Logica.guardar(vlo_EntidadFactura).getNumFactura();
-            vlo_EntidadDetalle.setNumFactura(vln_resultado);
-            vlo_EntidadDetalle.setIdProducto(Integer.parseInt(request.getParameter("txtIdProducto")));
-            vlo_EntidadDetalle.setCantidad(Integer.parseInt(request.getParameter("txtcantidad")));
-            vlo_EntidadDetalle.setPrecio(Double.parseDouble(request.getParameter("txtprecio")));
-            vlo_LogicaD.guardar(vlo_EntidadDetalle);
-            response.sendRedirect("factura.jsp?txtNumFactura=" + vln_resultado);
+            //Variables
+            clsLogicaDetalleFactura vlo_LogicaDetalleFactura = new clsLogicaDetalleFactura();
+            String id = request.getParameter("id");
+            String numf = request.getParameter("factura");
+            int codigo = Integer.parseInt(id);
+            int factura = Integer.parseInt(numf);
+            clsEntidadDetalleFactura vlo_EntidadDetalleFactura = new clsEntidadDetalleFactura();
+            vlo_EntidadDetalleFactura.setIdProducto(codigo);
+            vlo_EntidadDetalleFactura.setNumFactura(factura);
+            vlo_LogicaDetalleFactura.Eliminar(vlo_EntidadDetalleFactura);
+            response.sendRedirect("frm_factura.jsp?txtNumFactura=" + factura);
+            //Inicio
         }
     }
 
@@ -76,7 +65,7 @@ public class facturar extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(facturar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EliminarDetalle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -94,7 +83,7 @@ public class facturar extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(facturar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EliminarDetalle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

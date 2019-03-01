@@ -40,7 +40,7 @@
                         vlo_Factura = vloLogicaF.ObtenerRegistro(sentencia);
                     }
                 %>
-                <form action="Factura" method="post">
+                <form action="facturar" method="post">
                     <table style="width: 100%">
                         <tr>
                             <td><strong>Factura No.</strong> &nbsp; 
@@ -63,7 +63,7 @@
                                 %>
                                 <input type="text" id="txtNombreCliente" name="txtNombreCliente" style="width: 200px" value="<%= NombreCliente%>"/> 
 
-                                <a id="btnBuscarCliente" href="#"><img src="images/Buscar_Cliente.png" title="Buscar Cliente"/></a>
+                                <a id="btnBuscarCliente" href="#"><!--<img src="images/Buscar_Cliente.png" title="Buscar Cliente"/>-->Buscar Cliente</a>
                             </td>
                         </tr>
                     </table>
@@ -74,7 +74,7 @@
                         <tr>
                             <td>Cod.Producto &nbsp; 
                                 <input type="text" name="txtIdProducto" id="txtIdProducto" value="" size="5" required/> &nbsp;
-                                <a id="btnBuscarProducto" href="#"><img src="images/buscar.png" title="Buscar Producto"/></a>
+                                <a id="btnBuscarProducto" href="#"><!--<img src="images/buscar.png" title="Buscar Producto"/>-->Buscar producto</a>
                             </td>
                             <td>Descripción &nbsp;<input type="text" name="txtdescripcion" id="txtdescripcion" size="25" required/> </td>
                             <td>Cantidad &nbsp; <input type="number" name="txtcantidad" id="txtcantidad" min="1" max="100" value="1" required /></td>
@@ -118,11 +118,11 @@
                         <tr>
                             <%
                                 HayDatos = true;
-                                int numfactura = vlo_RS_Detalle.getInt(1);
-                                int codigop = vlo_RS_Detalle.getInt(2);
-                                String descripcion = vlo_RS_Detalle.getString(3);
-                                int cantidad = vlo_RS_Detalle.getInt(4);
-                                double precioV = vlo_RS_Detalle.getDouble(5);%>
+                                int numfactura = Integer.parseInt(request.getParameter("txtNumFactura"));
+                                int codigop = vlo_RS_Detalle.getInt(1);
+                                String descripcion = vlo_RS_Detalle.getString(2);
+                                int cantidad = vlo_RS_Detalle.getInt(3);
+                                double precioV = vlo_RS_Detalle.getDouble(4);%>
                             <td style="text-align: left"><%= codigop%></td>
                             <td style="text-align: left"><%= descripcion%></td>
                             <td style="text-align: left"><%= cantidad%></td>
