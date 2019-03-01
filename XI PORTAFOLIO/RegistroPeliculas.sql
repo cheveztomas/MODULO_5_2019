@@ -153,3 +153,44 @@ END TRY
 BEGIN CATCH
 	RAISERROR('Error al tratar de eliminar el director.',16,3)
 END CATCH
+
+GO
+CREATE PROCEDURE SP_ELIMINAR_DIRECTOR(@id_director int,
+									  @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM DIRECTORES WHERE ID_DIRECTOR=@id_director))
+		BEGIN
+			DELETE DIRECTORES WHERE ID_DIRECTOR=@id_director
+			SET @msj='Director eliminado de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			SET @msj='No se puede eliminar director ya que no se encontró el registro.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de eliminar el director.',16,4)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_ASIGNAR_DIRECTOR_PELICULA(@id_pelicula int,
+											  @id_director int,
+											  @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(NOT EXISTS(SELECT 1 FROM PELICULAS_DIRECTORES WHERE ID_DIRECTOR=@id_director AND ID_PELICULA=@id_pelicula))
+		 BEGIN
+			INSERT INTO PELICULAS_DIRECTORES(ID_PELICULA,ID_DIRECTOR)
+			VALUES(@id_pelicula,@id_director)
+
+			SET @msj='Pelicula asignada de froma coorecta.'
+		 END
+	ELSE
+		BEGIN
+			SET @msj='Ya se encuentra la relación.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de asignar un director a la pelicula.',16,5)
+END CATCH
