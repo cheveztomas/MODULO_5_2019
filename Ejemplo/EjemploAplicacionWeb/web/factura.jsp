@@ -223,9 +223,13 @@
             </table>
         </div>
 
-        <script src="Scripts/jquery.js" type="text/javascript"></script>
+        <!--<script src="Scripts/jquery.js" type="text/javascript"></script>
         <script src="Scripts/jquery-ui.js" type="text/javascript"></script>
-        <script src="Scripts/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="Scripts/jquery.dataTables.js" type="text/javascript"></script>-->
+        <script src="scripts/bootstrap.min.js" type="text/javascript"></script>
+        <script src="scripts/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="scripts/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="scripts/jquery.dataTables.js" type="text/javascript"></script>
 
         <script>
                                 //hacer que la lista de clientes se comporte como un datatable
