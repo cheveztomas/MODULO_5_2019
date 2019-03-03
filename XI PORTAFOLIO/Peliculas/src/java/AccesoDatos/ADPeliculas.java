@@ -47,7 +47,7 @@ public class ADPeliculas {
             vlo_CS.setInt(4, pvo_Pelicula.getVgn_duracion());
             vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
             vlo_CS.registerOutParameter(1, Types.INTEGER);
-            vlo_CS.registerOutParameter(parameterName, sqlType);
+            vlo_CS.registerOutParameter(5, Types.VARCHAR);
         } catch (Exception e) {
         }
     }
