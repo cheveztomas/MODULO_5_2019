@@ -10,6 +10,7 @@ import Entidades.ClsPeliculas;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
 
@@ -33,7 +34,7 @@ public class ADPeliculas {
             throw e;
         }
     }
-
+    
     public ClsRetorno GuardarPelicula(ClsPeliculas pvo_Pelicula) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
@@ -59,7 +60,7 @@ public class ADPeliculas {
         }
         return vlo_Retorno;
     }
-
+    
     public ClsRetorno EliminarPelicula(int pvn_idPelicula) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
@@ -80,18 +81,31 @@ public class ADPeliculas {
         }
         return vlo_Retorno;
     }
-
+    
     public ClsPeliculas RetornarPelicula(int pvn_idPleicula) throws Exception {
         //Variables
         ClsPeliculas vlo_Pelicula = new ClsPeliculas();
         Statement vlo_Statement;
+        ResultSet vlo_RS;
+        String vlc_Sentencia = "SELECT ID_PELICULA,TITULO,FECHA_ESTRENO,DURACION FROM PELICULAS WHERE ID_PELICULA='" + pvn_idPleicula + "'";
 
         //Inicio
         try {
             vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+            if (vlo_RS.next()) {
+                vlo_Pelicula.setVgn_idPelicula(vlo_RS.getInt(1));
+                vlo_Pelicula.setVgc_titulo(vlo_RS.getString(2));
+                vlo_Pelicula.setVgd_fecha(vlo_RS.getDate(3));
+                vlo_Pelicula.setVgn_duracion(vlo_RS.getInt(4));
+            }
         } catch (Exception e) {
             throw e;
         }
         return vlo_Pelicula;
+    }
+    
+    public ResultSet ListaPeliculas(String pvc_Condicion){
+        
     }
 }
