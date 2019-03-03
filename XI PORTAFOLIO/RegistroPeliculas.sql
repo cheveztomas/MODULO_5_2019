@@ -184,7 +184,7 @@ BEGIN TRY
 			INSERT INTO PELICULAS_DIRECTORES(ID_PELICULA,ID_DIRECTOR)
 			VALUES(@id_pelicula,@id_director)
 
-			SET @msj='Pelicula asignada de froma coorecta.'
+			SET @msj='Película asignada de forma correcta.'
 		 END
 	ELSE
 		BEGIN
@@ -192,5 +192,25 @@ BEGIN TRY
 		END
 END TRY
 BEGIN CATCH
-	RAISERROR('Error al tratar de asignar un director a la pelicula.',16,5)
+	RAISERROR('Error al tratar de asignar un director a la película.',16,5)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_ELIMINAR_ASIGNACION_DE_PELICULA(@id_pelicula int,
+													@id_director int,
+													@msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM PELICULAS_DIRECTORES WHERE ID_DIRECTOR=@id_director AND ID_PELICULA=@id_pelicula))
+		BEGIN
+			DELETE PELICULAS_DIRECTORES WHERE ID_DIRECTOR=@id_director AND ID_PELICULA=@id_pelicula
+			SET @msj='Se eliminó el director de la película de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			SET @msj='No se encuentra el director o la película seleccionada.'
+		END
+END TRY
+BEGIN CATCH
+		RAISERROR('No se pudo eliminar el director de la película.',16,6)
 END CATCH
