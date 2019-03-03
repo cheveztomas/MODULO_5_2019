@@ -91,7 +91,7 @@ BEGIN TRY
 					DURACION=@duracion
 				WHERE ID_PELICULA=@id_pelicula
 
-			SET @msj='Pelicula actualizada.'
+			SET @msj='Película actualizada.'
 		END
 	ELSE
 		BEGIN
@@ -101,11 +101,11 @@ BEGIN TRY
 
 			SELECT @id_pelicula=IDENT_CURRENT('PELICULAS')
 
-			SET @msj='Pelicula ingresada de forma correcta.'
+			SET @msj='Película ingresada de forma correcta.'
 		END
 END TRY
 BEGIN CATCH
-	RAISERROR('Error al tratar de guardar la pelicula.',16,1)
+	RAISERROR('Error al tratar de guardar la película.',16,1)
 END CATCH
 
 GO
@@ -116,15 +116,15 @@ BEGIN TRY
 	IF(EXISTS(SELECT 1 FROM PELICULAS WHERE ID_PELICULA=@id_pelicula))
 		BEGIN
 			DELETE PELICULAS WHERE ID_PELICULA=@id_pelicula
-			SET @msj='Pelicula eliminada de forma corresta.'
+			SET @msj='Película eliminada de forma corresta.'
 		END
 	ELSE
 		BEGIN
-			SET @msj='Pelicula no se puede eliminar ya que'
+			SET @msj='Película no se puede eliminar ya que'
 		END
 END TRY
 BEGIN CATCH
-	RAISERROR('Error al tartar de eliminar la pelicula.',16,2)
+	RAISERROR('Error al tartar de eliminar la película.',16,2)
 END CATCH
 
 GO

@@ -33,7 +33,7 @@ public class ADPeliculas {
         }
     }
 
-    public ClsRetorno GuardarPelicula(ClsPeliculas pvo_Pelicula) {
+    public ClsRetorno GuardarPelicula(ClsPeliculas pvo_Pelicula) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
         CallableStatement vlo_CS;
@@ -48,7 +48,22 @@ public class ADPeliculas {
             vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
             vlo_CS.registerOutParameter(1, Types.INTEGER);
             vlo_CS.registerOutParameter(5, Types.VARCHAR);
+            vlo_CS.executeUpdate();
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(5));
+            vlo_Retorno.setVgn_id(vlo_CS.getInt(1));
         } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
         }
+        return vlo_Retorno;
+    }
+
+    public ClsRetorno EliminarPelicula(int pvn_idPelicula) {
+        //Variables
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        CallableStatement vlo_CS;
+        
+        //Inicio
     }
 }
