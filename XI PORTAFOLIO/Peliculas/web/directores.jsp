@@ -34,11 +34,24 @@
             </div>
         </nav>
         <section>
-            <form action="">
-                <input type="text" disabled value="-1" id="txt_ID" name="txt_ID" required/>
-                <label>Nombre:</label>
-                <input type="text" value="" id="txt_Nombre" name="txt_Nombre" required/>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Directores
+            </h3>
+            <form class="container table-bordered" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre</label>
+                    <input type="text" class="form-control" id="txt_Nombre" name="txt_Nombre" value="" maxlength="50" required>
+                </div>
+                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
             </form>
+            <h3 class="container center-block text-center" style="margin-top: 60px;">Lista de directores</h3>
+            <table class="container table-bordered">
+                <tr>
+                    <th>
+                        Nombre:
+                    </th>
+                </tr>
+            </table>
         </section>
     </body>
 </html>
