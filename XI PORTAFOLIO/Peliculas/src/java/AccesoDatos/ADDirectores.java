@@ -10,6 +10,8 @@ import Entidades.ClsDirectores;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Types;
 
 /**
@@ -76,5 +78,46 @@ public class ADDirectores {
             vgo_Connection = null;
         }
         return vlo_Retorno;
+    }
+
+    public ClsDirectores RetornarDirector(int pvn_idDirector) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        String vlc_Sentencia = "SELECT ID_DIRECTOR,NOMBRE FROM DIRECTORES WHERE ID_DIRECTOR='" + pvn_idDirector + "'";
+        ClsDirectores vlo_Director = new ClsDirectores();
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+            if (vlo_RS.next()) {
+                vlo_Director.setVgc_idDirector(vlo_RS.getInt(1));
+                vlo_Director.setVgc_Nombre(vlo_RS.getString(2));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
+        }
+        return vlo_Director;
+    }
+
+    public ResultSet ListaDirectores(String pvc_Condicion) throws Exception {
+        //Variables
+        Statement vlo_Statement;
+        ResultSet vlo_RS;
+        String vlc_Sentencia = "SELECT ID_DIRECTOR,NOMBRE FROM DIRECTORES WHERE NOMBRE like'%" + pvc_Condicion + "%'";
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
+        }
+        return vlo_RS;
     }
 }
