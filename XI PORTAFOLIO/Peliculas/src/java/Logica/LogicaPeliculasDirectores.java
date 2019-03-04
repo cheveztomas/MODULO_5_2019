@@ -8,6 +8,7 @@ package Logica;
 import AccesoDatos.ADPeliculasDirectores;
 import Entidades.ClsPeliculasDirectores;
 import Entidades.ClsRetorno;
+import java.sql.ResultSet;
 
 /**
  *
@@ -44,5 +45,20 @@ public class LogicaPeliculasDirectores {
             throw e;
         }
         return vlo_Retorno;
+    }
+
+    public ResultSet ListaDirectoresPeliculas(int pvn_idPelicula) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        ADPeliculasDirectores vlo_ADPeliculasDirectores;
+
+        //Inicio
+        try {
+            vlo_ADPeliculasDirectores = new ADPeliculasDirectores();
+            vlo_RS = vlo_ADPeliculasDirectores.ListaDirectoresPelicula(pvn_idPelicula);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
