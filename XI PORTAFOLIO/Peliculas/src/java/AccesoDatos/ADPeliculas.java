@@ -117,6 +117,8 @@ public class ADPeliculas {
             vlo_RS = vlo_S.executeQuery(vlc_Sentencia);
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Connection = null;
         }
         return vlo_RS;
     }
