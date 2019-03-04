@@ -10,6 +10,8 @@ import Entidades.ClsPeliculasDirectores;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Types;
 
 /**
@@ -71,7 +73,27 @@ public class ADPeliculasDirectores {
             vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(3));
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Connection = null;
         }
         return vlo_Retorno;
+    }
+
+    public ResultSet ListaDirectoresPelicula(int pvn_idPelicula) throws Exception {
+        //Variables
+        String vlc_Sentencia = "SELECT DIRECTORES.ID_DIRECTOR,NOMBRE FROM PELICULAS INNER JOIN PELICULAS_DIRECTORES ON PELICULAS.ID_PELICULA=PELICULAS_DIRECTORES.ID_PELICULA INNER JOIN DIRECTORES ON PELICULAS_DIRECTORES.ID_DIRECTOR=DIRECTORES.ID_DIRECTOR WHERE PELICULAS.ID_PELICULA='" + pvn_idPelicula + "'";
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
+        }
+        return vlo_RS;
     }
 }
