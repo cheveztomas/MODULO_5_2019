@@ -34,7 +34,7 @@ public class ADPeliculas {
             throw e;
         }
     }
-    
+
     public ClsRetorno GuardarPelicula(ClsPeliculas pvo_Pelicula) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
@@ -60,7 +60,7 @@ public class ADPeliculas {
         }
         return vlo_Retorno;
     }
-    
+
     public ClsRetorno EliminarPelicula(int pvn_idPelicula) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
@@ -81,7 +81,7 @@ public class ADPeliculas {
         }
         return vlo_Retorno;
     }
-    
+
     public ClsPeliculas RetornarPelicula(int pvn_idPleicula) throws Exception {
         //Variables
         ClsPeliculas vlo_Pelicula = new ClsPeliculas();
@@ -104,8 +104,20 @@ public class ADPeliculas {
         }
         return vlo_Pelicula;
     }
-    
-    public ResultSet ListaPeliculas(String pvc_Condicion){
-        
+
+    public ResultSet ListaPeliculas(String pvc_Condicion) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        Statement vlo_S;
+        String vlc_Sentencia = "SELECT ID_PELICULA,TITULO,FECHA_ESTRENO,DURACION FROM PELICULAS WHERE TITULO LIKE '%" + pvc_Condicion + "%'";
+
+        //Inicio
+        try {
+            vlo_S = vgo_Connection.createStatement();
+            vlo_RS = vlo_S.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
