@@ -16,6 +16,10 @@
         <servlet-name>GuardarPelicula</servlet-name>
         <servlet-class>Controlador.GuardarPelicula</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarPeliculaDirector</servlet-name>
+        <servlet-class>Controlador.EliminarPeliculaDirector</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarDirector</servlet-name>
         <url-pattern>/GuardarDirector</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>GuardarPelicula</servlet-name>
         <url-pattern>/GuardarPelicula</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarPeliculaDirector</servlet-name>
+        <url-pattern>/EliminarPeliculaDirector</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
