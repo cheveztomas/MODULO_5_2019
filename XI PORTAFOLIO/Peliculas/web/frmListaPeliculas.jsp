@@ -4,6 +4,8 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Logica.LogicaPeliculas"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
@@ -35,28 +37,107 @@
                 </ul>
             </div>
         </nav>
+
         <header>
-            <h3 style="margin-top: 50px" class="text-center">
+            <h3 style="margin-top: 50px" class="container text-center">
                 Películas
             </h3>
-            <form action="frmListaPeliculas.jsp" method="post">
+        </header>
 
+        <section>
+            <form action="frmListaPeliculas.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>
+                </div>
             </form>
             <form action="frmListaPeliculas.jsp" method="post">
                 <table class="container table-bordered">
+                    <tr>
+                        <th>
+                            Titulo
+                        </th>
+                        <th>
+                            Fecha Estreno
+                        </th>
+                        <th>
+                            Duración
+                        </th>
+                        <th>
+                            Editar
+                        </th>
+                        <th>
+                            Eliminar
+                        </th>
+                    </tr>
+                    <%
+                        //Variables
+                        ResultSet vlo_RS;
+                        LogicaPeliculas vlo_LogicaPeliculas = new LogicaPeliculas();
+                        String vlc_Condicion = "";
 
+                        //Inicio
+                        try {
+                            if (request.getParameter("txtBuscar") != null) {
+                                vlc_Condicion = request.getParameter("txtBuscar");
+                            }
+                            vlo_RS = vlo_LogicaPeliculas.ListaPeliculas(vlc_Condicion);
+                            while (vlo_RS.next()) {%>                                
+                    <tr>
+                        <td>
+                            <%=vlo_RS.getString(2)%>
+                        </td>
+                        <td>
+                            <%=vlo_RS.getDate(3)%>
+                        </td>
+                        <td>
+                            <%=vlo_RS.getInt(4)%>
+                        </td>
+                        <td>
+                            <a href="Peliculas.jsp?idPelicula=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/editar.png" alt=""/>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="EliminarPelicula?idPelicula=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/basura.png" alt=""/>
+                            </a>
+                        </td>
+                    </tr>
+                    <%}
+                        } catch (Exception e) {
+                            response.sendRedirect("frmListasPeliculas?msj=" + e.getMessage() + " Error al cargar lista de Películas.");
+                        }
+                    %>
                 </table>
             </form>
-        </header>
+        </section>
+        <%            if (request.getParameter("msj") != null) {
+        %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#miModal').modal('toggle')
+            });
+        </script>
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
 
-        <form action="" method="post" class="container table-bordered" style="padding: 20px">
-            <div class="form-group">
-                <label for="exampleInputEmail1">...</label>
-                <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
-                <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                    </div>
+                    <div class="modal-body">
+                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
+                    </div>
+                </div>
             </div>
-            <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
-            <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
-        </form>
+        </div>
+        <%
+            }
+        %>
     </body>
 </html>
