@@ -29,7 +29,7 @@
                         <a class="nav-link" href="directores.jsp">Directores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Peliculas.jsp">Películas</a>
+                        <a class="nav-link" href="frmListaPeliculas.jsp">Películas</a>
                     </li>
                 </ul>
             </div>
