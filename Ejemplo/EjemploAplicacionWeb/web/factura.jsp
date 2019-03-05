@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="estilos/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="estilos/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href="estilos/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <!--<link href="estilos/estilos.css" rel="stylesheet" type="text/css"/>
         <link href="estilos/jquery-ui.css" rel="stylesheet" type="text/css"/>

@@ -4,15 +4,18 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.Date"%>
+<%@page import="Entidades.ClsPeliculas"%>
+<%@page import="Logica.LogicaPeliculas"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
         <link rel="icon" type="image/png" href="image/rollo-de-pelicula.png" />
         <title>Películas</title>
     </head>
@@ -34,5 +37,118 @@
                 </ul>
             </div>
         </nav>
+
+        <header>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Películas
+            </h3>
+        </header>
+
+        <section>
+            <%
+                //Variables
+                LogicaPeliculas vlo_LogicaPeliculas = new LogicaPeliculas();
+                ClsPeliculas vlo_Pelicula = new ClsPeliculas();
+
+                //Inicio
+                try {
+                    if (request.getParameter("idPelicula") != null) {
+                        vlo_Pelicula = vlo_LogicaPeliculas.RetornarPelicula(Integer.parseInt(request.getParameter("idPelicula")));
+                    } else {
+                        vlo_Pelicula = new ClsPeliculas();
+                        vlo_Pelicula.setVgn_idPelicula(-1);
+                        Date fecha = new Date();
+                        vlo_Pelicula.setVgd_fecha(new java.sql.Date(fecha.getTime()));
+                    }
+                } catch (Exception e) {
+                    response.sendRedirect("Peliculas.jsp?msj=" + e.getMessage() + "Error al cargar película.");
+                }
+
+            %>
+            <form action="GuardarPelicula" method="post" class="container table-bordered" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Titulo</label>
+                    <input type="text" class="form-control" id="txt_Titulo" name="txt_Titulo" value="<%=vlo_Pelicula.getVgc_titulo()%>" maxlength="50" required>
+                    <label for="exampleInputEmail1">Fecha Estreno</label><br>
+                    <input type="text" class="form-control" name="txt_Fecha" id="datepicker"value="<%=vlo_Pelicula.getVgd_fecha()%>" required/> <br>
+                    <label for="exampleInputEmail1">Duración</label>
+                    <input type="number" class="form-control" id="txt_Duracion" name="txt_Duracion" value="<%=vlo_Pelicula.getVgn_duracion()%>" maxlength="2" required>
+                    <input type="hidden" id="txt_idPelicula" name="txt_idPelicula" value="<%=vlo_Pelicula.getVgn_idPelicula()%>">
+                </div>
+                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'Peliculas.jsp'">Limpiar</button>
+            </form>
+            <form action="Peliculas.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <form action="Peliculas.jsp" method="post">
+                <table class="container table-bordered">
+                    <tr>
+                        <th>
+                            Directores
+                        </th>
+                    </tr>
+                    <%
+                        //Variables
+                        ResultSet vlo_RS;
+                        String vlc_Condicion = "";
+
+                        //Inicio
+                        try {
+                            if (request.getParameter("txtBuscar") != null) {
+                                vlc_Condicion = request.getParameter("txtBuscar");
+                            }
+
+                        } catch (Exception e) {
+                        }
+                    %>
+                </table>
+            </form>
+        </section>
+        <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+
+        <%            if (request.getParameter("msj") != null) {
+        %>
+        <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#miModal').modal('toggle')
+                    });
+        </script>
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%
+            }
+        %>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({
+                    showOn: "button",
+                    buttonImage: "image/calendario.png",
+                    buttonImageOnly: true,
+                    dateFormat: "yy-mm-dd",
+                    buttonText: "Seleccione una fecha"
+                });
+            });
+        </script>
     </body>
 </html>
