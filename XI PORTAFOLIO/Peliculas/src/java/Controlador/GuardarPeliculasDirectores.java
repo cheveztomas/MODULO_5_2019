@@ -38,11 +38,15 @@ public class GuardarPeliculasDirectores extends HttpServlet {
             LogicaPeliculasDirectores vlo_LogicaPeliculasDirectores = new LogicaPeliculasDirectores();
             ClsPeliculasDirectores vlo_PeliculasDirectores = new ClsPeliculasDirectores();
             ClsRetorno vloRetorno;
-            
+
             //Inicio
             try {
-                
+                vlo_PeliculasDirectores.setVgn_idDirector(Integer.parseInt(request.getParameter("idDirector")));
+                vlo_PeliculasDirectores.setVgn_idPelicula(Integer.parseInt(request.getParameter("idPelicula")));
+                vloRetorno = vlo_LogicaPeliculasDirectores.AsignarDirector(vlo_PeliculasDirectores);
+                response.sendRedirect("Peliculas.jsp?msj=" + vloRetorno.getVgc_Mensaje() + "&idPelicula=" + vlo_PeliculasDirectores.getVgn_idPelicula());
             } catch (Exception e) {
+                response.sendRedirect("Peliculas.jsp?msj=" + e.getMessage() + " Error al realizar acción" + "&idPelicula=" + vlo_PeliculasDirectores.getVgn_idPelicula());
             }
         }
     }
