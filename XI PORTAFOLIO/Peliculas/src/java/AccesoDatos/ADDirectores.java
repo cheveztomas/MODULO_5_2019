@@ -69,7 +69,7 @@ public class ADDirectores {
             vlo_CS = vgo_Connection.prepareCall("{call SP_ELIMINAR_DIRECTOR(?,?)}");
             vlo_CS.setInt(1, pvn_idDirector);
             vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
-            vlo_CS.registerOutParameter(3, Types.VARCHAR);
+            vlo_CS.registerOutParameter(2, Types.VARCHAR);
             vlo_Retorno.setVgn_id(vlo_CS.executeUpdate());
             vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
