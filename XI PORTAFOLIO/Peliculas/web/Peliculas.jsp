@@ -4,6 +4,7 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Logica.LogicaPeliculasDirectores"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.Date"%>
 <%@page import="Entidades.ClsPeliculas"%>
@@ -78,31 +79,45 @@
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'Peliculas.jsp'">Limpiar</button>
             </form>
-            <form action="Peliculas.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
-                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
-                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>
-                </div>
-            </form>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Directores
+            </h3>
             <form action="Peliculas.jsp" method="post">
                 <table class="container table-bordered">
                     <tr>
                         <th>
                             Directores
                         </th>
+                        <th>
+                            Eliminar
+                        </th>
                     </tr>
                     <%
                         //Variables
                         ResultSet vlo_RS;
                         String vlc_Condicion = "";
+                        LogicaPeliculasDirectores vlo_LogicaPeliculasDirectores = new LogicaPeliculasDirectores();
 
                         //Inicio
                         try {
                             if (request.getParameter("txtBuscar") != null) {
                                 vlc_Condicion = request.getParameter("txtBuscar");
                             }
-
+                            vlo_RS = vlo_LogicaPeliculasDirectores.ListaDirectoresPeliculas(vlo_Pelicula.getVgn_idPelicula());
+                            while (vlo_RS.next()) {%>  
+                    <tr>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(2));
+                            %>
+                        </td>
+                        <td>
+                            <a href="EliminarPeliculaDirector?idPelicula=<%=vlo_Pelicula.getVgn_idPelicula()%>&idDirector=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/basura.png" alt=""/>
+                            </a>
+                        </td>
+                    </tr>
+                    <%}
                         } catch (Exception e) {
                         }
                     %>
