@@ -167,7 +167,7 @@
                             <%=vlo_RS.getString(2)%>
                         </td>
                         <td>
-                            <a href="GuardarPeliculasDirectores?=<%=vlo_Pelicula.getVgn_idPelicula()%>&idDirector=<%=vlo_RS.getInt(1)%>">
+                            <a href="GuardarPeliculasDirectores?idPelicula=<%=vlo_Pelicula.getVgn_idPelicula()%>&idDirector=<%=vlo_RS.getInt(1)%>">
                                 <img src="image/mas.png" alt=""/>
                             </a>
                         </td>
