@@ -4,6 +4,7 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Logica.LogicaDirectores"%>
 <%@page import="Logica.LogicaPeliculasDirectores"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.Date"%>
@@ -79,6 +80,10 @@
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'Peliculas.jsp'">Limpiar</button>
             </form>
+            <%
+                if (request.getParameter("idPelicula") != null) {
+                    if (Integer.parseInt(request.getParameter("idPelicula")) > 0) {
+            %>
             <h3 style="margin-top: 50px" class="container text-center">
                 Directores
             </h3>
@@ -123,6 +128,60 @@
                     %>
                 </table>
             </form>
+            <h3 class="container center-block text-center" style="margin-top: 60px;">Lista de directores</h3>
+            <form action="Peliculas.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <form action="Peliculas.jsp" method="post">
+                <table class="container table-bordered">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Agregar a Película
+                        </th>
+                    </tr>
+                    <%
+                        //Variables
+                        String vlc_CondicionB = "";
+                        int idDirector = 0;
+                        LogicaDirectores vlo_LogicaDirectores = new LogicaDirectores();
+
+                        //Inicio
+                        try {
+                            if (request.getParameter("txtBuscar") != null) {
+                                vlc_CondicionB = request.getParameter("txtBuscar");
+                                vlo_RS = vlo_LogicaDirectores.ListaDirectores(vlc_CondicionB);
+                            } else {
+                                vlo_RS = vlo_LogicaDirectores.ListaDirectores(vlc_CondicionB);
+                            }
+                            while (vlo_RS.next()) {  %>                              
+                    <tr>
+                        <% idDirector = vlo_RS.getInt(1);%>
+                        <td>
+                            <%=vlo_RS.getString(2)%>
+                        </td>
+                        <td>
+                            <a href="GuardarPeliculasDirectores?=<%=vlo_Pelicula.getVgn_idPelicula()%>&idDirector=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/mas.png" alt=""/>
+                            </a>
+                        </td>
+                    </tr>
+                    <%}
+                        } catch (Exception e) {
+                        }
+                    %>
+                </table>
+            </form>
+            <%
+                    }
+                }
+            %>
         </section>
         <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>

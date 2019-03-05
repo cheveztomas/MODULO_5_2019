@@ -47,7 +47,7 @@ public class GuardarPelicula extends HttpServlet {
                 vlo_Pelicula.setVgn_duracion(Integer.parseInt(request.getParameter("txt_Duracion")));
                 vlo_Pelicula.setVgn_idPelicula(Integer.parseInt(request.getParameter("txt_idPelicula")));
                 vlo_Retorno = vlo_LogicaPeliculas.GuardarPelicula(vlo_Pelicula);
-                response.sendRedirect("Peliculas.jsp?msj=" + vlo_Retorno.getVgc_Mensaje());
+                response.sendRedirect("Peliculas.jsp?msj=" + vlo_Retorno.getVgc_Mensaje() + "&idPelicula=" + vlo_Retorno.getVgn_id());
             } catch (Exception e) {
                 response.sendRedirect("Peliculas.jsp?msj=" + e.getMessage() + "Error al tratar de realizar acción.");
             }
