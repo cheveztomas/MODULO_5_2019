@@ -1,0 +1,3 @@
+La tabla con los directores deberia tener paginación, asi no se muestra un lista tan larga.
+El mensaje en el modal esta incorrecto.
+El manejo de asignación de directores me gusta mucho ya que se pueden agregar y eliminar en la misma ventana.
